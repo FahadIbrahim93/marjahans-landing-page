@@ -4,7 +4,7 @@ interface ServiceCard {
   id: string;
   title: string;
   description: string;
-  icon: string;
+  image: string;
 }
 
 const services: ServiceCard[] = [
@@ -12,37 +12,37 @@ const services: ServiceCard[] = [
     id: 'rings',
     title: 'Rings',
     description: 'Exquisite rings crafted with precision, from classic designs to contemporary pieces',
-    icon: '💍',
+    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/gNxtLWaXiHCVPJVR.png',
   },
   {
     id: 'necklaces',
     title: 'Necklaces',
     description: 'Elegant necklaces that complement any occasion, featuring premium materials',
-    icon: '✨',
+    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/tJhzKZAzBreyfsJG.png',
   },
   {
     id: 'bracelets',
     title: 'Bracelets',
     description: 'Stunning bracelets designed to enhance your personal style and elegance',
-    icon: '🌟',
+    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/tJhzKZAzBreyfsJG.png',
   },
   {
     id: 'earrings',
     title: 'Earrings',
     description: 'Timeless earrings that add sophistication and grace to your look',
-    icon: '💎',
+    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/gNxtLWaXiHCVPJVR.png',
   },
   {
     id: 'bespoke',
     title: 'Bespoke',
     description: 'Custom jewelry creations tailored to your unique vision and preferences',
-    icon: '👑',
+    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/ePSGEBYPoQCaFBWN.png',
   },
   {
     id: 'collections',
     title: 'Collections',
     description: 'Curated collections celebrating heritage, craftsmanship, and luxury',
-    icon: '🎁',
+    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/tJhzKZAzBreyfsJG.png',
   },
 ];
 
@@ -75,9 +75,16 @@ export function ServiceCards() {
                 animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`,
               }}
             >
-              <Card className="h-full bg-card/50 border-white/10 hover:border-amber-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10 cursor-pointer">
+              <Card className="h-full bg-card/50 border-white/10 hover:border-amber-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10 cursor-pointer overflow-hidden">
+                <div className="relative h-48 overflow-hidden bg-black/40">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                </div>
                 <CardHeader>
-                  <div className="text-4xl mb-3">{service.icon}</div>
                   <CardTitle className="text-white text-xl">{service.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
