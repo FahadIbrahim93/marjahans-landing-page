@@ -1,3 +1,4 @@
+import { useAuth } from '@/_core/hooks/useAuth';
 import { Hero } from '@/components/Hero';
 import { ServiceCards } from '@/components/ServiceCards';
 import { SocialProof } from '@/components/SocialProof';
@@ -5,6 +6,8 @@ import { ContactForm } from '@/components/ContactForm';
 import { Footer } from '@/components/Footer';
 
 export default function Home() {
+  const { user, isAuthenticated } = useAuth();
+
   return (
     <div className="min-h-screen bg-background">
       <Hero />
