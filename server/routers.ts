@@ -3,6 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { stripeRouter } from "./stripe";
+import { chatRouter } from "./chat-router";
 
 export const appRouter = router({
   system: systemRouter,
@@ -20,6 +21,9 @@ export const appRouter = router({
 
   // Stripe payment integration
   stripe: stripeRouter,
+
+  // Chat widget integration
+  chat: chatRouter,
 
   // TODO: add feature routers here, e.g.
   // todo: router({
