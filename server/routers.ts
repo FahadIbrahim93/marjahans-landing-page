@@ -4,6 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { stripeRouter } from "./stripe";
 import { chatRouter } from "./chat-router";
+import { productRouter } from "./product-router";
 
 export const appRouter = router({
   system: systemRouter,
@@ -24,6 +25,9 @@ export const appRouter = router({
 
   // Chat widget integration
   chat: chatRouter,
+
+  // Product catalog
+  products: productRouter,
 
   // TODO: add feature routers here, e.g.
   // todo: router({
