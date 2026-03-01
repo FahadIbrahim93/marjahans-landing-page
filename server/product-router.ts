@@ -1,5 +1,8 @@
 import { z } from "zod";
 import { publicProcedure, router } from "./_core/trpc";
+import { getDb } from "./db";
+import { sql, isNotNull } from "drizzle-orm";
+import { products, productVariants } from "../drizzle/schema";
 import {
   getCategories,
   getCategoryBySlug,
@@ -41,6 +44,10 @@ export const productRouter = router({
         categoryId: z.number().optional(),
         search: z.string().optional(),
         featured: z.boolean().optional(),
+        minPrice: z.number().min(0).optional(),
+        maxPrice: z.number().min(0).optional(),
+        material: z.string().optional(),
+        sortBy: z.enum(['price_asc', 'price_desc', 'newest', 'rating', 'popularity']).default('newest'),
         limit: z.number().min(1).max(100).default(20),
         offset: z.number().min(0).default(0),
       })
@@ -90,6 +97,43 @@ export const productRouter = router({
         rating,
       };
     }),
+
+  // Get available materials for filtering
+  getMaterials: publicProcedure.query(async () => {
+    try {
+      const db = await getDb();
+      if (!db) return [];
+      const materials = await db
+        .selectDistinct({ material: productVariants.material })
+        .from(productVariants)
+        .where(isNotNull(productVariants.material));
+      return materials.map((m: any) => m.material).filter(Boolean);
+    } catch (error) {
+      console.error('[Products] Failed to get materials:', error);
+      return [];
+    }
+  }),
+
+  // Get price range for filtering
+  getPriceRange: publicProcedure.query(async () => {
+    try {
+      const db = await getDb();
+      if (!db) return { min: 0, max: 100000 };
+      const result = await db
+        .select({
+          min: sql`MIN(${products.price})`.mapWith(Number),
+          max: sql`MAX(${products.price})`.mapWith(Number),
+        })
+        .from(products);
+      return {
+        min: Math.floor((result[0]?.min || 0) / 100),
+        max: Math.ceil((result[0]?.max || 100000) / 100),
+      };
+    } catch (error) {
+      console.error('[Products] Failed to get price range:', error);
+      return { min: 0, max: 100000 };
+    }
+  }),
 
   // Get product images
   getProductImages: publicProcedure
