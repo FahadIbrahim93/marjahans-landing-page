@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE productImages SET imageUrl = 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/XHdMSCaXiurbtCuR.webp' WHERE productId = 1;\nUPDATE productImages SET imageUrl = 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/MGWrLEmkhJpFTzWy.webp' WHERE productId = 2;\nUPDATE productImages SET imageUrl = 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/ElvLwiGXcFCXEDlI.webp' WHERE productId = 3;\nUPDATE productImages SET imageUrl = 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/jiOsWdXDyuTEzRGB.webp' WHERE productId = 4;\nUPDATE productImages SET imageUrl = 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/OzDkGFSDpIsshIIp.webp' WHERE productId = 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2uJQp1WYU66cAZE.root --database f8NfjZm97dpyT7dKnFZkXk --execute UPDATE productImages SET imageUrl = 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/XHdMSCaXiurbtCuR.webp' WHERE productId = 1;\nUPDATE productImages SET imageUrl = 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/MGWrLEmkhJpFTzWy.webp' WHERE productId = 2;\nUPDATE productImages SET imageUrl = 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/ElvLwiGXcFCXEDlI.webp' WHERE productId = 3;\nUPDATE productImages SET imageUrl = 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/jiOsWdXDyuTEzRGB.webp' WHERE productId = 4;\nUPDATE productImages SET imageUrl = 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/OzDkGFSDpIsshIIp.webp' WHERE productId = 5;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 237
+}

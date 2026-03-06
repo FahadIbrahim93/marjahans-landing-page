@@ -1,0 +1,696 @@
+# Agent Collaboration Guidelines
+# Marjahans Jewellery E-Commerce Platform
+# 
+# This file defines the responsibilities, permissions, and collaboration patterns
+# for AI agents and team members working on this project.
+
+version: "1.0"
+project: "Marjahans Jewellery E-Commerce Platform"
+repository: "https://github.com/Hopetheory99/MARJAHANS-Jewellary-E-Com"
+last_updated: "2026-03-07"
+
+# ============================================================================
+# ROLE DEFINITIONS
+# ============================================================================
+
+roles:
+  # Main Developer - Project Lead (Human)
+  main_developer:
+    title: "Main Developer / Project Lead"
+    description: "Primary developer responsible for architecture, critical decisions, and code review"
+    permissions:
+      - "merge_pull_requests"
+      - "approve_pull_requests"
+      - "manage_releases"
+      - "manage_database_schema"
+      - "configure_secrets"
+      - "deploy_to_production"
+      - "manage_team_members"
+    responsibilities:
+      - "Final code review and approval"
+      - "Architecture decisions and design patterns"
+      - "Database schema management"
+      - "Production deployment decisions"
+      - "Team leadership and guidance"
+      - "Security and compliance oversight"
+      - "Performance optimization review"
+    escalation_path: "N/A (This is the lead)"
+
+  # AI Agent - Development Assistant
+  ai_agent:
+    title: "AI Development Assistant"
+    description: "Autonomous AI agent assisting with feature implementation, testing, and documentation"
+    permissions:
+      - "create_branches"
+      - "commit_code"
+      - "push_to_feature_branches"
+      - "create_pull_requests"
+      - "write_tests"
+      - "write_documentation"
+      - "run_ci_checks"
+      - "request_code_review"
+    restrictions:
+      - "cannot_merge_pull_requests"
+      - "cannot_deploy_to_production"
+      - "cannot_manage_secrets"
+      - "cannot_delete_branches"
+      - "cannot_force_push"
+      - "cannot_modify_main_branch"
+    responsibilities:
+      - "Feature implementation following specifications"
+      - "Comprehensive test writing and validation"
+      - "Documentation creation and updates"
+      - "Code quality and formatting"
+      - "Bug fixes and issue resolution"
+      - "Performance optimization suggestions"
+      - "Accessibility compliance verification"
+    escalation_path: "Request review from main_developer"
+
+  # Human Collaborators
+  collaborator:
+    title: "Team Member / Collaborator"
+    description: "Human team members contributing features, fixes, and documentation"
+    permissions:
+      - "create_branches"
+      - "commit_code"
+      - "push_to_feature_branches"
+      - "create_pull_requests"
+      - "write_tests"
+      - "write_documentation"
+    restrictions:
+      - "cannot_merge_pull_requests"
+      - "cannot_deploy_to_production"
+      - "cannot_manage_secrets"
+      - "cannot_force_push"
+      - "cannot_modify_main_branch"
+    responsibilities:
+      - "Feature implementation"
+      - "Bug fixes"
+      - "Testing and quality assurance"
+      - "Documentation contributions"
+      - "Code review participation"
+    escalation_path: "Request review from main_developer"
+
+# ============================================================================
+# WORKFLOW GUIDELINES
+# ============================================================================
+
+workflows:
+  # Feature Development Workflow
+  feature_development:
+    name: "Feature Development"
+    description: "Standard workflow for implementing new features"
+    steps:
+      - step: 1
+        action: "Create feature branch"
+        actor: "ai_agent or collaborator"
+        naming_pattern: "feature/{feature-name}"
+        example: "feature/add-product-filters"
+        
+      - step: 2
+        action: "Implement feature"
+        actor: "ai_agent or collaborator"
+        guidelines:
+          - "Follow code standards in CONTRIBUTING.md"
+          - "Write tests for all new code"
+          - "Update documentation"
+          - "Ensure TypeScript strict mode compliance"
+          - "Test accessibility (WCAG 2.2 AA)"
+          
+      - step: 3
+        action: "Run local tests"
+        actor: "ai_agent or collaborator"
+        command: "pnpm test"
+        requirement: "All tests must pass"
+        
+      - step: 4
+        action: "Format code"
+        actor: "ai_agent or collaborator"
+        command: "pnpm format"
+        requirement: "Code must be properly formatted"
+        
+      - step: 5
+        action: "Create pull request"
+        actor: "ai_agent or collaborator"
+        requirements:
+          - "Descriptive title following Conventional Commits"
+          - "Detailed description of changes"
+          - "Link to related issues"
+          - "Screenshots for UI changes"
+          - "Testing instructions"
+          
+      - step: 6
+        action: "Code review"
+        actor: "main_developer"
+        review_criteria:
+          - "Code quality and standards"
+          - "Test coverage (minimum 80%)"
+          - "Performance impact"
+          - "Security implications"
+          - "Accessibility compliance"
+          - "Documentation completeness"
+          
+      - step: 7
+        action: "Address feedback"
+        actor: "ai_agent or collaborator"
+        requirement: "Respond to all review comments"
+        
+      - step: 8
+        action: "Merge to main"
+        actor: "main_developer"
+        merge_strategy: "Squash and merge"
+        requirement: "All checks must pass"
+
+  # Bug Fix Workflow
+  bug_fix:
+    name: "Bug Fix"
+    description: "Workflow for fixing reported bugs"
+    steps:
+      - step: 1
+        action: "Create bug fix branch"
+        actor: "ai_agent or collaborator"
+        naming_pattern: "fix/{bug-description}"
+        example: "fix/cart-duplicate-items"
+        
+      - step: 2
+        action: "Reproduce the bug"
+        actor: "ai_agent or collaborator"
+        requirement: "Document reproduction steps"
+        
+      - step: 3
+        action: "Write failing test"
+        actor: "ai_agent or collaborator"
+        requirement: "Test must demonstrate the bug"
+        
+      - step: 4
+        action: "Implement fix"
+        actor: "ai_agent or collaborator"
+        requirement: "Fix must make test pass"
+        
+      - step: 5
+        action: "Verify fix"
+        actor: "ai_agent or collaborator"
+        checks:
+          - "Test passes"
+          - "No regressions"
+          - "Performance impact minimal"
+          
+      - step: 6
+        action: "Create pull request"
+        actor: "ai_agent or collaborator"
+        requirements:
+          - "Reference issue number"
+          - "Explain root cause"
+          - "Describe fix approach"
+          - "Include test case"
+          
+      - step: 7
+        action: "Code review"
+        actor: "main_developer"
+        
+      - step: 8
+        action: "Merge to main"
+        actor: "main_developer"
+
+  # Database Schema Change Workflow
+  database_schema_change:
+    name: "Database Schema Change"
+    description: "Workflow for modifying database schema"
+    steps:
+      - step: 1
+        action: "Plan schema change"
+        actor: "ai_agent or collaborator"
+        requirement: "Discuss with main_developer first"
+        
+      - step: 2
+        action: "Update schema.ts"
+        actor: "ai_agent or collaborator"
+        file: "drizzle/schema.ts"
+        requirement: "Follow Drizzle ORM conventions"
+        
+      - step: 3
+        action: "Generate migration"
+        actor: "ai_agent or collaborator"
+        command: "pnpm db:push"
+        requirement: "Review generated migration"
+        
+      - step: 4
+        action: "Test migration"
+        actor: "ai_agent or collaborator"
+        checks:
+          - "Migration applies without errors"
+          - "Data integrity maintained"
+          - "Indexes created properly"
+          
+      - step: 5
+        action: "Update database helpers"
+        actor: "ai_agent or collaborator"
+        file: "server/db.ts"
+        requirement: "Add/update query helpers"
+        
+      - step: 6
+        action: "Update API procedures"
+        actor: "ai_agent or collaborator"
+        requirement: "Update tRPC routers if needed"
+        
+      - step: 7
+        action: "Create pull request"
+        actor: "ai_agent or collaborator"
+        requirements:
+          - "Include migration file"
+          - "Document schema changes"
+          - "Explain impact on queries"
+          - "Include migration rollback plan"
+          
+      - step: 8
+        action: "Code review"
+        actor: "main_developer"
+        review_focus:
+          - "Schema design correctness"
+          - "Performance implications"
+          - "Backward compatibility"
+          - "Data migration safety"
+          
+      - step: 9
+        action: "Merge to main"
+        actor: "main_developer"
+
+  # Documentation Update Workflow
+  documentation_update:
+    name: "Documentation Update"
+    description: "Workflow for updating project documentation"
+    steps:
+      - step: 1
+        action: "Create documentation branch"
+        actor: "ai_agent or collaborator"
+        naming_pattern: "docs/{topic}"
+        example: "docs/api-endpoints"
+        
+      - step: 2
+        action: "Write documentation"
+        actor: "ai_agent or collaborator"
+        guidelines:
+          - "Use clear, professional language"
+          - "Include code examples"
+          - "Add table of contents for long docs"
+          - "Link to related documentation"
+          - "Keep formatting consistent"
+          
+      - step: 3
+        action: "Create pull request"
+        actor: "ai_agent or collaborator"
+        requirement: "Preview documentation in PR"
+        
+      - step: 4
+        action: "Review documentation"
+        actor: "main_developer"
+        review_focus:
+          - "Clarity and accuracy"
+          - "Completeness"
+          - "Consistency with existing docs"
+          - "Code examples correctness"
+          
+      - step: 5
+        action: "Merge to main"
+        actor: "main_developer"
+
+# ============================================================================
+# AI AGENT SPECIFIC GUIDELINES
+# ============================================================================
+
+ai_agent_guidelines:
+  # Core Principles
+  core_principles:
+    - "Always prioritize code quality and maintainability"
+    - "Write comprehensive tests for all code changes"
+    - "Follow established coding standards and patterns"
+    - "Communicate clearly in commit messages and PR descriptions"
+    - "Respect the main developer's architectural decisions"
+    - "Escalate decisions that require human judgment"
+    - "Maintain security and privacy standards"
+    - "Document all changes thoroughly"
+
+  # Decision Making
+  decision_making:
+    autonomous_decisions:
+      - "Implement features according to specifications"
+      - "Choose between multiple valid implementation approaches"
+      - "Optimize code for performance and readability"
+      - "Refactor code to improve maintainability"
+      - "Write and update tests"
+      - "Create and update documentation"
+      - "Fix bugs and issues"
+      - "Format code and fix linting issues"
+      
+    escalation_required:
+      - "Architectural changes or new patterns"
+      - "Database schema modifications"
+      - "API contract changes"
+      - "Security or compliance decisions"
+      - "Performance trade-offs with significant impact"
+      - "Breaking changes to existing functionality"
+      - "Third-party service integrations"
+      - "Deployment and release decisions"
+      - "Team structure or role changes"
+
+  # Code Quality Standards
+  code_quality:
+    typescript:
+      - "Strict mode enabled at all times"
+      - "No `any` types - use proper typing"
+      - "Export all public interfaces"
+      - "Document complex types with JSDoc"
+      - "Use type guards for runtime type checking"
+      
+    testing:
+      - "Minimum 80% code coverage"
+      - "Test behavior, not implementation"
+      - "Use descriptive test names"
+      - "Create reusable test fixtures"
+      - "Mock external dependencies"
+      - "Test error cases and edge cases"
+      
+    performance:
+      - "Monitor bundle size"
+      - "Optimize database queries"
+      - "Implement lazy loading where appropriate"
+      - "Use React memoization wisely"
+      - "Profile performance-critical code"
+      
+    accessibility:
+      - "WCAG 2.2 AA compliance required"
+      - "Keyboard navigation for all interactive elements"
+      - "Proper ARIA labels and roles"
+      - "Color contrast ratios meet standards"
+      - "Test with screen readers"
+      
+    security:
+      - "Validate all user inputs"
+      - "Never commit secrets or API keys"
+      - "Use parameterized queries"
+      - "Sanitize user-generated content"
+      - "Implement proper authorization checks"
+
+  # Communication Standards
+  communication:
+    commit_messages:
+      - "Follow Conventional Commits format"
+      - "Write clear, descriptive messages"
+      - "Reference issue numbers when applicable"
+      - "Explain the 'why' not just the 'what'"
+      
+    pull_requests:
+      - "Use descriptive titles"
+      - "Include detailed descriptions"
+      - "Link to related issues"
+      - "Provide testing instructions"
+      - "Include screenshots for UI changes"
+      - "Explain any breaking changes"
+      
+    code_comments:
+      - "Comment complex logic"
+      - "Explain non-obvious decisions"
+      - "Use JSDoc for functions and types"
+      - "Keep comments up-to-date with code"
+      - "Avoid obvious comments"
+
+  # Collaboration with Main Developer
+  collaboration:
+    before_starting_work:
+      - "Check if feature is already in progress"
+      - "Review existing related code"
+      - "Understand the requirements fully"
+      - "Plan the implementation approach"
+      
+    during_implementation:
+      - "Follow established patterns and conventions"
+      - "Commit frequently with clear messages"
+      - "Keep pull requests focused and reviewable"
+      - "Ask for clarification if requirements are unclear"
+      
+    after_implementation:
+      - "Respond promptly to code review feedback"
+      - "Make requested changes without argument"
+      - "Explain decisions if feedback is unclear"
+      - "Ensure all tests pass before merge"
+      - "Update documentation if needed"
+
+  # Error Handling
+  error_handling:
+    when_stuck:
+      - "Document the issue clearly"
+      - "Explain what has been tried"
+      - "Ask specific questions"
+      - "Provide context and error messages"
+      - "Request guidance from main_developer"
+      
+    when_discovering_issues:
+      - "Create a GitHub issue"
+      - "Document reproduction steps"
+      - "Assign to appropriate person"
+      - "Add relevant labels"
+      - "Notify main_developer if critical"
+
+  # Limitations and Boundaries
+  limitations:
+    cannot_do:
+      - "Merge pull requests"
+      - "Deploy to production"
+      - "Manage team members"
+      - "Make architectural decisions unilaterally"
+      - "Commit to timelines without main_developer approval"
+      - "Access or modify secrets"
+      - "Delete branches or code"
+      - "Force push to any branch"
+      
+    should_not_do:
+      - "Implement features without clear specifications"
+      - "Skip testing to save time"
+      - "Ignore code review feedback"
+      - "Commit directly to main branch"
+      - "Make breaking changes without discussion"
+      - "Refactor large portions of code without review"
+      - "Add new dependencies without approval"
+      - "Change database schema without planning"
+
+# ============================================================================
+# TEAM COLLABORATION STANDARDS
+# ============================================================================
+
+team_standards:
+  # Code Review Expectations
+  code_review:
+    reviewer_responsibilities:
+      - "Review within 24 hours when possible"
+      - "Provide constructive feedback"
+      - "Suggest improvements, not just criticisms"
+      - "Verify tests are comprehensive"
+      - "Check for security issues"
+      - "Ensure documentation is complete"
+      - "Verify performance impact is acceptable"
+      
+    author_responsibilities:
+      - "Respond to feedback promptly"
+      - "Make requested changes"
+      - "Explain decisions if feedback is unclear"
+      - "Re-request review after changes"
+      - "Thank reviewers for their time"
+
+  # Issue Management
+  issue_management:
+    issue_creation:
+      - "Use clear, descriptive titles"
+      - "Provide detailed description"
+      - "Include reproduction steps for bugs"
+      - "Add relevant labels"
+      - "Assign to appropriate person"
+      - "Link to related issues"
+      
+    issue_assignment:
+      - "Assign to yourself when starting work"
+      - "Update status as you progress"
+      - "Comment with progress updates"
+      - "Close when work is complete"
+      - "Reference PR that closes the issue"
+
+  # Documentation Standards
+  documentation:
+    required_documentation:
+      - "README.md for project overview"
+      - "DEVELOPMENT.md for setup and workflow"
+      - "CONTRIBUTING.md for contribution guidelines"
+      - "API documentation for endpoints"
+      - "Database schema documentation"
+      - "Deployment guide"
+      - "Troubleshooting guide"
+      
+    documentation_updates:
+      - "Update docs when changing features"
+      - "Add examples for new functionality"
+      - "Keep README current"
+      - "Document breaking changes"
+      - "Add migration guides when needed"
+
+  # Communication Channels
+  communication_channels:
+    github_issues:
+      - "Bug reports and feature requests"
+      - "Task tracking and assignment"
+      - "Discussion of implementation details"
+      - "Documentation and planning"
+      
+    pull_requests:
+      - "Code review and feedback"
+      - "Implementation discussion"
+      - "Approval and merge decisions"
+      
+    commits:
+      - "Clear, descriptive commit messages"
+      - "Reference issue numbers"
+      - "Explain the 'why'"
+
+# ============================================================================
+# QUALITY GATES AND CHECKS
+# ============================================================================
+
+quality_gates:
+  # Automated Checks
+  automated_checks:
+    - name: "TypeScript Compilation"
+      command: "pnpm check"
+      requirement: "Must pass - no errors allowed"
+      
+    - name: "Unit Tests"
+      command: "pnpm test"
+      requirement: "All tests must pass"
+      
+    - name: "Code Formatting"
+      command: "pnpm format"
+      requirement: "Code must be formatted"
+      
+    - name: "Linting"
+      command: "pnpm lint"
+      requirement: "No linting errors"
+      
+    - name: "Type Coverage"
+      requirement: "Minimum 95% type coverage"
+      
+    - name: "Test Coverage"
+      requirement: "Minimum 80% code coverage"
+
+  # Manual Review Checks
+  manual_checks:
+    - "Code quality and readability"
+    - "Adherence to coding standards"
+    - "Test comprehensiveness"
+    - "Documentation completeness"
+    - "Performance impact"
+    - "Security implications"
+    - "Accessibility compliance"
+    - "Breaking changes assessment"
+
+  # Merge Requirements
+  merge_requirements:
+    - "All automated checks must pass"
+    - "Code review approval required"
+    - "No merge conflicts"
+    - "Branch is up-to-date with main"
+    - "All conversations resolved"
+    - "Tests passing in CI/CD"
+
+# ============================================================================
+# ESCALATION PROCEDURES
+# ============================================================================
+
+escalation:
+  # When to Escalate
+  escalation_triggers:
+    - "Architectural decisions"
+    - "Security concerns"
+    - "Performance issues"
+    - "Breaking changes"
+    - "Third-party integrations"
+    - "Database schema changes"
+    - "Deployment decisions"
+    - "Blocking issues"
+    - "Conflicting requirements"
+    - "Timeline concerns"
+
+  # Escalation Process
+  escalation_process:
+    step_1: "Document the issue clearly"
+    step_2: "Explain what has been tried"
+    step_3: "Provide context and examples"
+    step_4: "Ask specific questions"
+    step_5: "Request guidance from main_developer"
+    step_6: "Wait for response before proceeding"
+    step_7: "Implement decision as directed"
+
+  # Response Time Expectations
+  response_times:
+    critical_issue: "Within 4 hours"
+    blocking_issue: "Within 24 hours"
+    normal_question: "Within 48 hours"
+    documentation_request: "Within 5 business days"
+
+# ============================================================================
+# METRICS AND MONITORING
+# ============================================================================
+
+metrics:
+  # Code Quality Metrics
+  code_quality:
+    - "Test coverage: minimum 80%"
+    - "Type coverage: minimum 95%"
+    - "Linting errors: zero"
+    - "TypeScript errors: zero"
+    - "Code duplication: less than 5%"
+
+  # Performance Metrics
+  performance:
+    - "LCP (Largest Contentful Paint): < 2.5s"
+    - "CLS (Cumulative Layout Shift): < 0.1"
+    - "FID (First Input Delay): < 100ms"
+    - "Bundle size: < 500KB (gzipped)"
+    - "API response time: < 500ms (p95)"
+
+  # Development Metrics
+  development:
+    - "PR review time: < 24 hours"
+    - "PR merge time: < 48 hours"
+    - "Issue resolution time: < 1 week"
+    - "Test execution time: < 5 minutes"
+    - "Build time: < 10 minutes"
+
+# ============================================================================
+# REVISION HISTORY
+# ============================================================================
+
+revision_history:
+  - version: "1.0"
+    date: "2026-03-07"
+    author: "Manus AI"
+    changes:
+      - "Initial agent guidelines document"
+      - "Defined role responsibilities and permissions"
+      - "Established workflow procedures"
+      - "Set quality standards and metrics"
+      - "Created escalation procedures"
+
+# ============================================================================
+# CONTACT AND SUPPORT
+# ============================================================================
+
+support:
+  project_lead: "Main Developer"
+  documentation: "See DEVELOPMENT.md and CONTRIBUTING.md"
+  issues: "GitHub Issues"
+  discussions: "GitHub Discussions"
+  emergency_contact: "Create critical issue with [URGENT] tag"
+
+---
+
+**Document Version:** 1.0  
+**Last Updated:** March 7, 2026  
+**Maintained by:** Manus AI Development Team  
+**Repository:** https://github.com/Hopetheory99/MARJAHANS-Jewellary-E-Com

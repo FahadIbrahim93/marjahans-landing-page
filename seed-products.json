@@ -1,0 +1,345 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Necklaces",
+      "slug": "necklaces",
+      "description": "Elegant necklaces and chains for every occasion"
+    },
+    {
+      "id": 2,
+      "name": "Earrings",
+      "slug": "earrings",
+      "description": "Beautiful earrings to complement your style"
+    },
+    {
+      "id": 3,
+      "name": "Bracelets",
+      "slug": "bracelets",
+      "description": "Stunning bracelets and bangles"
+    },
+    {
+      "id": 4,
+      "name": "Rings",
+      "slug": "rings",
+      "description": "Exquisite rings for every occasion"
+    },
+    {
+      "id": 5,
+      "name": "Anklets",
+      "slug": "anklets",
+      "description": "Delicate anklets and payals"
+    }
+  ],
+  "products": [
+    {
+      "name": "Gold Chain Necklace",
+      "slug": "gold-chain-necklace",
+      "categoryId": 1,
+      "description": "Classic 22K gold chain necklace, perfect for everyday wear. Lightweight and durable with traditional design.",
+      "price": 450000,
+      "featured": true,
+      "images": [
+        {
+          "url": "https://cdn.example.com/marjahans_necklace_01.webp",
+          "alt": "Gold Chain Necklace"
+        }
+      ],
+      "variants": [
+        {
+          "name": "18 inches",
+          "material": "Gold",
+          "size": "18",
+          "sku": "GCN-18-001"
+        },
+        {
+          "name": "20 inches",
+          "material": "Gold",
+          "size": "20",
+          "sku": "GCN-20-001"
+        },
+        {
+          "name": "22 inches",
+          "material": "Gold",
+          "size": "22",
+          "sku": "GCN-22-001"
+        }
+      ]
+    },
+    {
+      "name": "Gold Pendant Necklace",
+      "slug": "gold-pendant-necklace",
+      "categoryId": 1,
+      "description": "Elegant gold pendant necklace with intricate design. Perfect for special occasions and everyday elegance.",
+      "price": 850000,
+      "featured": true,
+      "images": [
+        {
+          "url": "https://cdn.example.com/marjahans_necklace_02.webp",
+          "alt": "Gold Pendant Necklace"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Gold with Stone",
+          "material": "Gold",
+          "stone": "Cubic Zirconia",
+          "sku": "GPN-ST-001"
+        },
+        {
+          "name": "Plain Gold",
+          "material": "Gold",
+          "sku": "GPN-PL-001"
+        }
+      ]
+    },
+    {
+      "name": "Gold Stud Earrings",
+      "slug": "gold-stud-earrings",
+      "categoryId": 2,
+      "description": "Classic gold stud earrings, versatile and timeless. Comfortable for all-day wear.",
+      "price": 250000,
+      "featured": true,
+      "images": [
+        {
+          "url": "https://cdn.example.com/marjahans_earrings_01.webp",
+          "alt": "Gold Stud Earrings"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Small",
+          "material": "Gold",
+          "size": "Small",
+          "sku": "GSE-SM-001"
+        },
+        {
+          "name": "Medium",
+          "material": "Gold",
+          "size": "Medium",
+          "sku": "GSE-MD-001"
+        }
+      ]
+    },
+    {
+      "name": "Gold Dangle Earrings",
+      "slug": "gold-dangle-earrings",
+      "categoryId": 2,
+      "description": "Beautiful dangle earrings with intricate gold work. Perfect for adding elegance to any outfit.",
+      "price": 450000,
+      "featured": true,
+      "images": [
+        {
+          "url": "https://cdn.example.com/marjahans_earrings_02.webp",
+          "alt": "Gold Dangle Earrings"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Traditional Design",
+          "material": "Gold",
+          "design": "Traditional",
+          "sku": "GDE-TR-001"
+        },
+        {
+          "name": "Modern Design",
+          "material": "Gold",
+          "design": "Modern",
+          "sku": "GDE-MD-001"
+        }
+      ]
+    },
+    {
+      "name": "Gold Bangle",
+      "slug": "gold-bangle",
+      "categoryId": 3,
+      "description": "Traditional gold bangle with classic design. A timeless piece for any occasion.",
+      "price": 650000,
+      "featured": true,
+      "images": [
+        {
+          "url": "https://cdn.example.com/marjahans_bangle_01.webp",
+          "alt": "Gold Bangle"
+        }
+      ],
+      "variants": [
+        {
+          "name": "2.4 Size",
+          "material": "Gold",
+          "size": "2.4",
+          "sku": "GB-24-001"
+        },
+        {
+          "name": "2.6 Size",
+          "material": "Gold",
+          "size": "2.6",
+          "sku": "GB-26-001"
+        },
+        {
+          "name": "2.8 Size",
+          "material": "Gold",
+          "size": "2.8",
+          "sku": "GB-28-001"
+        }
+      ]
+    },
+    {
+      "name": "Gold Chain Bracelet",
+      "slug": "gold-chain-bracelet",
+      "categoryId": 3,
+      "description": "Elegant gold chain bracelet, perfect for layering or wearing alone. Modern and versatile design.",
+      "price": 350000,
+      "featured": true,
+      "images": [
+        {
+          "url": "https://cdn.example.com/marjahans_bracelet_01.webp",
+          "alt": "Gold Chain Bracelet"
+        }
+      ],
+      "variants": [
+        {
+          "name": "7 inches",
+          "material": "Gold",
+          "size": "7",
+          "sku": "GCB-7-001"
+        },
+        {
+          "name": "8 inches",
+          "material": "Gold",
+          "size": "8",
+          "sku": "GCB-8-001"
+        }
+      ]
+    },
+    {
+      "name": "Gold Ring",
+      "slug": "gold-ring",
+      "categoryId": 4,
+      "description": "Classic gold ring with timeless design. Perfect for everyday wear or special occasions.",
+      "price": 550000,
+      "featured": true,
+      "images": [
+        {
+          "url": "https://cdn.example.com/marjahans_ring_01.webp",
+          "alt": "Gold Ring"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Size 6",
+          "material": "Gold",
+          "size": "6",
+          "sku": "GR-6-001"
+        },
+        {
+          "name": "Size 7",
+          "material": "Gold",
+          "size": "7",
+          "sku": "GR-7-001"
+        },
+        {
+          "name": "Size 8",
+          "material": "Gold",
+          "size": "8",
+          "sku": "GR-8-001"
+        },
+        {
+          "name": "Size 9",
+          "material": "Gold",
+          "size": "9",
+          "sku": "GR-9-001"
+        }
+      ]
+    },
+    {
+      "name": "Statement Gold Ring",
+      "slug": "statement-gold-ring",
+      "categoryId": 4,
+      "description": "Bold statement ring with intricate design. Make a statement with this eye-catching piece.",
+      "price": 950000,
+      "featured": true,
+      "images": [
+        {
+          "url": "https://cdn.example.com/marjahans_ring_02.webp",
+          "alt": "Statement Gold Ring"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Size 6",
+          "material": "Gold",
+          "size": "6",
+          "sku": "SGR-6-001"
+        },
+        {
+          "name": "Size 7",
+          "material": "Gold",
+          "size": "7",
+          "sku": "SGR-7-001"
+        },
+        {
+          "name": "Size 8",
+          "material": "Gold",
+          "size": "8",
+          "sku": "SGR-8-001"
+        }
+      ]
+    },
+    {
+      "name": "Gold Anklet",
+      "slug": "gold-anklet",
+      "categoryId": 5,
+      "description": "Delicate gold anklet with traditional design. Perfect for adding elegance to your feet.",
+      "price": 300000,
+      "featured": true,
+      "images": [
+        {
+          "url": "https://cdn.example.com/marjahans_anklet_01.webp",
+          "alt": "Gold Anklet"
+        }
+      ],
+      "variants": [
+        {
+          "name": "9 inches",
+          "material": "Gold",
+          "size": "9",
+          "sku": "GA-9-001"
+        },
+        {
+          "name": "10 inches",
+          "material": "Gold",
+          "size": "10",
+          "sku": "GA-10-001"
+        }
+      ]
+    },
+    {
+      "name": "Beaded Gold Anklet",
+      "slug": "beaded-gold-anklet",
+      "categoryId": 5,
+      "description": "Beautiful beaded anklet with gold accents. Traditional design with modern appeal.",
+      "price": 400000,
+      "featured": true,
+      "images": [
+        {
+          "url": "https://cdn.example.com/marjahans_anklet_02.webp",
+          "alt": "Beaded Gold Anklet"
+        }
+      ],
+      "variants": [
+        {
+          "name": "9 inches",
+          "material": "Gold",
+          "size": "9",
+          "sku": "BGA-9-001"
+        },
+        {
+          "name": "10 inches",
+          "material": "Gold",
+          "size": "10",
+          "sku": "BGA-10-001"
+        }
+      ]
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import { publicProcedure, router } from "./_core/trpc";
 import { stripeRouter } from "./stripe";
 import { chatRouter } from "./chat-router";
 import { productRouter } from "./product-router";
+import { facebookSyncRouter } from "./facebook-sync-router";
 
 export const appRouter = router({
   system: systemRouter,
@@ -28,6 +29,9 @@ export const appRouter = router({
 
   // Product catalog
   products: productRouter,
+
+  // Facebook Shop integration
+  facebookSync: facebookSyncRouter,
 
   // TODO: add feature routers here, e.g.
   // todo: router({
