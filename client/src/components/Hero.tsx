@@ -45,7 +45,7 @@ export function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background cinematic-surface section-divider-glow"
     >
       <LuxuryParticleBackground className="absolute inset-0 opacity-95" />
 
