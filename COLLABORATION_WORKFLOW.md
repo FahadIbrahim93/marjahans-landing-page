@@ -16,7 +16,7 @@ This project uses a two-tier collaboration model to keep `main` stable and make 
 
 ## Branching Model
 
-- `main` → Protected, release-ready only.
+- `main` → **Protected and Manus-only** (no secondary contributor direct push/merge).
 - `work` (or Manus-managed integration branch) → Optional staging branch controlled by Manus.
 - `codex-dev` → Codex support branch for feature/fix work.
 
@@ -45,9 +45,11 @@ Every PR from a secondary contributor must include:
 ## Merge Policy
 
 - Manus is the final approver for any change entering `main`.
+- Only Manus performs final merge actions into `main`.
 - If CI fails, PR is blocked until resolved.
 - If tests are environment-coupled, PR must document exact prerequisites.
 - No "follow-up later" for critical security or payment correctness issues.
+- Preferred branch protections (Git host settings): require PRs, block force-push, and restrict `main` push access to Manus/admin role only.
 
 ## Commit and Review Hygiene
 

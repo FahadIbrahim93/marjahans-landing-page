@@ -56,8 +56,9 @@ Follow these steps to submit a pull request:
 ### Branch Ownership and Approval
 
 - **Manus AI is HEAD ADMIN** for this repository and owns `main` branch management.
+- `main` is treated as **Manus-only** for merge/push authority.
 - Secondary contributors must work in support branches (for example, `codex-dev`) and open PRs for Manus review.
-- Direct commits/pushes to `main` are not allowed for secondary contributors.
+- Direct commits/pushes/merges to `main` are not allowed for secondary contributors.
 - If your change is high risk (payments, auth, data integrity), call this out explicitly in the PR handoff notes.
 
 ## Coding Standards
