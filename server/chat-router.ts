@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { publicProcedure, router } from "./_core/trpc";
 import {
@@ -15,6 +16,15 @@ import {
   getUnreadCount,
   getRecentConversationsWithUnread,
 } from "./chat-db";
+
+const toInternalError = (message: string, error: unknown) => {
+  if (error instanceof TRPCError) return error;
+  return new TRPCError({
+    code: "INTERNAL_SERVER_ERROR",
+    message,
+    cause: error instanceof Error ? error : undefined,
+  });
+};
 
 /**
  * Chat Router - All procedures for chat functionality
@@ -56,7 +66,7 @@ export const chatRouter = router({
         };
       } catch (error: any) {
         console.error("[Chat] Failed to start conversation:", error);
-        throw new Error("Failed to start conversation");
+        throw toInternalError("Failed to start conversation", error);
       }
     }),
 
@@ -69,12 +79,12 @@ export const chatRouter = router({
       try {
         const conversation = await getConversation(input.conversationId);
         if (!conversation) {
-          throw new Error("Conversation not found");
+          throw new TRPCError({ code: "NOT_FOUND", message: "Conversation not found" });
         }
         return conversation;
       } catch (error: any) {
         console.error("[Chat] Failed to get conversation:", error);
-        throw new Error("Failed to get conversation");
+        throw toInternalError("Failed to get conversation", error);
       }
     }),
 
@@ -88,7 +98,7 @@ export const chatRouter = router({
         return await getVisitorConversations(input.visitorId);
       } catch (error: any) {
         console.error("[Chat] Failed to get visitor conversations:", error);
-        throw new Error("Failed to get conversations");
+        throw toInternalError("Failed to get conversations", error);
       }
     }),
 
@@ -124,7 +134,7 @@ export const chatRouter = router({
         };
       } catch (error: any) {
         console.error("[Chat] Failed to send message:", error);
-        throw new Error("Failed to send message");
+        throw toInternalError("Failed to send message", error);
       }
     }),
 
@@ -143,7 +153,7 @@ export const chatRouter = router({
         return await getConversationMessages(input.conversationId, input.limit);
       } catch (error: any) {
         console.error("[Chat] Failed to get messages:", error);
-        throw new Error("Failed to get messages");
+        throw toInternalError("Failed to get messages", error);
       }
     }),
 
@@ -158,7 +168,7 @@ export const chatRouter = router({
         return { success: true };
       } catch (error: any) {
         console.error("[Chat] Failed to mark as read:", error);
-        throw new Error("Failed to mark messages as read");
+        throw toInternalError("Failed to mark messages as read", error);
       }
     }),
 
@@ -173,7 +183,7 @@ export const chatRouter = router({
         return { unreadCount: count };
       } catch (error: any) {
         console.error("[Chat] Failed to get unread count:", error);
-        throw new Error("Failed to get unread count");
+        throw toInternalError("Failed to get unread count", error);
       }
     }),
 
@@ -188,7 +198,7 @@ export const chatRouter = router({
         return { success: true };
       } catch (error: any) {
         console.error("[Chat] Failed to close conversation:", error);
-        throw new Error("Failed to close conversation");
+        throw toInternalError("Failed to close conversation", error);
       }
     }),
 
@@ -209,7 +219,7 @@ export const chatRouter = router({
       };
     } catch (error: any) {
       console.error("[Chat] Failed to get settings:", error);
-      throw new Error("Failed to get settings");
+      throw toInternalError("Failed to get settings", error);
     }
   }),
 
@@ -246,7 +256,7 @@ export const chatRouter = router({
         return { success: true };
       } catch (error: any) {
         console.error("[Chat] Failed to record analytics:", error);
-        throw new Error("Failed to record analytics");
+        throw toInternalError("Failed to record analytics", error);
       }
     }),
 
@@ -258,7 +268,7 @@ export const chatRouter = router({
       return await getActiveConversations();
     } catch (error: any) {
       console.error("[Chat] Failed to get active conversations:", error);
-      throw new Error("Failed to get active conversations");
+      throw toInternalError("Failed to get active conversations", error);
     }
   }),
 
@@ -272,7 +282,7 @@ export const chatRouter = router({
         return await getRecentConversationsWithUnread(input.limit);
       } catch (error: any) {
         console.error("[Chat] Failed to get recent conversations:", error);
-        throw new Error("Failed to get recent conversations");
+        throw toInternalError("Failed to get recent conversations", error);
       }
     }),
 });

@@ -1,44 +1,67 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('./_core/env', () => ({
+  ENV: {
+    facebookPageAccessToken: 'test-token',
+  },
+}));
+
 import { fetchFacebookProducts } from './_core/facebook';
 
 describe('Facebook Product Sync', () => {
-  it('should fetch products from Facebook Shop', async () => {
-    const products = await fetchFacebookProducts();
-    
-    // Should return an array
-    expect(Array.isArray(products)).toBe(true);
-    
-    // If products exist, verify structure
-    if (products.length > 0) {
-      const product = products[0];
-      
-      // Verify product has required fields
-      expect(product).toHaveProperty('id');
-      expect(product).toHaveProperty('name');
-      expect(product).toHaveProperty('price');
-      expect(product).toHaveProperty('image_url');
-      
-      // Verify field types
-      expect(typeof product.id).toBe('string');
-      expect(typeof product.name).toBe('string');
-      expect(typeof product.price).toBe('number');
-      
-      console.log(`✓ Successfully fetched ${products.length} products from Facebook`);
-      console.log(`✓ Sample product: ${product.name} - Price: ${product.price}`);
-    }
+  beforeEach(() => {
+    vi.restoreAllMocks();
   });
 
-  it('should have valid product data structure', async () => {
-    const products = await fetchFacebookProducts();
-    
-    if (products.length > 0) {
-      products.forEach((product, index) => {
-        expect(product.id).toBeDefined();
-        expect(product.name).toBeDefined();
-        expect(product.price).toBeGreaterThanOrEqual(0);
-        expect(typeof product.name).toBe('string');
-        expect(product.name.length).toBeGreaterThan(0);
+  it('fetches products from catalog and returns normalized array', async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ data: [{ id: 'catalog_1' }] }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          data: [
+            {
+              id: 'prod_1',
+              name: 'Gold Ring',
+              description: 'Handcrafted ring',
+              price: 12000,
+              currency: 'BDT',
+              image_url: 'https://example.com/ring.jpg',
+              category: 'rings',
+              availability: 'in stock',
+            },
+          ],
+        }),
       });
-    }
+
+    vi.stubGlobal('fetch', fetchMock);
+
+    const products = await fetchFacebookProducts();
+
+    expect(Array.isArray(products)).toBe(true);
+    expect(products).toHaveLength(1);
+    expect(products[0]).toMatchObject({
+      id: 'prod_1',
+      name: 'Gold Ring',
+      price: 12000,
+      image_url: 'https://example.com/ring.jpg',
+    });
+  });
+
+  it('returns an empty array when no catalogs exist', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ data: [] }),
+      })
+    );
+
+    const products = await fetchFacebookProducts();
+    expect(products).toEqual([]);
   });
 });
