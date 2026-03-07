@@ -55,6 +55,27 @@ export default function AdminDashboard() {
   const { data: conversations } = trpc.chat.getActiveConversations.useQuery();
   const { data: products } = trpc.products.getProducts.useQuery({ limit: 100 });
   
+  // Facebook extraction mutation
+  const extractionMutation = trpc.facebookExtraction.extractAndPopulate.useMutation({
+    onSuccess: (data) => {
+      setSyncStatus({
+        isRunning: false,
+        lastSyncTime: new Date().toLocaleString(),
+        productCount: data.extracted,
+        syncedCount: data.synced,
+      });
+      alert(`Success! Extracted ${data.extracted} products and synced ${data.synced} to your catalog.`);
+    },
+    onError: (error) => {
+      setSyncStatus(prev => ({
+        ...prev,
+        isRunning: false,
+        error: error.message,
+      }));
+      alert(`Extraction failed: ${error.message}`);
+    },
+  });
+
   // Facebook sync mutation
   const syncMutation = trpc.facebookSync.syncProducts.useMutation({
     onSuccess: (data) => {
@@ -79,6 +100,11 @@ export default function AdminDashboard() {
   const handleSync = async () => {
     setSyncStatus(prev => ({ ...prev, isRunning: true }));
     await syncMutation.mutateAsync();
+  };
+
+  const handleExtraction = async () => {
+    setSyncStatus(prev => ({ ...prev, isRunning: true }));
+    await extractionMutation.mutateAsync();
   };
 
   const activeChats = conversations?.filter((c: any) => c.status === 'active').length || 0;
@@ -222,6 +248,23 @@ export default function AdminDashboard() {
                 )}
 
                 {/* Sync Controls */}
+                  <Button
+                    onClick={handleExtraction}
+                    disabled={syncStatus.isRunning}
+                    className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
+                  >
+                    {syncStatus.isRunning ? (
+                      <>
+                        <RefreshCw className="h-4 w-4 animate-spin" />
+                        Extracting...
+                      </>
+                    ) : (
+                      <>
+                        <Package className="h-4 w-4" />
+                        Extract from Posts
+                      </>
+                    )}
+                  </Button>
                 <div className="flex gap-3">
                   <Button
                     onClick={handleSync}
@@ -236,7 +279,7 @@ export default function AdminDashboard() {
                     ) : (
                       <>
                         <RefreshCw className="h-4 w-4" />
-                        Start Sync
+                        Sync from Facebook Shop
                       </>
                     )}
                   </Button>

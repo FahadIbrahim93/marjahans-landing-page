@@ -2,6 +2,7 @@ import { z } from "zod";
 import { eq } from "drizzle-orm";
 import { publicProcedure, router } from "./_core/trpc";
 import { fetchFacebookProducts, fetchFacebookShopInfo } from "./_core/facebook";
+import { fetchMockFacebookProducts, fetchMockFacebookShopInfo, USE_MOCK_FACEBOOK } from "./_core/facebook-mock";
 import { getDb } from "./db";
 import { products, categories, productImages } from "../drizzle/schema";
 
@@ -16,8 +17,13 @@ export const facebookSyncRouter = router({
    */
   syncProducts: publicProcedure.mutation(async () => {
     try {
-      const facebookProducts = await fetchFacebookProducts();
-      const shopInfo = await fetchFacebookShopInfo();
+      // Use mock data if configured, otherwise use real Facebook API
+      const facebookProducts = USE_MOCK_FACEBOOK 
+        ? await fetchMockFacebookProducts() 
+        : await fetchFacebookProducts();
+      const shopInfo = USE_MOCK_FACEBOOK
+        ? await fetchMockFacebookShopInfo()
+        : await fetchFacebookShopInfo();
 
       const db = await getDb();
       if (!db) {

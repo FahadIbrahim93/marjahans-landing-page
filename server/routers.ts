@@ -6,6 +6,7 @@ import { stripeRouter } from "./stripe";
 import { chatRouter } from "./chat-router";
 import { productRouter } from "./product-router";
 import { facebookSyncRouter } from "./facebook-sync-router";
+import { facebookExtractionRouter } from "./facebook-extraction-router";
 
 export const appRouter = router({
   system: systemRouter,
@@ -32,6 +33,9 @@ export const appRouter = router({
 
   // Facebook Shop integration
   facebookSync: facebookSyncRouter,
+  
+  // Facebook data extraction
+  facebookExtraction: facebookExtractionRouter,
 
   // TODO: add feature routers here, e.g.
   // todo: router({
