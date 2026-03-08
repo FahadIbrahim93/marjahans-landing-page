@@ -127,3 +127,74 @@
 - [x] Add "Extract from Posts" button to admin panel
 - [x] Create comprehensive test suite (16 tests passing)
 - [x] Validate Facebook credentials and API access
+
+
+## Omnichannel Integration Research & Strategy (Completed)
+- [x] Research Meta Business Manager capabilities and integration options
+- [x] Analyze Shopify-Facebook Shop integration and sync mechanisms
+- [x] Research omnichannel ecommerce best practices and strategies
+- [x] Research jewelry-specific growth strategies and market trends
+- [x] Create comprehensive integration roadmap document (INTEGRATION_ROADMAP.md)
+- [x] Document current state analysis and product visibility issues
+- [x] Create phased implementation plan (5 phases over 6 months)
+- [x] Identify root causes of product sync failures
+- [x] Document Meta Catalog API and Batch API specifications
+- [x] Create database schema for unified product catalog
+
+## Phase 1: Immediate Fixes - Product Visibility (Next Priority)
+- [ ] Verify Shopify-Facebook app installation and authorization
+- [ ] Complete domain ownership verification in Meta Commerce Manager
+- [ ] Select checkout method (Shopify vs Facebook checkout)
+- [ ] Configure Meta Commerce Manager data source settings
+- [ ] Remove any product filters hiding items from shop
+- [ ] Verify inventory field mapping in Meta
+- [ ] Trigger manual product sync from Shopify
+- [ ] Monitor sync progress and error logs
+- [ ] Configure shop settings (name, description, policies)
+- [ ] Set up payment methods and shipping settings
+- [ ] Publish shop to Facebook and Instagram
+- [ ] Validate product visibility on both platforms
+- [ ] Test end-to-end checkout flow
+
+## Phase 2: Real-Time Inventory Sync (Future)
+- [ ] Set up Shopify webhook for inventory_level/update events
+- [ ] Build backend webhook endpoint for Shopify events
+- [ ] Implement Meta Catalog Batch API client
+- [ ] Create inventory sync service
+- [ ] Add error handling and monitoring
+- [ ] Implement automatic retry mechanism
+- [ ] Test end-to-end inventory updates
+- [ ] Achieve <5 minute update latency
+
+## Phase 3: Unified Product Catalog System (Future)
+- [ ] Design extended product schema with jewelry-specific fields
+- [ ] Create database migration for new fields
+- [ ] Build data sync engine from Shopify to unified catalog
+- [ ] Implement field enrichment logic
+- [ ] Create channel-specific adapters (Facebook, Instagram, TikTok, Google)
+- [ ] Build admin interface for catalog management
+- [ ] Migrate existing products to unified catalog
+- [ ] Enrich products with jewelry-specific attributes
+- [ ] Test sync to all channels
+
+## Phase 4: Omnichannel Inventory Management (Future)
+- [ ] Design centralized inventory management system
+- [ ] Create unified inventory database schema
+- [ ] Integrate Shopify orders with inventory system
+- [ ] Integrate Facebook orders with inventory system
+- [ ] Integrate Instagram orders with inventory system
+- [ ] Implement real-time inventory deduction
+- [ ] Build inventory forecasting system
+- [ ] Create inventory dashboard with analytics
+- [ ] Test multi-channel order scenarios
+- [ ] Achieve 99.99% inventory accuracy
+
+## Phase 5: Advanced Features & Growth (Future)
+- [ ] Implement AR virtual try-on for jewelry products
+- [ ] Build AI-powered personalization engine
+- [ ] Integrate WhatsApp Business API
+- [ ] Integrate TikTok Shop API
+- [ ] Create analytics and attribution dashboard
+- [ ] Implement customer loyalty program
+- [ ] Build video commerce capabilities
+- [ ] Launch subscription/membership program
