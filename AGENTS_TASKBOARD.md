@@ -20,6 +20,9 @@ Ship a premium, reliable full-stack e-commerce experience while keeping Manus as
 | T-006 | Handoff summary for Manus merge review | codex | T-005 | completed | PR message includes risk + verification evidence |
 | T-007 | Implement Stripe webhook order-status persistence | codex | none | completed | Webhook events map to DB status updates by payment intent |
 | T-008 | Add Stripe webhook unit coverage for event mapping | codex | T-007 | completed | Webhook tests pass without external Stripe/DB |
+| T-009 | Operationalize autonomous workflow runbook + single-command sweep | codex | none | completed | `pnpm qa:sweep` executes check/test/build sequentially |
+| T-010 | Attempt external skill source installation (obra/superpowers) | codex | none | blocked | Install succeeds or blocker documented with fallback |
 
 ## Open Risk Register
 - Bundle size warnings remain; visual work should include chunking pass in separate PR.
+- External GitHub skill source currently blocked by network policy (403 tunnel).
