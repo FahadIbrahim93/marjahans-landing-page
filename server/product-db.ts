@@ -235,6 +235,38 @@ export async function getOrdersByEmail(email: string) {
     .orderBy(desc(orders.createdAt));
 }
 
+
+
+export async function updateOrderPaymentStatusByIntent(params: {
+  stripePaymentIntentId: string;
+  paymentStatus: "pending" | "completed" | "failed" | "refunded";
+  status?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
+}) {
+  const db = await getDb();
+  if (!db) return false;
+
+  try {
+    const updatePayload: Record<string, unknown> = {
+      paymentStatus: params.paymentStatus,
+      updatedAt: new Date(),
+    };
+
+    if (params.status) {
+      updatePayload.status = params.status;
+    }
+
+    await db
+      .update(orders)
+      .set(updatePayload as any)
+      .where(eq(orders.stripePaymentIntentId, params.stripePaymentIntentId));
+
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to update order payment status:", error);
+    return false;
+  }
+}
+
 // ============ WISHLIST ============
 
 export async function addToWishlist(productId: number, visitorId?: string, userId?: number) {

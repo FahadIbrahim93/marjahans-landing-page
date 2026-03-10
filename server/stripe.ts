@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { publicProcedure, router } from './_core/trpc';
+import { updateOrderPaymentStatusByIntent } from './product-db';
 
 /**
  * Stripe Integration Procedures
@@ -124,23 +125,46 @@ export const stripeRouter = router({
     )
     .mutation(async ({ input }) => {
       try {
+        const objectData = (input.data as any)?.object ?? {};
+        const paymentIntentId =
+          typeof objectData.id === 'string'
+            ? objectData.id
+            : typeof objectData.payment_intent === 'string'
+              ? objectData.payment_intent
+              : undefined;
+
         switch (input.type) {
           case 'payment_intent.succeeded':
             console.log('[Stripe] Payment succeeded:', input.data);
-            // TODO: Update order status in database
-            // TODO: Send confirmation email
+            if (paymentIntentId) {
+              await updateOrderPaymentStatusByIntent({
+                stripePaymentIntentId: paymentIntentId,
+                paymentStatus: 'completed',
+                status: 'processing',
+              });
+            }
             break;
 
           case 'payment_intent.payment_failed':
             console.log('[Stripe] Payment failed:', input.data);
-            // TODO: Update order status in database
-            // TODO: Send failure notification
+            if (paymentIntentId) {
+              await updateOrderPaymentStatusByIntent({
+                stripePaymentIntentId: paymentIntentId,
+                paymentStatus: 'failed',
+                status: 'cancelled',
+              });
+            }
             break;
 
           case 'charge.refunded':
             console.log('[Stripe] Charge refunded:', input.data);
-            // TODO: Update order status in database
-            // TODO: Send refund notification
+            if (paymentIntentId) {
+              await updateOrderPaymentStatusByIntent({
+                stripePaymentIntentId: paymentIntentId,
+                paymentStatus: 'refunded',
+                status: 'refunded',
+              });
+            }
             break;
 
           default:

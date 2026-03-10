@@ -34,7 +34,7 @@ export function ContactForm() {
   };
 
   return (
-    <section className="py-20 px-6 bg-background border-t border-white/5">
+    <section className="py-24 px-6 bg-background border-t border-white/5 cinematic-surface section-divider-glow">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16 space-y-4">
           <div className="flex justify-center mb-4">
@@ -99,7 +99,7 @@ export function ContactForm() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 lux-card p-6 rounded-2xl">
             <div className="space-y-2">
               <label htmlFor="name" className="text-white font-semibold text-sm">
                 Full Name
