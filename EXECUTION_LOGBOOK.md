@@ -13,3 +13,5 @@
 
 | T-009 | 2026-03-07 | codex | Added autonomous runbook and qa sweep command | `AUTONOMOUS_WORKFLOW_RUNBOOK.md`, `package.json` | none | Completed |
 | T-010 | 2026-03-07 | codex | Attempted install from `obra/superpowers` via skill-installer + git fallback | terminal output (`403 CONNECT tunnel`) | GitHub egress blocked in environment | Blocked |
+| T-015 | 2026-03-10 | codex | Completed principal-level codebase + visual audit with scorecard and prioritized remediation plan | `PRINCIPAL_AUDIT_REPORT.md`, command outputs, browser artifact | Security audit endpoint blocked (403) in this environment | Completed |
+
