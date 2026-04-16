@@ -20,16 +20,16 @@ A production-grade, luxury jewelry e-commerce landing page built with React 19, 
 - **Stripe Integration** - Secure payment processing with webhook support
 
 ### Quality & Compliance
-- **WCAG 2.2 AA** - Full accessibility compliance
-- **Core Web Vitals** - LCP <2.5s, CLS <0.1, FID <100ms
-- **GDPR Compliant** - Cookie consent banner with granular preferences
-- **SEO Ready** - Meta tags, JSON-LD structured data, sitemap
-- **Security** - SSL/TLS, PCI DSS compliant, input validation
+- **WCAG 2.2 AA targeted** - Accessibility-first components and review in progress
+- **Core Web Vitals monitoring** - LCP/CLS/FID metrics are tracked and optimized iteratively
+- **GDPR readiness** - Cookie consent banner with granular preferences is implemented
+- **SEO friendly** - Meta tags, JSON-LD structured data, and metadata support are in place
+- **Security posture** - SSL/TLS support with Stripe payment integration and input validation; PCI compliance is managed by Stripe
 
 ### Testing & Monitoring
-- **Vitest** - 16+ unit tests covering cart, auth, and core features
-- **Performance Monitoring** - Real-time Core Web Vitals tracking
-- **Error Handling** - Comprehensive error boundaries and logging
+- **Vitest** - 82 tests covering cart, auth, and core backend flows
+- **Performance Monitoring** - Real-time Core Web Vitals tracking is available
+- **Error Handling** - Error boundaries and server-side error mapping are implemented
 
 ## 🚀 Quick Start
 
@@ -126,21 +126,23 @@ pnpm test -- --coverage
 ## 🔐 Security Features
 
 - **HTTPS/TLS** - All connections encrypted
-- **PCI DSS Compliant** - Stripe handles payment data
-- **CSRF Protection** - Secure session cookies
+- **Stripe payment handling** - Sensitive payment data is processed by Stripe; local code handles secure integration and validation
+- **CSRF Protection** - Secure session cookies are used for auth flows
 - **Input Validation** - Zod schema validation on all inputs
 - **SQL Injection Prevention** - Parameterized queries via Drizzle ORM
-- **XSS Protection** - React auto-escaping + Content Security Policy
+- **XSS Protection** - React auto-escaping reduces injection risk
 
 ## 📊 Performance Metrics
 
 | Metric | Target | Status |
 |--------|--------|--------|
-| LCP (Largest Contentful Paint) | <2.5s | ✅ |
-| FID (First Input Delay) | <100ms | ✅ |
-| CLS (Cumulative Layout Shift) | <0.1 | ✅ |
-| FCP (First Contentful Paint) | <1.8s | ✅ |
-| TTFB (Time to First Byte) | <600ms | ✅ |
+| LCP (Largest Contentful Paint) | <2.5s | Monitoring Enabled |
+| FID (First Input Delay) | <100ms | Monitoring Enabled |
+| CLS (Cumulative Layout Shift) | <0.1 | Monitoring Enabled |
+| FCP (First Contentful Paint) | <1.8s | Monitoring Enabled |
+| TTFB (Time to First Byte) | <600ms | Monitoring Enabled |
+
+> Note: Core Web Vitals are tracked in-browser and performance optimizations are ongoing. Build output can emit size warnings when analytics env vars are missing.
 
 ## 🎨 Design System
 
