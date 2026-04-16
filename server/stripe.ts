@@ -1,10 +1,10 @@
-import { z } from 'zod';
-import { publicProcedure, router } from './_core/trpc';
-import { updateOrderPaymentStatusByIntent } from './product-db';
+import { z } from "zod";
+import { publicProcedure, router } from "./_core/trpc";
+import { updateOrderPaymentStatusByIntent } from "./product-db";
 
 /**
  * Stripe Integration Procedures
- * 
+ *
  * Setup required:
  * 1. Install Stripe: pnpm add stripe
  * 2. Add STRIPE_SECRET_KEY to environment variables
@@ -16,10 +16,10 @@ let stripe: any = null;
 
 function getStripe() {
   if (!stripe) {
-    const Stripe = require('stripe');
+    const Stripe = require("stripe");
     const secretKey = process.env.STRIPE_SECRET_KEY;
     if (!secretKey) {
-      throw new Error('STRIPE_SECRET_KEY not configured');
+      throw new Error("STRIPE_SECRET_KEY not configured");
     }
     stripe = new Stripe(secretKey);
   }
@@ -61,16 +61,18 @@ export const stripeRouter = router({
         );
         const tax = Math.round(subtotal * input.taxRate * 100); // Convert to cents
         const shipping = Math.round(input.shippingCost * 100);
-        const total = Math.round((subtotal + subtotal * input.taxRate + input.shippingCost) * 100);
+        const total = Math.round(
+          (subtotal + subtotal * input.taxRate + input.shippingCost) * 100
+        );
 
         // Create payment intent
         const paymentIntent = await stripe.paymentIntents.create({
           amount: total,
-          currency: 'bdt', // Bangladesh Taka
+          currency: "bdt", // Bangladesh Taka
           receipt_email: input.customerEmail,
           metadata: {
             itemCount: input.items.length,
-            itemNames: input.items.map((i) => i.name).join(', '),
+            itemNames: input.items.map(i => i.name).join(", "),
           },
           description: `Marjahans Jewellery - ${input.items.length} item(s)`,
         });
@@ -78,11 +80,11 @@ export const stripeRouter = router({
         return {
           clientSecret: paymentIntent.client_secret,
           amount: total,
-          currency: 'bdt',
+          currency: "bdt",
         };
       } catch (error: any) {
-        console.error('[Stripe] Payment intent creation error:', error);
-        throw new Error('Failed to create payment intent');
+        console.error("[Stripe] Payment intent creation error:", error);
+        throw new Error("Failed to create payment intent");
       }
     }),
 
@@ -96,9 +98,10 @@ export const stripeRouter = router({
         const stripe = getStripe();
 
         // Extract payment intent ID from client secret
-        const paymentIntentId = input.clientSecret.split('_secret_')[0];
+        const paymentIntentId = input.clientSecret.split("_secret_")[0];
 
-        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+        const paymentIntent =
+          await stripe.paymentIntents.retrieve(paymentIntentId);
 
         return {
           status: paymentIntent.status,
@@ -108,8 +111,8 @@ export const stripeRouter = router({
           metadata: paymentIntent.metadata,
         };
       } catch (error: any) {
-        console.error('[Stripe] Payment status retrieval error:', error);
-        throw new Error('Failed to retrieve payment status');
+        console.error("[Stripe] Payment status retrieval error:", error);
+        throw new Error("Failed to retrieve payment status");
       }
     }),
 
@@ -127,54 +130,54 @@ export const stripeRouter = router({
       try {
         const objectData = (input.data as any)?.object ?? {};
         const paymentIntentId =
-          typeof objectData.id === 'string'
+          typeof objectData.id === "string"
             ? objectData.id
-            : typeof objectData.payment_intent === 'string'
+            : typeof objectData.payment_intent === "string"
               ? objectData.payment_intent
               : undefined;
 
         switch (input.type) {
-          case 'payment_intent.succeeded':
-            console.log('[Stripe] Payment succeeded:', input.data);
+          case "payment_intent.succeeded":
+            console.log("[Stripe] Payment succeeded:", input.data);
             if (paymentIntentId) {
               await updateOrderPaymentStatusByIntent({
                 stripePaymentIntentId: paymentIntentId,
-                paymentStatus: 'completed',
-                status: 'processing',
+                paymentStatus: "completed",
+                status: "processing",
               });
             }
             break;
 
-          case 'payment_intent.payment_failed':
-            console.log('[Stripe] Payment failed:', input.data);
+          case "payment_intent.payment_failed":
+            console.log("[Stripe] Payment failed:", input.data);
             if (paymentIntentId) {
               await updateOrderPaymentStatusByIntent({
                 stripePaymentIntentId: paymentIntentId,
-                paymentStatus: 'failed',
-                status: 'cancelled',
+                paymentStatus: "failed",
+                status: "cancelled",
               });
             }
             break;
 
-          case 'charge.refunded':
-            console.log('[Stripe] Charge refunded:', input.data);
+          case "charge.refunded":
+            console.log("[Stripe] Charge refunded:", input.data);
             if (paymentIntentId) {
               await updateOrderPaymentStatusByIntent({
                 stripePaymentIntentId: paymentIntentId,
-                paymentStatus: 'refunded',
-                status: 'refunded',
+                paymentStatus: "refunded",
+                status: "refunded",
               });
             }
             break;
 
           default:
-            console.log('[Stripe] Unhandled webhook event:', input.type);
+            console.log("[Stripe] Unhandled webhook event:", input.type);
         }
 
         return { success: true };
       } catch (error: any) {
-        console.error('[Stripe] Webhook handling error:', error);
-        throw new Error('Failed to handle webhook');
+        console.error("[Stripe] Webhook handling error:", error);
+        throw new Error("Failed to handle webhook");
       }
     }),
 });

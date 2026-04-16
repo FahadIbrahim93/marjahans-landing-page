@@ -1,4 +1,4 @@
-import { create, StateCreator } from 'zustand';
+import { create, StateCreator } from "zustand";
 
 export interface CartItem {
   id: string;
@@ -49,16 +49,16 @@ export const useCartStore = create<CartStore>((set: any, get: any) => ({
 
     // Persist to localStorage
     const state = get();
-    localStorage.setItem('cart', JSON.stringify(state.items));
+    localStorage.setItem("cart", JSON.stringify(state.items));
   },
 
   removeItem: (id: string) => {
     set((state: CartStore) => ({
-      items: state.items.filter((item) => item.id !== id),
+      items: state.items.filter(item => item.id !== id),
     }));
 
     const state = get();
-    localStorage.setItem('cart', JSON.stringify(state.items));
+    localStorage.setItem("cart", JSON.stringify(state.items));
   },
 
   updateQuantity: (id: string, quantity: number) => {
@@ -74,32 +74,38 @@ export const useCartStore = create<CartStore>((set: any, get: any) => ({
     }));
 
     const state = get();
-    localStorage.setItem('cart', JSON.stringify(state.items));
+    localStorage.setItem("cart", JSON.stringify(state.items));
   },
 
   clearCart: () => {
     set({ items: [] });
-    localStorage.removeItem('cart');
+    localStorage.removeItem("cart");
   },
 
   getTotalPrice: () => {
-    return get().items.reduce((total: number, item: CartItem) => total + item.price * item.quantity, 0);
+    return get().items.reduce(
+      (total: number, item: CartItem) => total + item.price * item.quantity,
+      0
+    );
   },
 
   getTotalItems: () => {
-    return get().items.reduce((total: number, item: CartItem) => total + item.quantity, 0);
+    return get().items.reduce(
+      (total: number, item: CartItem) => total + item.quantity,
+      0
+    );
   },
 }));
 
 // Hydrate cart from localStorage on app start
-if (typeof window !== 'undefined') {
-  const savedCart = localStorage.getItem('cart');
+if (typeof window !== "undefined") {
+  const savedCart = localStorage.getItem("cart");
   if (savedCart) {
     try {
       const items: CartItem[] = JSON.parse(savedCart);
       useCartStore.setState({ items });
     } catch (e) {
-      console.warn('[Cart] Failed to restore cart from localStorage', e);
+      console.warn("[Cart] Failed to restore cart from localStorage", e);
     }
   }
 }

@@ -73,6 +73,7 @@ Breaking changes:
 ## Additional Notes
 
 Add any other relevant information here, such as:
+
 - Dependencies added or updated
 - Database migrations required
 - Environment variables needed

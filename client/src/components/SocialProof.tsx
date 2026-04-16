@@ -1,5 +1,5 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Star } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Star } from "lucide-react";
 
 interface Testimonial {
   id: string;
@@ -11,32 +11,36 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    id: '1',
-    name: 'Fatima Ahmed',
-    comment: 'Absolutely stunning collection! The quality is exceptional and the customer service was impeccable. I will definitely order again.',
+    id: "1",
+    name: "Fatima Ahmed",
+    comment:
+      "Absolutely stunning collection! The quality is exceptional and the customer service was impeccable. I will definitely order again.",
     rating: 5,
-    date: '2 weeks ago',
+    date: "2 weeks ago",
   },
   {
-    id: '2',
-    name: 'Aisha Khan',
-    comment: 'The craftsmanship is incredible. Each piece feels like a work of art. Worth every penny!',
+    id: "2",
+    name: "Aisha Khan",
+    comment:
+      "The craftsmanship is incredible. Each piece feels like a work of art. Worth every penny!",
     rating: 5,
-    date: '1 month ago',
+    date: "1 month ago",
   },
   {
-    id: '3',
-    name: 'Noor Hassan',
-    comment: 'Beautiful designs and fast delivery. The jewelry arrived perfectly packaged. Highly recommended!',
+    id: "3",
+    name: "Noor Hassan",
+    comment:
+      "Beautiful designs and fast delivery. The jewelry arrived perfectly packaged. Highly recommended!",
     rating: 5,
-    date: '3 weeks ago',
+    date: "3 weeks ago",
   },
   {
-    id: '4',
-    name: 'Zainab Rahman',
-    comment: 'I purchased the bespoke collection and was amazed by the attention to detail. A true luxury experience.',
+    id: "4",
+    name: "Zainab Rahman",
+    comment:
+      "I purchased the bespoke collection and was amazed by the attention to detail. A true luxury experience.",
     rating: 5,
-    date: '1 week ago',
+    date: "1 week ago",
   },
 ];
 
@@ -56,15 +60,16 @@ export function SocialProof() {
             Trusted by <span className="text-amber-400">Collectors</span>
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-            Join thousands of satisfied customers who have found their perfect piece
+            Join thousands of satisfied customers who have found their perfect
+            piece
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {testimonials.map((testimonial) => (
+          {testimonials.map(testimonial => (
             <Card
               key={testimonial.id}
-              className="lux-card transition-all duration-500"
+              className="lux-card glass-pro transition-all duration-500"
             >
               <CardContent className="pt-6">
                 <div className="space-y-4">
@@ -77,11 +82,17 @@ export function SocialProof() {
                       />
                     ))}
                   </div>
-                  <p className="text-slate-300 leading-relaxed">{testimonial.comment}</p>
+                  <p className="text-slate-300 leading-relaxed">
+                    {testimonial.comment}
+                  </p>
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
                     <div>
-                      <p className="text-white font-semibold">{testimonial.name}</p>
-                      <p className="text-xs text-slate-500">{testimonial.date}</p>
+                      <p className="text-white font-semibold">
+                        {testimonial.name}
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        {testimonial.date}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -92,7 +103,8 @@ export function SocialProof() {
 
         <div className="mt-16 text-center">
           <p className="text-slate-400 text-sm">
-            <span className="text-amber-400 font-bold">638+</span> followers trust us on Facebook
+            <span className="text-amber-400 font-bold">638+</span> followers
+            trust us on Facebook
           </p>
         </div>
       </div>

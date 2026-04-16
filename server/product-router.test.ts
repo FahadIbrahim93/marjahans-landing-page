@@ -180,7 +180,7 @@ describe("Product Router - Filtering and Sorting", () => {
       const result = await caller.products.getMaterials();
 
       if (result.length > 0) {
-        result.forEach((material) => {
+        result.forEach(material => {
           expect(typeof material).toBe("string");
         });
       }

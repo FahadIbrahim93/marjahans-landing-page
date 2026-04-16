@@ -4,23 +4,33 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { Navbar } from "./components/Navbar";
 import Home from "./pages/Home";
 import ProductListing from "./pages/ProductListing";
 import ProductDetail from "./pages/ProductDetail";
+import CartPage from "./pages/Cart";
+import WishlistPage from "./pages/Wishlist";
 import AdminDashboard from "./pages/AdminDashboard";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/products"} component={ProductListing} />
-      <Route path={"/product/:slug"} component={ProductDetail} />
-      <Route path={"/admin"} component={AdminDashboard} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <Navbar />
+      <div className="pt-20">
+        <Switch>
+          <Route path={"/"} component={Home} />
+          <Route path={"/products"} component={ProductListing} />
+          <Route path={"/product/:slug"} component={ProductDetail} />
+          <Route path={"/cart"} component={CartPage} />
+          <Route path={"/wishlist"} component={WishlistPage} />
+          <Route path={"/admin"} component={AdminDashboard} />
+          <Route path={"/404"} component={NotFound} />
+          {/* Final fallback route */}
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+    </>
   );
 }
 

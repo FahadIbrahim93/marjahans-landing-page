@@ -1,4 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useLocation } from "wouter";
 
 interface ServiceCard {
   id: string;
@@ -9,44 +16,57 @@ interface ServiceCard {
 
 const services: ServiceCard[] = [
   {
-    id: 'rings',
-    title: 'Rings',
-    description: 'Exquisite rings crafted with precision, from classic designs to contemporary pieces',
-    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/gNxtLWaXiHCVPJVR.png',
+    id: "rings",
+    title: "Rings",
+    description:
+      "Exquisite rings crafted with precision, from classic designs to contemporary pieces",
+    image:
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/gNxtLWaXiHCVPJVR.png",
   },
   {
-    id: 'necklaces',
-    title: 'Necklaces',
-    description: 'Elegant necklaces that complement any occasion, featuring premium materials',
-    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/tJhzKZAzBreyfsJG.png',
+    id: "necklaces",
+    title: "Necklaces",
+    description:
+      "Elegant necklaces that complement any occasion, featuring premium materials",
+    image:
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/tJhzKZAzBreyfsJG.png",
   },
   {
-    id: 'bracelets',
-    title: 'Bracelets',
-    description: 'Stunning bracelets designed to enhance your personal style and elegance',
-    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/tJhzKZAzBreyfsJG.png',
+    id: "bracelets",
+    title: "Bracelets",
+    description:
+      "Stunning bracelets designed to enhance your personal style and elegance",
+    image:
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/tJhzKZAzBreyfsJG.png",
   },
   {
-    id: 'earrings',
-    title: 'Earrings',
-    description: 'Timeless earrings that add sophistication and grace to your look',
-    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/gNxtLWaXiHCVPJVR.png',
+    id: "earrings",
+    title: "Earrings",
+    description:
+      "Timeless earrings that add sophistication and grace to your look",
+    image:
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/gNxtLWaXiHCVPJVR.png",
   },
   {
-    id: 'bespoke',
-    title: 'Bespoke',
-    description: 'Custom jewelry creations tailored to your unique vision and preferences',
-    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/ePSGEBYPoQCaFBWN.png',
+    id: "bespoke",
+    title: "Bespoke",
+    description:
+      "Custom jewelry creations tailored to your unique vision and preferences",
+    image:
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/ePSGEBYPoQCaFBWN.png",
   },
   {
-    id: 'collections',
-    title: 'Collections',
-    description: 'Curated collections celebrating heritage, craftsmanship, and luxury',
-    image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/tJhzKZAzBreyfsJG.png',
+    id: "collections",
+    title: "Collections",
+    description:
+      "Curated collections celebrating heritage, craftsmanship, and luxury",
+    image:
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310419663030624178/tJhzKZAzBreyfsJG.png",
   },
 ];
 
 export function ServiceCards() {
+  const [, setLocation] = useLocation();
   return (
     <section className="py-24 px-6 bg-background cinematic-surface section-divider-glow">
       <div className="max-w-7xl mx-auto">
@@ -62,7 +82,8 @@ export function ServiceCards() {
             Curated <span className="text-amber-400">Treasures</span>
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-            Explore our handpicked selection of jewelry, each piece representing the pinnacle of craftsmanship
+            Explore our handpicked selection of jewelry, each piece representing
+            the pinnacle of craftsmanship
           </p>
         </div>
 
@@ -75,8 +96,11 @@ export function ServiceCards() {
                 animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`,
               }}
             >
-              <Card className="h-full lux-card transition-all duration-500 cursor-pointer overflow-hidden">
-                <div className="relative h-48 overflow-hidden bg-black/40">
+              <Card
+                className="h-full lux-card glass-pro transition-all duration-500 cursor-pointer overflow-hidden"
+                onClick={() => setLocation("/products")}
+              >
+                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-slate-900 via-slate-950 to-black/80">
                   <img
                     src={service.image}
                     alt={service.title}
@@ -85,7 +109,9 @@ export function ServiceCards() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-white text-xl">{service.title}</CardTitle>
+                  <CardTitle className="text-white text-xl">
+                    {service.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-slate-400 leading-relaxed">

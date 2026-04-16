@@ -5,6 +5,7 @@ A production-grade, luxury jewelry e-commerce landing page built with React 19, 
 ## ✨ Features
 
 ### Core Features
+
 - **Hero Section** - Cinematic full-viewport hero with brand story and CTA
 - **Product Showcase** - Service cards with high-resolution product images
 - **Social Proof** - Verified customer testimonials and trust badges
@@ -12,6 +13,7 @@ A production-grade, luxury jewelry e-commerce landing page built with React 19, 
 - **Responsive Design** - Mobile-first, works on all devices
 
 ### Advanced Features
+
 - **Image Optimization** - WebP/AVIF formats, lazy-loading, responsive srcset
 - **Product Zoom** - 360° interactive zoom with keyboard shortcuts
 - **AR Try-On** - Ring try-on placeholder with size selector (MVP)
@@ -20,6 +22,7 @@ A production-grade, luxury jewelry e-commerce landing page built with React 19, 
 - **Stripe Integration** - Secure payment processing with webhook support
 
 ### Quality & Compliance
+
 - **WCAG 2.2 AA targeted** - Accessibility-first components and review in progress
 - **Core Web Vitals monitoring** - LCP/CLS/FID metrics are tracked and optimized iteratively
 - **GDPR readiness** - Cookie consent banner with granular preferences is implemented
@@ -27,6 +30,7 @@ A production-grade, luxury jewelry e-commerce landing page built with React 19, 
 - **Security posture** - SSL/TLS support with Stripe payment integration and input validation; PCI compliance is managed by Stripe
 
 ### Testing & Monitoring
+
 - **Vitest** - 82 tests covering cart, auth, and core backend flows
 - **Performance Monitoring** - Real-time Core Web Vitals tracking is available
 - **Error Handling** - Error boundaries and server-side error mapping are implemented
@@ -34,6 +38,7 @@ A production-grade, luxury jewelry e-commerce landing page built with React 19, 
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+
 - pnpm 10+
 - Stripe account (for payment processing)
@@ -134,29 +139,32 @@ pnpm test -- --coverage
 
 ## 📊 Performance Metrics
 
-| Metric | Target | Status |
-|--------|--------|--------|
-| LCP (Largest Contentful Paint) | <2.5s | Monitoring Enabled |
-| FID (First Input Delay) | <100ms | Monitoring Enabled |
-| CLS (Cumulative Layout Shift) | <0.1 | Monitoring Enabled |
-| FCP (First Contentful Paint) | <1.8s | Monitoring Enabled |
-| TTFB (Time to First Byte) | <600ms | Monitoring Enabled |
+| Metric                         | Target | Status             |
+| ------------------------------ | ------ | ------------------ |
+| LCP (Largest Contentful Paint) | <2.5s  | Monitoring Enabled |
+| FID (First Input Delay)        | <100ms | Monitoring Enabled |
+| CLS (Cumulative Layout Shift)  | <0.1   | Monitoring Enabled |
+| FCP (First Contentful Paint)   | <1.8s  | Monitoring Enabled |
+| TTFB (Time to First Byte)      | <600ms | Monitoring Enabled |
 
 > Note: Core Web Vitals are tracked in-browser and performance optimizations are ongoing. Build output can emit size warnings when analytics env vars are missing.
 
 ## 🎨 Design System
 
 ### Colors
+
 - **Primary**: Amber (#F59E0B)
 - **Background**: Slate-900 (#0F172A)
 - **Text**: White (#FFFFFF)
 - **Accent**: Slate-700 (#334155)
 
 ### Typography
+
 - **Headings**: Playfair Display (serif)
 - **Body**: Outfit (sans-serif)
 
 ### Spacing
+
 - Base unit: 4px (Tailwind default)
 - Max width: 1280px (6xl)
 
@@ -190,6 +198,7 @@ trpc.stripe.getPaymentStatus.useQuery({
 ## 🚀 Deployment
 
 ### Manus Platform
+
 ```bash
 # Save checkpoint
 pnpm webdev_save_checkpoint
@@ -199,12 +208,14 @@ pnpm webdev_save_checkpoint
 ```
 
 ### Custom Domain
+
 1. Go to Settings → Domains
 2. Add your custom domain
 3. Update DNS records
 4. Verify and activate
 
 ### Environment Setup for Production
+
 ```bash
 NODE_ENV=production
 VITE_STRIPE_PUBLISHABLE_KEY=pk_live_...
@@ -215,11 +226,13 @@ DATABASE_URL=mysql://prod-user:password@prod-db:3306/marjahans
 ## 📈 Analytics & Monitoring
 
 ### Google Analytics
+
 - Tracks page views, events, and conversions
 - Custom events for product views and cart additions
 - Goal tracking for contact form submissions
 
 ### Core Web Vitals Monitoring
+
 - Real-time LCP, FID, CLS tracking
 - Performance alerts in browser console
 - Automatic Google Analytics integration
@@ -227,6 +240,7 @@ DATABASE_URL=mysql://prod-user:password@prod-db:3306/marjahans
 ## 🔧 Maintenance
 
 ### Regular Tasks
+
 - [ ] Monitor error logs weekly
 - [ ] Review performance metrics
 - [ ] Update dependencies monthly
@@ -234,6 +248,7 @@ DATABASE_URL=mysql://prod-user:password@prod-db:3306/marjahans
 - [ ] Review security patches
 
 ### Database Maintenance
+
 ```bash
 # Backup database
 mysqldump -u user -p marjahans > backup.sql
@@ -248,6 +263,7 @@ pnpm db:push
 ## 🐛 Troubleshooting
 
 ### Dev Server Won't Start
+
 ```bash
 # Clear cache and reinstall
 rm -rf node_modules pnpm-lock.yaml
@@ -256,6 +272,7 @@ pnpm dev
 ```
 
 ### Database Connection Error
+
 ```bash
 # Check DATABASE_URL in .env.local
 # Verify MySQL is running
@@ -263,6 +280,7 @@ pnpm dev
 ```
 
 ### Stripe Integration Issues
+
 ```bash
 # Verify API keys are correct
 # Check webhook endpoint is registered
@@ -280,6 +298,7 @@ pnpm dev
 ## 📞 Support
 
 For issues or questions:
+
 1. Check the troubleshooting section above
 2. Review error logs in `.manus-logs/`
 3. Contact Manus support at https://help.manus.im
@@ -291,6 +310,7 @@ For issues or questions:
 ## 🙏 Credits
 
 Built with:
+
 - React 19 & Tailwind CSS 4
 - Express & tRPC
 - Stripe Payments

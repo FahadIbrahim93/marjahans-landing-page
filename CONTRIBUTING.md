@@ -131,6 +131,7 @@ Follow the Conventional Commits format for all commits:
 ```
 
 **Types:**
+
 - `feat` - A new feature
 - `fix` - A bug fix
 - `docs` - Documentation changes
@@ -141,6 +142,7 @@ Follow the Conventional Commits format for all commits:
 - `chore` - Build process, dependencies, or tooling changes
 
 **Examples:**
+
 ```
 feat(products): add product filtering by price range
 
@@ -163,16 +165,17 @@ Closes #456
 
 All code changes must include appropriate tests. Test coverage requirements:
 
-| Code Type | Coverage | Requirement |
-|-----------|----------|-------------|
-| API Procedures | 100% | All code paths must be tested |
-| Database helpers | 100% | All query helpers must be tested |
-| State management | 100% | All state mutations must be tested |
-| Utilities | 100% | All utility functions must be tested |
-| React components | 80% | Most component logic must be tested |
-| Pages | 80% | Critical user flows must be tested |
+| Code Type        | Coverage | Requirement                          |
+| ---------------- | -------- | ------------------------------------ |
+| API Procedures   | 100%     | All code paths must be tested        |
+| Database helpers | 100%     | All query helpers must be tested     |
+| State management | 100%     | All state mutations must be tested   |
+| Utilities        | 100%     | All utility functions must be tested |
+| React components | 80%      | Most component logic must be tested  |
+| Pages            | 80%      | Critical user flows must be tested   |
 
 Run tests with:
+
 ```bash
 pnpm test              # Run all tests
 pnpm test --watch     # Watch mode for development

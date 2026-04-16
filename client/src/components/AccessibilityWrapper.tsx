@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 interface AccessibilityWrapperProps {
   children: React.ReactNode;
@@ -26,14 +26,14 @@ export function AccessibilityWrapper({
     // Ensure all interactive elements are keyboard accessible
     const makeKeyboardAccessible = () => {
       const buttons = document.querySelectorAll('[role="button"]:not(button)');
-      buttons.forEach((element) => {
-        if (!element.hasAttribute('tabindex')) {
-          element.setAttribute('tabindex', '0');
+      buttons.forEach(element => {
+        if (!element.hasAttribute("tabindex")) {
+          element.setAttribute("tabindex", "0");
         }
 
-        element.addEventListener('keydown', (e: Event) => {
+        element.addEventListener("keydown", (e: Event) => {
           const keyEvent = e as KeyboardEvent;
-          if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+          if (keyEvent.key === "Enter" || keyEvent.key === " ") {
             keyEvent.preventDefault();
             (element as HTMLElement).click();
           }
@@ -45,21 +45,21 @@ export function AccessibilityWrapper({
 
     // Monitor focus for visible focus indicator
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Tab') {
-        document.body.classList.add('keyboard-focus-visible');
+      if (e.key === "Tab") {
+        document.body.classList.add("keyboard-focus-visible");
       }
     };
 
     const handleMouseDown = () => {
-      document.body.classList.remove('keyboard-focus-visible');
+      document.body.classList.remove("keyboard-focus-visible");
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("mousedown", handleMouseDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("mousedown", handleMouseDown);
     };
   }, []);
 

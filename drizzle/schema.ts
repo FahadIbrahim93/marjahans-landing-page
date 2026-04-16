@@ -1,4 +1,13 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, json } from "drizzle-orm/mysql-core";
+import {
+  int,
+  mysqlEnum,
+  mysqlTable,
+  text,
+  timestamp,
+  varchar,
+  boolean,
+  json,
+} from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -37,7 +46,9 @@ export const conversations = mysqlTable("conversations", {
   assignedAgentId: int("assignedAgentId"),
   cartValue: int("cartValue").default(0),
   cartItems: json("cartItems"),
-  status: mysqlEnum("status", ["active", "waiting", "closed", "archived"]).default("active").notNull(),
+  status: mysqlEnum("status", ["active", "waiting", "closed", "archived"])
+    .default("active")
+    .notNull(),
   source: varchar("source", { length: 50 }).default("widget").notNull(),
   tags: json("tags"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
@@ -59,7 +70,9 @@ export const messages = mysqlTable("messages", {
   senderType: mysqlEnum("senderType", ["visitor", "agent", "system"]).notNull(),
   senderName: text("senderName"),
   content: text("content").notNull(),
-  type: mysqlEnum("type", ["text", "image", "file", "system"]).default("text").notNull(),
+  type: mysqlEnum("type", ["text", "image", "file", "system"])
+    .default("text")
+    .notNull(),
   isRead: boolean("isRead").default(false).notNull(),
   metadata: json("metadata"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
@@ -78,10 +91,14 @@ export const chatSettings = mysqlTable("chatSettings", {
   widgetTitle: text("widgetTitle"),
   widgetSubtitle: text("widgetSubtitle"),
   widgetColor: varchar("widgetColor", { length: 7 }).default("#F59E0B"),
-  widgetPosition: mysqlEnum("widgetPosition", ["bottom-right", "bottom-left"]).default("bottom-right").notNull(),
+  widgetPosition: mysqlEnum("widgetPosition", ["bottom-right", "bottom-left"])
+    .default("bottom-right")
+    .notNull(),
   showWhenOffline: boolean("showWhenOffline").default(true).notNull(),
   offlineMessage: text("offlineMessage"),
-  enableAbandonmentDetection: boolean("enableAbandonmentDetection").default(true).notNull(),
+  enableAbandonmentDetection: boolean("enableAbandonmentDetection")
+    .default(true)
+    .notNull(),
   abandonmentDelay: int("abandonmentDelay").default(120000),
   abandonmentMessage: text("abandonmentMessage"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
@@ -242,9 +259,25 @@ export const orders = mysqlTable("orders", {
   shippingCost: int("shippingCost").default(0),
   tax: int("tax").default(0),
   total: int("total").notNull(),
-  status: mysqlEnum("status", ["pending", "processing", "shipped", "delivered", "cancelled", "refunded"]).default("pending").notNull(),
+  status: mysqlEnum("status", [
+    "pending",
+    "processing",
+    "shipped",
+    "delivered",
+    "cancelled",
+    "refunded",
+  ])
+    .default("pending")
+    .notNull(),
   paymentMethod: varchar("paymentMethod", { length: 50 }),
-  paymentStatus: mysqlEnum("paymentStatus", ["pending", "completed", "failed", "refunded"]).default("pending").notNull(),
+  paymentStatus: mysqlEnum("paymentStatus", [
+    "pending",
+    "completed",
+    "failed",
+    "refunded",
+  ])
+    .default("pending")
+    .notNull(),
   stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 255 }),
   items: json("items").notNull(), // Array of order items
   notes: text("notes"),

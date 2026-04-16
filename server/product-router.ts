@@ -47,7 +47,9 @@ export const productRouter = router({
         minPrice: z.number().min(0).optional(),
         maxPrice: z.number().min(0).optional(),
         material: z.string().optional(),
-        sortBy: z.enum(['price_asc', 'price_desc', 'newest', 'rating', 'popularity']).default('newest'),
+        sortBy: z
+          .enum(["price_asc", "price_desc", "newest", "rating", "popularity"])
+          .default("newest"),
         limit: z.number().min(1).max(100).default(20),
         offset: z.number().min(0).default(0),
       })
@@ -109,7 +111,7 @@ export const productRouter = router({
         .where(isNotNull(productVariants.material));
       return materials.map((m: any) => m.material).filter(Boolean);
     } catch (error) {
-      console.error('[Products] Failed to get materials:', error);
+      console.error("[Products] Failed to get materials:", error);
       return [];
     }
   }),
@@ -130,7 +132,7 @@ export const productRouter = router({
         max: Math.ceil((result[0]?.max || 100000) / 100),
       };
     } catch (error) {
-      console.error('[Products] Failed to get price range:', error);
+      console.error("[Products] Failed to get price range:", error);
       return { min: 0, max: 100000 };
     }
   }),

@@ -125,7 +125,10 @@ export const facebookExtractionRouter = router({
 
               console.log(`[Extraction] Stored image for product ${productId}`);
             } catch (error) {
-              console.error(`[Extraction] Error storing image for product ${productId}:`, error);
+              console.error(
+                `[Extraction] Error storing image for product ${productId}:`,
+                error
+              );
             }
           }
 
@@ -139,7 +142,10 @@ export const facebookExtractionRouter = router({
 
           console.log(`[Extraction] Synced product: ${fbProduct.name}`);
         } catch (error) {
-          console.error(`[Extraction] Error syncing product ${fbProduct.name}:`, error);
+          console.error(
+            `[Extraction] Error syncing product ${fbProduct.name}:`,
+            error
+          );
         }
       }
 

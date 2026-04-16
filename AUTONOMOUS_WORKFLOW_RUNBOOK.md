@@ -7,10 +7,12 @@ This runbook operationalizes the project's autonomous execution policy in a dete
 Attempted source: `https://github.com/obra/superpowers/issues`
 
 Result in this environment:
+
 - GitHub access is blocked (`CONNECT tunnel failed, response 403`).
 - Automatic install via `skill-installer` and git fallback both failed.
 
 Action taken:
+
 - Applied the same workflow principles locally through this runbook + executable QA sweep script.
 - Continue using built-in skills and repository-native standards until external access is restored.
 

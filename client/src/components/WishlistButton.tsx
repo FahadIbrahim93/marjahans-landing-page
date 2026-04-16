@@ -1,6 +1,7 @@
-import { Heart } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import { Heart } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/lib/cartStore";
 
 interface WishlistButtonProps {
   productId: string;
@@ -22,22 +23,22 @@ export function WishlistButton({
 
   // Load wishlist from localStorage on mount
   useEffect(() => {
-    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
     setIsSaved(wishlist.includes(productId));
   }, [productId]);
 
   const handleToggle = () => {
-    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
 
     if (isSaved) {
       // Remove from wishlist
       const updated = wishlist.filter((id: string) => id !== productId);
-      localStorage.setItem('wishlist', JSON.stringify(updated));
+      localStorage.setItem("wishlist", JSON.stringify(updated));
       setIsSaved(false);
     } else {
       // Add to wishlist
       wishlist.push(productId);
-      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
       setIsSaved(true);
     }
 
@@ -51,16 +52,18 @@ export function WishlistButton({
       size="sm"
       className={`gap-2 transition-all ${
         isSaved
-          ? 'border-red-500/60 bg-red-500/10 text-red-400 hover:bg-red-500/20'
-          : 'border-slate-600 text-slate-300 hover:border-red-500/60 hover:text-red-400'
+          ? "border-red-500/60 bg-red-500/10 text-red-400 hover:bg-red-500/20"
+          : "border-slate-600 text-slate-300 hover:border-red-500/60 hover:text-red-400"
       }`}
-      aria-label={isSaved ? `Remove ${productName} from wishlist` : `Add ${productName} to wishlist`}
+      aria-label={
+        isSaved
+          ? `Remove ${productName} from wishlist`
+          : `Add ${productName} to wishlist`
+      }
       aria-pressed={isSaved}
     >
-      <Heart
-        className={`w-4 h-4 ${isSaved ? 'fill-current' : ''}`}
-      />
-      {isSaved ? 'Saved' : 'Save'}
+      <Heart className={`w-4 h-4 ${isSaved ? "fill-current" : ""}`} />
+      {isSaved ? "Saved" : "Save"}
     </Button>
   );
 }
@@ -71,23 +74,26 @@ export function WishlistButton({
  */
 export function WishlistPage() {
   const [wishlistItems, setWishlistItems] = useState<string[]>([]);
+  const addItem = useCartStore(state => state.addItem);
 
   useEffect(() => {
-    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
     setWishlistItems(wishlist);
   }, []);
 
   const handleRemove = (productId: string) => {
-    const updated = wishlistItems.filter((id) => id !== productId);
+    const updated = wishlistItems.filter(id => id !== productId);
     setWishlistItems(updated);
-    localStorage.setItem('wishlist', JSON.stringify(updated));
+    localStorage.setItem("wishlist", JSON.stringify(updated));
   };
 
   if (wishlistItems.length === 0) {
     return (
       <div className="text-center py-12">
         <Heart className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-white mb-2">Your wishlist is empty</h3>
+        <h3 className="text-lg font-semibold text-white mb-2">
+          Your wishlist is empty
+        </h3>
         <p className="text-slate-400">
           Save your favorite jewelry to view later
         </p>
@@ -97,10 +103,12 @@ export function WishlistPage() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-white">My Wishlist ({wishlistItems.length})</h2>
+      <h2 className="text-2xl font-bold text-white">
+        My Wishlist ({wishlistItems.length})
+      </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {wishlistItems.map((productId) => (
+        {wishlistItems.map(productId => (
           <div
             key={productId}
             className="bg-slate-800/50 rounded-lg border border-slate-700 p-4 hover:border-amber-500/30 transition-colors"
@@ -109,7 +117,18 @@ export function WishlistPage() {
             <p className="font-semibold text-white mb-2">Product {productId}</p>
             <p className="text-amber-400 font-bold mb-4">৳0</p>
             <div className="flex gap-2">
-              <Button className="flex-1 bg-amber-500 hover:bg-amber-600 text-black">
+              <Button
+                className="flex-1 bg-amber-500 hover:bg-amber-600 text-black"
+                onClick={() =>
+                  addItem({
+                    id: productId,
+                    name: `Product ${productId}`,
+                    price: 1000,
+                    quantity: 1,
+                    image: "/placeholder-product.jpg",
+                  })
+                }
+              >
                 Add to Cart
               </Button>
               <Button

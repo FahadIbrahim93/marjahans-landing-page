@@ -6,24 +6,25 @@ This codebase has strong product ambition and broad feature coverage, but it is 
 
 ## Scoring Matrix (1-10)
 
-| Dimension | Score | Verdict |
-|---|---:|---|
-| Code quality & structure | 6.5 | Feature modules exist, but quality is uneven and some files mix concerns. |
-| Readability & maintainability | 6.0 | Naming is generally understandable; comments/docs drift from reality. |
-| Performance & scalability | 5.5 | Frontend is acceptable for MVP, backend has potential bottlenecks and no cache strategy. |
-| Security best practices | 5.0 | Good use of Zod/tRPC patterns, but error handling and webhook flow are under-specified. |
-| Test coverage & reliability | 4.0 | Non-deterministic tests and environment-coupled failures reduce trust in CI signal. |
-| Architecture & modularity | 7.0 | Layered architecture is coherent (frontend/api/backend/data). |
-| Standards & compliance readiness | 5.5 | Accessibility intent exists, but evidence and formal verification are incomplete. |
-| Collaboration readiness | 6.0 | Documentation exists; some claims stale and workflow rigor (quality gates) is weak. |
-| Business alignment | 6.5 | Core luxury storefront goals are represented, but checkout/admin reliability gaps threaten conversion ops. |
-| Deployment readiness | 5.0 | Build/start path is present, but production observability and rollback controls are thin. |
-| Dependency & supply-chain hygiene | 5.0 | Dependencies are broad; no visible automated vulnerability governance in repo workflow. |
-| Operational resilience | 4.5 | Graceful degradation exists in spots, but not systematized (especially around DB/env dependencies). |
+| Dimension                         | Score | Verdict                                                                                                    |
+| --------------------------------- | ----: | ---------------------------------------------------------------------------------------------------------- |
+| Code quality & structure          |   6.5 | Feature modules exist, but quality is uneven and some files mix concerns.                                  |
+| Readability & maintainability     |   6.0 | Naming is generally understandable; comments/docs drift from reality.                                      |
+| Performance & scalability         |   5.5 | Frontend is acceptable for MVP, backend has potential bottlenecks and no cache strategy.                   |
+| Security best practices           |   5.0 | Good use of Zod/tRPC patterns, but error handling and webhook flow are under-specified.                    |
+| Test coverage & reliability       |   4.0 | Non-deterministic tests and environment-coupled failures reduce trust in CI signal.                        |
+| Architecture & modularity         |   7.0 | Layered architecture is coherent (frontend/api/backend/data).                                              |
+| Standards & compliance readiness  |   5.5 | Accessibility intent exists, but evidence and formal verification are incomplete.                          |
+| Collaboration readiness           |   6.0 | Documentation exists; some claims stale and workflow rigor (quality gates) is weak.                        |
+| Business alignment                |   6.5 | Core luxury storefront goals are represented, but checkout/admin reliability gaps threaten conversion ops. |
+| Deployment readiness              |   5.0 | Build/start path is present, but production observability and rollback controls are thin.                  |
+| Dependency & supply-chain hygiene |   5.0 | Dependencies are broad; no visible automated vulnerability governance in repo workflow.                    |
+| Operational resilience            |   4.5 | Graceful degradation exists in spots, but not systematized (especially around DB/env dependencies).        |
 
 ## High-Priority Findings (P0/P1)
 
 ### P0 - Testing is not trustworthy
+
 - Current suite has environment-coupled failures (DB availability, Facebook env assumptions), reducing CI confidence.
 - Impact: regressions can ship undetected; team velocity erodes due to noisy failures.
 - Fix now:
@@ -32,6 +33,7 @@ This codebase has strong product ambition and broad feature coverage, but it is 
   3. Run integration tests only with explicit env contract.
 
 ### P0 - Runtime error semantics are inconsistent
+
 - Multiple routers swallow root causes and throw generic errors.
 - Impact: poor debuggability, weak client error handling, difficult incident triage.
 - Fix now:
@@ -40,6 +42,7 @@ This codebase has strong product ambition and broad feature coverage, but it is 
   3. Add structured error format tests.
 
 ### P1 - Payment flow is partially scaffolded
+
 - Stripe webhook handling includes TODOs for order status updates and notifications.
 - Impact: payment state can diverge from order state; operational and customer support risk.
 - Fix now:
@@ -48,6 +51,7 @@ This codebase has strong product ambition and broad feature coverage, but it is 
   3. Add replay-safe event processing.
 
 ### P1 - Documentation credibility gap
+
 - Docs include stale quantitative claims (e.g., test counts), which undermines trust.
 - Impact: onboarding friction, inaccurate planning assumptions.
 - Fix now:
@@ -65,11 +69,13 @@ This codebase has strong product ambition and broad feature coverage, but it is 
 ## Concrete Improvement Plan
 
 ### Code-level (next 1-2 sprints)
+
 - Replace generic catches in API routers with helper utilities for `TRPCError` mapping.
 - Introduce domain-level service functions (router becomes thin input/output boundary).
 - Add strict lint/type rules for `any` leakage in server modules.
 
 ### Architecture-level
+
 - Introduce explicit application services layer:
   - `services/chat/*`
   - `services/payments/*`
@@ -78,6 +84,7 @@ This codebase has strong product ambition and broad feature coverage, but it is 
 - Add read-through cache for product listing endpoints.
 
 ### Process-level
+
 - CI gates: `typecheck`, deterministic unit tests, targeted integration tests, dependency audit.
 - Add conventional commit policy and PR checklist with:
   - migration impact

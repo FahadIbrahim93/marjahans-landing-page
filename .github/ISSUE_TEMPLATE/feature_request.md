@@ -3,8 +3,7 @@ name: Feature Request
 about: Suggest an idea for this project
 title: "[FEATURE] "
 labels: enhancement
-assignees: ''
-
+assignees: ""
 ---
 
 ## Description
@@ -26,6 +25,7 @@ Have you considered any alternative solutions or approaches? Please describe the
 ## Additional Context
 
 Add any other context or examples about the feature request here. For example:
+
 - Screenshots or mockups
 - Links to similar features in other applications
 - Related issues or discussions

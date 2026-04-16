@@ -10,7 +10,7 @@ import { facebookExtractionRouter } from "./facebook-extraction-router";
 
 export const appRouter = router({
   system: systemRouter,
-  
+
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
@@ -33,7 +33,7 @@ export const appRouter = router({
 
   // Facebook Shop integration
   facebookSync: facebookSyncRouter,
-  
+
   // Facebook data extraction
   facebookExtraction: facebookExtractionRouter,
 

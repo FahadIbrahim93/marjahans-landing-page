@@ -293,22 +293,27 @@ Example:
 ## Feature: Dynamic Pricing Engine
 
 ### Description
+
 Implement a pricing engine that calculates jewelry prices based on:
+
 - Gold weight × current market rate
 - Making charges (fixed or percentage)
 - GST (3%)
 
 ### Acceptance Criteria
+
 - [ ] Prices update when gold rates change
 - [ ] Component-level discounts work correctly
 - [ ] API returns pricing breakdown to frontend
 - [ ] 95% test coverage
 
 ### Dependencies
+
 - Product schema must be finalized first
 - Requires database migration
 
 ### Assigned To
+
 Backend Agent
 ```
 
@@ -320,15 +325,19 @@ The assigned agent creates a design document:
 ## Technical Design: Dynamic Pricing Engine
 
 ### Database Schema
+
 [Schema details]
 
 ### API Contract
+
 [tRPC procedure definitions]
 
 ### Algorithm
+
 [Pricing calculation logic]
 
 ### Error Handling
+
 [Edge cases and error scenarios]
 ```
 
@@ -532,14 +541,14 @@ During weekly sync, agents share:
 
 The Lead Agent tracks these metrics for each agent:
 
-| Metric | Target | Purpose |
-|--------|--------|---------|
-| **Code review time** | < 24 hours | Keeps development flowing |
-| **PR approval rate** | > 90% | Indicates code quality |
-| **Test coverage** | > 80% | Ensures reliability |
-| **Deployment success rate** | > 95% | Indicates stability |
-| **Bug escape rate** | < 5% | Measures QA effectiveness |
-| **Feature delivery rate** | On schedule | Indicates planning accuracy |
+| Metric                      | Target      | Purpose                     |
+| --------------------------- | ----------- | --------------------------- |
+| **Code review time**        | < 24 hours  | Keeps development flowing   |
+| **PR approval rate**        | > 90%       | Indicates code quality      |
+| **Test coverage**           | > 80%       | Ensures reliability         |
+| **Deployment success rate** | > 95%       | Indicates stability         |
+| **Bug escape rate**         | < 5%        | Measures QA effectiveness   |
+| **Feature delivery rate**   | On schedule | Indicates planning accuracy |
 
 ---
 
@@ -547,15 +556,15 @@ The Lead Agent tracks these metrics for each agent:
 
 ### **Decision Authority**
 
-| Decision | Authority | Process |
-|----------|-----------|---------|
-| **Feature scope** | Lead Agent | Discusses with relevant agents |
-| **Architecture** | Lead Agent | Consults with Backend agents |
-| **Design/UX** | Lead Agent | Consults with Frontend agents |
-| **Testing strategy** | QA Agent | Consults with other agents |
-| **Deployment timing** | DevOps Agent | Coordinates with Lead Agent |
-| **Code quality standards** | Lead Agent | Enforces via PR review |
-| **Timeline adjustments** | Lead Agent | Communicates to all agents |
+| Decision                   | Authority    | Process                        |
+| -------------------------- | ------------ | ------------------------------ |
+| **Feature scope**          | Lead Agent   | Discusses with relevant agents |
+| **Architecture**           | Lead Agent   | Consults with Backend agents   |
+| **Design/UX**              | Lead Agent   | Consults with Frontend agents  |
+| **Testing strategy**       | QA Agent     | Consults with other agents     |
+| **Deployment timing**      | DevOps Agent | Coordinates with Lead Agent    |
+| **Code quality standards** | Lead Agent   | Enforces via PR review         |
+| **Timeline adjustments**   | Lead Agent   | Communicates to all agents     |
 
 ### **Escalation Scenarios**
 
@@ -612,9 +621,9 @@ When a new agent joins:
 
 ## Version History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0 | 2026-03-08 | Initial agent collaboration framework |
+| Version | Date       | Changes                               |
+| ------- | ---------- | ------------------------------------- |
+| 1.0     | 2026-03-08 | Initial agent collaboration framework |
 
 ---
 

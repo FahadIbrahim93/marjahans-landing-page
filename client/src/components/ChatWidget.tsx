@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
-import { trpc } from '@/lib/trpc';
-import { nanoid } from 'nanoid';
+import React, { useState, useEffect, useRef } from "react";
+import { MessageCircle, X, Send, Loader2 } from "lucide-react";
+import { trpc } from "@/lib/trpc";
+import { nanoid } from "nanoid";
 
 interface Message {
   id: string;
   content: string;
-  senderType: 'visitor' | 'agent' | 'system';
+  senderType: "visitor" | "agent" | "system";
   senderName?: string;
   createdAt: Date;
 }
@@ -19,11 +19,11 @@ export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [visitorId] = useState(() => nanoid());
-  const [visitorName, setVisitorName] = useState('');
-  const [visitorEmail, setVisitorEmail] = useState('');
+  const [visitorName, setVisitorName] = useState("");
+  const [visitorEmail, setVisitorEmail] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [showNameForm, setShowNameForm] = useState(true);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -45,7 +45,7 @@ export function ChatWidget() {
 
   // Auto-scroll to latest message
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   // Load messages when conversation is loaded
@@ -70,7 +70,7 @@ export function ChatWidget() {
     try {
       const result = await startConversationMutation.mutateAsync({
         visitorId,
-        visitorName: visitorName || 'Anonymous',
+        visitorName: visitorName || "Anonymous",
         visitorEmail: visitorEmail || undefined,
         cartValue: 0, // TODO: Get from cart store
         cartItems: [], // TODO: Get from cart store
@@ -82,14 +82,16 @@ export function ChatWidget() {
       // Add welcome message
       const welcomeMessage: Message = {
         id: nanoid(),
-        content: settings?.widgetSubtitle || "We're here to help! How can we assist you today?",
-        senderType: 'system',
-        senderName: 'Support',
+        content:
+          settings?.widgetSubtitle ||
+          "We're here to help! How can we assist you today?",
+        senderType: "system",
+        senderName: "Support",
         createdAt: new Date(),
       };
       setMessages([welcomeMessage]);
     } catch (error) {
-      console.error('Failed to start conversation:', error);
+      console.error("Failed to start conversation:", error);
     } finally {
       setIsLoading(false);
     }
@@ -103,20 +105,20 @@ export function ChatWidget() {
     const userMessage: Message = {
       id: nanoid(),
       content: inputValue,
-      senderType: 'visitor',
-      senderName: visitorName || 'You',
+      senderType: "visitor",
+      senderName: visitorName || "You",
       createdAt: new Date(),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
-    setInputValue('');
+    setMessages(prev => [...prev, userMessage]);
+    setInputValue("");
     setIsLoading(true);
 
     try {
       await sendMessageMutation.mutateAsync({
         conversationId,
         content: inputValue,
-        senderType: 'visitor',
+        senderType: "visitor",
         senderName: visitorName,
       });
 
@@ -124,15 +126,16 @@ export function ChatWidget() {
       setTimeout(() => {
         const agentMessage: Message = {
           id: nanoid(),
-          content: 'Thanks for your message! A team member will respond shortly.',
-          senderType: 'agent',
-          senderName: 'Support Agent',
+          content:
+            "Thanks for your message! A team member will respond shortly.",
+          senderType: "agent",
+          senderName: "Support Agent",
           createdAt: new Date(),
         };
-        setMessages((prev) => [...prev, agentMessage]);
+        setMessages(prev => [...prev, agentMessage]);
       }, 1000);
     } catch (error) {
-      console.error('Failed to send message:', error);
+      console.error("Failed to send message:", error);
     } finally {
       setIsLoading(false);
     }
@@ -144,9 +147,9 @@ export function ChatWidget() {
   };
 
   // Widget color from settings
-  const widgetColor = settings?.widgetColor || '#F59E0B';
-  const widgetPosition = settings?.widgetPosition || 'bottom-right';
-  const positionClass = widgetPosition === 'bottom-left' ? 'left-4' : 'right-4';
+  const widgetColor = settings?.widgetColor || "#F59E0B";
+  const widgetPosition = settings?.widgetPosition || "bottom-right";
+  const positionClass = widgetPosition === "bottom-left" ? "left-4" : "right-4";
 
   return (
     <>
@@ -178,8 +181,12 @@ export function ChatWidget() {
             style={{ backgroundColor: widgetColor }}
           >
             <div>
-              <h3 className="font-semibold">{settings?.widgetTitle || 'Chat with us'}</h3>
-              <p className="text-sm opacity-90">{settings?.widgetSubtitle || "We're here to help"}</p>
+              <h3 className="font-semibold">
+                {settings?.widgetTitle || "Chat with us"}
+              </h3>
+              <p className="text-sm opacity-90">
+                {settings?.widgetSubtitle || "We're here to help"}
+              </p>
             </div>
             <button
               onClick={handleClose}
@@ -194,23 +201,25 @@ export function ChatWidget() {
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
             {showNameForm ? (
               <form onSubmit={handleStartConversation} className="space-y-3">
-                <p className="text-sm text-gray-600">Please provide your details to start chatting:</p>
+                <p className="text-sm text-gray-600">
+                  Please provide your details to start chatting:
+                </p>
                 <input
                   type="text"
                   placeholder="Your name"
                   value={visitorName}
-                  onChange={(e) => setVisitorName(e.target.value)}
+                  onChange={e => setVisitorName(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2"
-                  style={{ '--tw-ring-color': widgetColor } as any}
+                  style={{ "--tw-ring-color": widgetColor } as any}
                   required
                 />
                 <input
                   type="email"
                   placeholder="Your email (optional)"
                   value={visitorEmail}
-                  onChange={(e) => setVisitorEmail(e.target.value)}
+                  onChange={e => setVisitorEmail(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2"
-                  style={{ '--tw-ring-color': widgetColor } as any}
+                  style={{ "--tw-ring-color": widgetColor } as any}
                 />
                 <button
                   type="submit"
@@ -218,31 +227,41 @@ export function ChatWidget() {
                   className="w-full py-2 rounded-lg text-white font-medium disabled:opacity-50 transition"
                   style={{ backgroundColor: widgetColor }}
                 >
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Start Chat'}
+                  {isLoading ? (
+                    <Loader2 className="w-4 h-4 animate-spin mx-auto" />
+                  ) : (
+                    "Start Chat"
+                  )}
                 </button>
               </form>
             ) : (
               <>
-                {messages.map((message) => (
+                {messages.map(message => (
                   <div
                     key={message.id}
-                    className={`flex ${message.senderType === 'visitor' ? 'justify-end' : 'justify-start'}`}
+                    className={`flex ${message.senderType === "visitor" ? "justify-end" : "justify-start"}`}
                   >
                     <div
                       className={`max-w-xs px-4 py-2 rounded-lg ${
-                        message.senderType === 'visitor'
-                          ? 'bg-blue-500 text-white rounded-br-none'
-                          : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
+                        message.senderType === "visitor"
+                          ? "bg-blue-500 text-white rounded-br-none"
+                          : "bg-white text-gray-800 border border-gray-200 rounded-bl-none"
                       }`}
                     >
-                      {message.senderType !== 'visitor' && (
-                        <p className="text-xs font-semibold mb-1" style={{ color: widgetColor }}>
+                      {message.senderType !== "visitor" && (
+                        <p
+                          className="text-xs font-semibold mb-1"
+                          style={{ color: widgetColor }}
+                        >
                           {message.senderName}
                         </p>
                       )}
                       <p className="text-sm break-words">{message.content}</p>
                       <p className="text-xs mt-1 opacity-70">
-                        {message.createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        {message.createdAt.toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </p>
                     </div>
                   </div>
@@ -254,16 +273,19 @@ export function ChatWidget() {
 
           {/* Input Area */}
           {!showNameForm && (
-            <form onSubmit={handleSendMessage} className="p-4 border-t border-gray-200 bg-white">
+            <form
+              onSubmit={handleSendMessage}
+              className="p-4 border-t border-gray-200 bg-white"
+            >
               <div className="flex gap-2">
                 <input
                   type="text"
                   placeholder="Type your message..."
                   value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
+                  onChange={e => setInputValue(e.target.value)}
                   disabled={isLoading}
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2"
-                  style={{ '--tw-ring-color': widgetColor } as any}
+                  style={{ "--tw-ring-color": widgetColor } as any}
                 />
                 <button
                   type="submit"

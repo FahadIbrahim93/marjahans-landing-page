@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { X, MessageCircle } from 'lucide-react';
-import { useCartAbandonmentDetection } from '@/hooks/useCartAbandonmentDetection';
+import React, { useState } from "react";
+import { X, MessageCircle } from "lucide-react";
+import { useCartAbandonmentDetection } from "@/hooks/useCartAbandonmentDetection";
 
 interface CartAbandonmentPromptProps {
   onChatClick?: () => void;
@@ -12,8 +12,12 @@ interface CartAbandonmentPromptProps {
  * Shows a recovery prompt when customer has items in cart but hasn't checked out
  * Encourages them to start a chat with support
  */
-export function CartAbandonmentPrompt({ onChatClick, chatColor = '#F59E0B' }: CartAbandonmentPromptProps) {
-  const { isAbandonedCart, cartValue, itemCount, resetAbandonmentState } = useCartAbandonmentDetection();
+export function CartAbandonmentPrompt({
+  onChatClick,
+  chatColor = "#F59E0B",
+}: CartAbandonmentPromptProps) {
+  const { isAbandonedCart, cartValue, itemCount, resetAbandonmentState } =
+    useCartAbandonmentDetection();
   const [isDismissed, setIsDismissed] = useState(false);
 
   if (!isAbandonedCart || isDismissed) {
@@ -31,22 +35,26 @@ export function CartAbandonmentPrompt({ onChatClick, chatColor = '#F59E0B' }: Ca
   };
 
   // Format currency
-  const formattedValue = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'BDT',
+  const formattedValue = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "BDT",
     minimumFractionDigits: 0,
   }).format(cartValue / 100);
 
   return (
     <div className="fixed bottom-4 right-4 z-30 max-w-sm animate-in slide-in-from-bottom-4 duration-300">
-      <div className="bg-white rounded-lg shadow-2xl overflow-hidden border-l-4" style={{ borderColor: chatColor }}>
+      <div
+        className="bg-white rounded-lg shadow-2xl overflow-hidden border-l-4"
+        style={{ borderColor: chatColor }}
+      >
         {/* Header */}
         <div className="p-4 bg-gradient-to-r from-gray-50 to-white">
           <div className="flex justify-between items-start gap-3">
             <div>
               <h3 className="font-semibold text-gray-900">Need Help?</h3>
               <p className="text-sm text-gray-600 mt-1">
-                You have {itemCount} item{itemCount !== 1 ? 's' : ''} in your cart worth {formattedValue}
+                You have {itemCount} item{itemCount !== 1 ? "s" : ""} in your
+                cart worth {formattedValue}
               </p>
             </div>
             <button
@@ -62,7 +70,8 @@ export function CartAbandonmentPrompt({ onChatClick, chatColor = '#F59E0B' }: Ca
         {/* Content */}
         <div className="px-4 py-3 bg-white border-t border-gray-100">
           <p className="text-sm text-gray-700 mb-4">
-            Have any questions about your order? Our support team is here to help! Chat with us to get instant answers.
+            Have any questions about your order? Our support team is here to
+            help! Chat with us to get instant answers.
           </p>
 
           {/* CTA Buttons */}

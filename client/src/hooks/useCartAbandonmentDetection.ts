@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { useCartStore } from '@/lib/cartStore';
-import { trpc } from '@/lib/trpc';
+import { useEffect, useRef, useState } from "react";
+import { useCartStore } from "@/lib/cartStore";
+import { trpc } from "@/lib/trpc";
 
 interface AbandonmentConfig {
   delay?: number; // milliseconds before showing abandonment prompt
@@ -19,8 +19,8 @@ export function useCartAbandonmentDetection(config: AbandonmentConfig = {}) {
     enabled = true,
   } = config;
 
-  const cartItems = useCartStore((state) => state.items);
-  const cartTotal = useCartStore((state) => state.getTotalPrice());
+  const cartItems = useCartStore(state => state.items);
+  const cartTotal = useCartStore(state => state.getTotalPrice());
   const [hasShownPrompt, setHasShownPrompt] = useState(false);
   const [isAbandonedCart, setIsAbandonedCart] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -53,7 +53,7 @@ export function useCartAbandonmentDetection(config: AbandonmentConfig = {}) {
         setHasShownPrompt(true);
 
         // Trigger analytics event
-        console.log('[Abandonment] Cart abandoned detected', {
+        console.log("[Abandonment] Cart abandoned detected", {
           cartValue: cartTotal,
           itemCount: cartItems.length,
           timestamp: new Date().toISOString(),
@@ -70,7 +70,15 @@ export function useCartAbandonmentDetection(config: AbandonmentConfig = {}) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [cartItems, cartTotal, enabled, chatSettings, minCartValue, hasShownPrompt, delay]);
+  }, [
+    cartItems,
+    cartTotal,
+    enabled,
+    chatSettings,
+    minCartValue,
+    hasShownPrompt,
+    delay,
+  ]);
 
   // Reset abandonment state when cart is updated
   const resetAbandonmentState = () => {

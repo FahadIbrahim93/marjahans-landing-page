@@ -35,9 +35,11 @@ main (production-ready)
 All branches must follow strict naming conventions to enable automated tooling and clear communication:
 
 ### **Feature Branches**
+
 Format: `feature/{feature-name}`
 
 Examples:
+
 - `feature/product-catalog` - Core product listing and management
 - `feature/dynamic-pricing-engine` - Jewelry pricing logic
 - `feature/facebook-shop-sync` - Meta integration
@@ -47,45 +49,55 @@ Examples:
 - `feature/inventory-management` - Stock tracking system
 
 **Rules:**
+
 - Use lowercase letters and hyphens only
 - Maximum 50 characters
 - Be descriptive but concise
 - One feature per branch
 
 ### **Bugfix Branches**
+
 Format: `bugfix/{issue-number}-{description}`
 
 Examples:
+
 - `bugfix/123-checkout-validation`
 - `bugfix/456-inventory-sync-delay`
 - `bugfix/789-payment-gateway-timeout`
 
 **Rules:**
+
 - Reference the GitHub issue number
 - Include brief description
 - Use lowercase letters and hyphens
 
 ### **Experimental/Research Branches**
+
 Format: `experimental/{feature-name}`
 
 Examples:
+
 - `experimental/ar-jewelry-tryon`
 - `experimental/ml-personalization`
 - `experimental/voice-commerce`
 
 **Rules:**
+
 - Use for POCs and research
 - Can be deleted after evaluation
 - Do not merge to main without review
 
 ### **Hotfix Branches**
+
 Format: `hotfix/{issue-number}-{description}`
 
 Examples:
+
 - `hotfix/critical-payment-bug`
 - `hotfix/security-vulnerability`
 
 **Rules:**
+
 - Only for critical production issues
 - Branch from `main`
 - Merge back to both `main` and `staging`
@@ -115,6 +127,7 @@ git branch -v
 While developing, follow these practices:
 
 **Commit Frequently with Clear Messages**
+
 ```bash
 # Good commit messages
 git commit -m "feat: add product variant selector component"
@@ -126,6 +139,7 @@ git commit -m "docs: update product schema documentation"
 ```
 
 **Keep Branch Updated**
+
 ```bash
 # Regularly sync with staging to avoid conflicts
 git fetch origin
@@ -139,6 +153,7 @@ git rebase --continue
 ```
 
 **Push Changes Regularly**
+
 ```bash
 # Push to remote branch (creates backup)
 git push origin feature/your-feature-name
@@ -185,26 +200,33 @@ gh pr create --base staging --title "feat: add product catalog system"
 **PR Title Format:** `{type}({scope}): {description}`
 
 Examples:
+
 - `feat(products): add dynamic pricing engine`
 - `fix(checkout): resolve payment validation bug`
 - `docs(api): update tRPC procedure documentation`
 
 **PR Description Template:**
+
 ```markdown
 ## Description
+
 Brief explanation of what this PR does and why.
 
 ## Changes
+
 - Change 1
 - Change 2
 - Change 3
 
 ## Testing
+
 How to test these changes:
+
 1. Step 1
 2. Step 2
 
 ## Checklist
+
 - [ ] Tests pass locally
 - [ ] No linting errors
 - [ ] Documentation updated
@@ -289,6 +311,7 @@ Potential conflicts when merging
 ```
 
 **Conflict Resolution:**
+
 1. Agent A merges first to staging
 2. Agent B rebases on updated staging
 3. Agent B resolves conflicts locally
@@ -320,6 +343,7 @@ Execution:
 When merge conflicts occur:
 
 ### **Automatic Conflicts (Git handles)**
+
 ```bash
 # Rebase to get latest staging
 git fetch origin
@@ -351,21 +375,22 @@ If two agents modify the same feature differently:
 
 The `main` and `staging` branches have protection rules:
 
-| Rule | Requirement |
-|------|-------------|
-| **Require pull request reviews** | Minimum 1 approval required |
-| **Require status checks** | All CI/CD checks must pass |
-| **Require branches up to date** | Must be rebased on latest main/staging |
-| **Require code review from owner** | Lead agent must approve |
-| **Dismiss stale reviews** | Reviews reset if new commits pushed |
-| **Restrict who can push** | Only lead agent can push directly |
-| **Require conversation resolution** | All review comments must be resolved |
+| Rule                                | Requirement                            |
+| ----------------------------------- | -------------------------------------- |
+| **Require pull request reviews**    | Minimum 1 approval required            |
+| **Require status checks**           | All CI/CD checks must pass             |
+| **Require branches up to date**     | Must be rebased on latest main/staging |
+| **Require code review from owner**  | Lead agent must approve                |
+| **Dismiss stale reviews**           | Reviews reset if new commits pushed    |
+| **Restrict who can push**           | Only lead agent can push directly      |
+| **Require conversation resolution** | All review comments must be resolved   |
 
 ---
 
 ## Integration Checkpoints
 
 ### **Daily Sync**
+
 Each agent should sync their branch with staging daily:
 
 ```bash
@@ -377,6 +402,7 @@ git push origin feature/your-feature-name --force-with-lease
 This prevents large conflicts at merge time.
 
 ### **Weekly Integration**
+
 Every Friday, the lead agent:
 
 1. Reviews all open PRs
@@ -386,6 +412,7 @@ Every Friday, the lead agent:
 5. Ensures all agents rebase on updated staging
 
 ### **Bi-Weekly Release**
+
 Every two weeks:
 
 1. Feature freeze - no new features merged
@@ -411,19 +438,20 @@ All commits must follow the Conventional Commits format:
 
 ### **Types**
 
-| Type | Purpose | Example |
-|------|---------|---------|
-| `feat` | New feature | `feat(pricing): add dynamic pricing engine` |
-| `fix` | Bug fix | `fix(checkout): resolve payment validation` |
-| `docs` | Documentation | `docs(api): update tRPC procedures` |
-| `style` | Code style | `style: format product component` |
-| `refactor` | Code refactor | `refactor(db): optimize query performance` |
-| `test` | Test changes | `test(pricing): add pricing formula tests` |
-| `chore` | Build/config | `chore: update dependencies` |
+| Type       | Purpose       | Example                                     |
+| ---------- | ------------- | ------------------------------------------- |
+| `feat`     | New feature   | `feat(pricing): add dynamic pricing engine` |
+| `fix`      | Bug fix       | `fix(checkout): resolve payment validation` |
+| `docs`     | Documentation | `docs(api): update tRPC procedures`         |
+| `style`    | Code style    | `style: format product component`           |
+| `refactor` | Code refactor | `refactor(db): optimize query performance`  |
+| `test`     | Test changes  | `test(pricing): add pricing formula tests`  |
+| `chore`    | Build/config  | `chore: update dependencies`                |
 
 ### **Scope**
 
 Specify the component or module affected:
+
 - `pricing` - Pricing engine
 - `products` - Product catalog
 - `inventory` - Inventory management
@@ -555,13 +583,13 @@ git push origin feature/branch-name --force-with-lease
 
 The lead agent tracks:
 
-| Metric | Target | Purpose |
-|--------|--------|---------|
-| **Merge frequency** | 2-3 per week | Ensures regular integration |
-| **PR review time** | < 24 hours | Keeps development flowing |
-| **Conflict rate** | < 10% | Indicates coordination issues |
-| **Test pass rate** | 100% | Ensures code quality |
-| **Deployment frequency** | Bi-weekly | Regular releases |
+| Metric                   | Target       | Purpose                       |
+| ------------------------ | ------------ | ----------------------------- |
+| **Merge frequency**      | 2-3 per week | Ensures regular integration   |
+| **PR review time**       | < 24 hours   | Keeps development flowing     |
+| **Conflict rate**        | < 10%        | Indicates coordination issues |
+| **Test pass rate**       | 100%         | Ensures code quality          |
+| **Deployment frequency** | Bi-weekly    | Regular releases              |
 
 ---
 
@@ -624,9 +652,9 @@ For questions about the branching strategy:
 
 ## Version History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0 | 2026-03-08 | Initial branching strategy |
+| Version | Date       | Changes                    |
+| ------- | ---------- | -------------------------- |
+| 1.0     | 2026-03-08 | Initial branching strategy |
 
 ---
 

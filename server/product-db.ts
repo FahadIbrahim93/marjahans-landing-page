@@ -1,6 +1,14 @@
 import { eq, and, like, inArray, desc, asc } from "drizzle-orm";
 import { getDb } from "./db";
-import { categories, products, productImages, productVariants, productReviews, orders, wishlistItems } from "../drizzle/schema";
+import {
+  categories,
+  products,
+  productImages,
+  productVariants,
+  productReviews,
+  orders,
+  wishlistItems,
+} from "../drizzle/schema";
 
 /**
  * Product Database Helpers
@@ -45,16 +53,17 @@ export async function getProducts(filters?: {
   const db = await getDb();
   if (!db) return [];
 
-  let query: any = db.select().from(products).where(eq(products.isActive, true));
+  let query: any = db
+    .select()
+    .from(products)
+    .where(eq(products.isActive, true));
 
   if (filters?.categoryId) {
     query = query.where(eq(products.categoryId, filters.categoryId));
   }
 
   if (filters?.search) {
-    query = query.where(
-      like(products.name, `%${filters.search}%`)
-    );
+    query = query.where(like(products.name, `%${filters.search}%`));
   }
 
   if (filters?.featured) {
@@ -104,10 +113,7 @@ export async function getProductsByIds(ids: number[]) {
   const db = await getDb();
   if (!db) return [];
 
-  return await db
-    .select()
-    .from(products)
-    .where(inArray(products.id, ids));
+  return await db.select().from(products).where(inArray(products.id, ids));
 }
 
 // ============ PRODUCT IMAGES ============
@@ -132,10 +138,12 @@ export async function getProductVariants(productId: number) {
   return await db
     .select()
     .from(productVariants)
-    .where(and(
-      eq(productVariants.productId, productId),
-      eq(productVariants.isActive, true)
-    ));
+    .where(
+      and(
+        eq(productVariants.productId, productId),
+        eq(productVariants.isActive, true)
+      )
+    );
 }
 
 export async function getProductVariantById(id: number) {
@@ -160,10 +168,12 @@ export async function getProductReviews(productId: number, limit = 10) {
   return await db
     .select()
     .from(productReviews)
-    .where(and(
-      eq(productReviews.productId, productId),
-      eq(productReviews.isApproved, true)
-    ))
+    .where(
+      and(
+        eq(productReviews.productId, productId),
+        eq(productReviews.isApproved, true)
+      )
+    )
     .orderBy(desc(productReviews.createdAt))
     .limit(limit);
 }
@@ -235,12 +245,16 @@ export async function getOrdersByEmail(email: string) {
     .orderBy(desc(orders.createdAt));
 }
 
-
-
 export async function updateOrderPaymentStatusByIntent(params: {
   stripePaymentIntentId: string;
   paymentStatus: "pending" | "completed" | "failed" | "refunded";
-  status?: "pending" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
+  status?:
+    | "pending"
+    | "processing"
+    | "shipped"
+    | "delivered"
+    | "cancelled"
+    | "refunded";
 }) {
   const db = await getDb();
   if (!db) return false;
@@ -269,7 +283,11 @@ export async function updateOrderPaymentStatusByIntent(params: {
 
 // ============ WISHLIST ============
 
-export async function addToWishlist(productId: number, visitorId?: string, userId?: number) {
+export async function addToWishlist(
+  productId: number,
+  visitorId?: string,
+  userId?: number
+) {
   const db = await getDb();
   if (!db) return false;
 
@@ -286,18 +304,24 @@ export async function addToWishlist(productId: number, visitorId?: string, userI
   }
 }
 
-export async function removeFromWishlist(productId: number, visitorId?: string, userId?: number) {
+export async function removeFromWishlist(
+  productId: number,
+  visitorId?: string,
+  userId?: number
+) {
   const db = await getDb();
   if (!db) return false;
 
   try {
-    await db.delete(wishlistItems).where(
-      and(
-        eq(wishlistItems.productId, productId),
-        visitorId ? eq(wishlistItems.visitorId, visitorId) : undefined,
-        userId ? eq(wishlistItems.userId, userId) : undefined
-      )
-    );
+    await db
+      .delete(wishlistItems)
+      .where(
+        and(
+          eq(wishlistItems.productId, productId),
+          visitorId ? eq(wishlistItems.visitorId, visitorId) : undefined,
+          userId ? eq(wishlistItems.userId, userId) : undefined
+        )
+      );
     return true;
   } catch (error) {
     console.error("[Database] Failed to remove from wishlist:", error);
@@ -320,7 +344,11 @@ export async function getWishlistItems(visitorId?: string, userId?: number) {
   return await query;
 }
 
-export async function isInWishlist(productId: number, visitorId?: string, userId?: number): Promise<boolean> {
+export async function isInWishlist(
+  productId: number,
+  visitorId?: string,
+  userId?: number
+): Promise<boolean> {
   const db = await getDb();
   if (!db) return false;
 

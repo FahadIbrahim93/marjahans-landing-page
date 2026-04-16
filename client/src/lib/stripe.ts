@@ -1,7 +1,7 @@
 /**
  * Stripe Integration Helper
  * Handles payment processing for jewelry e-commerce
- * 
+ *
  * Setup required:
  * 1. Create Stripe account at https://stripe.com
  * 2. Get publishable key from Stripe Dashboard
@@ -29,17 +29,17 @@ export async function initializeStripe() {
   const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 
   if (!publishableKey) {
-    console.error('[Stripe] Publishable key not configured');
+    console.error("[Stripe] Publishable key not configured");
     return null;
   }
 
   // Load Stripe.js
-  const script = document.createElement('script');
-  script.src = 'https://js.stripe.com/v3/';
+  const script = document.createElement("script");
+  script.src = "https://js.stripe.com/v3/";
   script.async = true;
   document.head.appendChild(script);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     script.onload = () => {
       const stripe = (window as any).Stripe(publishableKey);
       resolve(stripe);
@@ -55,10 +55,10 @@ export async function createPaymentIntent(
   customerEmail: string
 ): Promise<CheckoutSession | null> {
   try {
-    const response = await fetch('/api/stripe/create-payment-intent', {
-      method: 'POST',
+    const response = await fetch("/api/stripe/create-payment-intent", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         items,
@@ -76,7 +76,7 @@ export async function createPaymentIntent(
       publishableKey: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY,
     };
   } catch (error) {
-    console.error('[Stripe] Payment intent creation error:', error);
+    console.error("[Stripe] Payment intent creation error:", error);
     return null;
   }
 }
@@ -99,13 +99,13 @@ export async function confirmPayment(
     });
 
     if (result.error) {
-      console.error('[Stripe] Payment error:', result.error.message);
+      console.error("[Stripe] Payment error:", result.error.message);
       return { success: false, error: result.error.message };
     }
 
     return { success: true };
   } catch (error) {
-    console.error('[Stripe] Confirmation error:', error);
+    console.error("[Stripe] Confirmation error:", error);
     return { success: false, error: String(error) };
   }
 }
@@ -115,11 +115,13 @@ export async function confirmPayment(
  */
 export async function retrievePaymentStatus(clientSecret: string) {
   try {
-    const response = await fetch(`/api/stripe/payment-status?clientSecret=${clientSecret}`);
+    const response = await fetch(
+      `/api/stripe/payment-status?clientSecret=${clientSecret}`
+    );
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('[Stripe] Status retrieval error:', error);
+    console.error("[Stripe] Status retrieval error:", error);
     return null;
   }
 }
@@ -127,8 +129,15 @@ export async function retrievePaymentStatus(clientSecret: string) {
 /**
  * Calculate total with tax and shipping
  */
-export function calculateTotal(items: CheckoutItem[], taxRate = 0.15, shippingCost = 0) {
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+export function calculateTotal(
+  items: CheckoutItem[],
+  taxRate = 0.15,
+  shippingCost = 0
+) {
+  const subtotal = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
   const tax = subtotal * taxRate;
   const total = subtotal + tax + shippingCost;
 
@@ -143,9 +152,9 @@ export function calculateTotal(items: CheckoutItem[], taxRate = 0.15, shippingCo
 /**
  * Format currency for display
  */
-export function formatCurrency(amount: number, currency = 'BDT') {
-  return new Intl.NumberFormat('en-BD', {
-    style: 'currency',
+export function formatCurrency(amount: number, currency = "BDT") {
+  return new Intl.NumberFormat("en-BD", {
+    style: "currency",
     currency,
   }).format(amount);
 }
@@ -162,19 +171,19 @@ export function validatePaymentForm(formData: {
   const errors: Record<string, string> = {};
 
   if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-    errors.email = 'Valid email is required';
+    errors.email = "Valid email is required";
   }
 
   if (!formData.name || formData.name.trim().length < 2) {
-    errors.name = 'Name is required';
+    errors.name = "Name is required";
   }
 
   if (!formData.phone || !/^\+?[\d\s\-()]{10,}$/.test(formData.phone)) {
-    errors.phone = 'Valid phone number is required';
+    errors.phone = "Valid phone number is required";
   }
 
   if (!formData.address || formData.address.trim().length < 5) {
-    errors.address = 'Valid address is required';
+    errors.address = "Valid address is required";
   }
 
   return {

@@ -27,6 +27,7 @@ Unit tests verify the behavior of individual functions, utilities, and component
 **Coverage Target:** 100% for utilities, hooks, and state management
 
 **Examples:**
+
 - Testing utility functions like `formatPrice()` or `calculateDiscount()`
 - Testing Zustand store mutations and selectors
 - Testing custom React hooks with `renderHook()`
@@ -40,6 +41,7 @@ Integration tests verify that multiple components work together correctly. They 
 **Coverage Target:** 100% for API procedures and database helpers
 
 **Examples:**
+
 - Testing tRPC procedures with database operations
 - Testing chat router with message creation and retrieval
 - Testing product sync with database updates
@@ -53,6 +55,7 @@ Component tests verify that React components render correctly and respond to use
 **Coverage Target:** 80% for UI components
 
 **Examples:**
+
 - Testing that a component renders with correct props
 - Testing user interactions (clicks, form submissions)
 - Testing conditional rendering based on state
@@ -67,6 +70,7 @@ End-to-end tests verify complete user workflows from start to finish. These are 
 **Coverage Target:** 80% for critical user flows
 
 **Examples:**
+
 - Complete product purchase flow
 - Chat conversation from start to resolution
 - User registration and login
@@ -75,15 +79,15 @@ End-to-end tests verify complete user workflows from start to finish. These are 
 
 ## Coverage Requirements by Code Type
 
-| Code Type | Test Type | Coverage Target | Examples |
-|-----------|-----------|-----------------|----------|
-| API Procedures | Integration | 100% | product-router.test.ts |
-| Database Helpers | Unit | 100% | product-db.test.ts |
-| State Management | Unit | 100% | cartStore.test.ts |
-| Utilities | Unit | 100% | formatPrice.test.ts |
-| React Components | Component | 80% | ProductCard.test.tsx |
-| Pages | Integration | 80% | ProductListing.test.tsx |
-| Custom Hooks | Unit | 100% | useProductFilters.test.ts |
+| Code Type        | Test Type   | Coverage Target | Examples                  |
+| ---------------- | ----------- | --------------- | ------------------------- |
+| API Procedures   | Integration | 100%            | product-router.test.ts    |
+| Database Helpers | Unit        | 100%            | product-db.test.ts        |
+| State Management | Unit        | 100%            | cartStore.test.ts         |
+| Utilities        | Unit        | 100%            | formatPrice.test.ts       |
+| React Components | Component   | 80%             | ProductCard.test.tsx      |
+| Pages            | Integration | 80%             | ProductListing.test.tsx   |
+| Custom Hooks     | Unit        | 100%            | useProductFilters.test.ts |
 
 ## Setting Up Tests
 
@@ -96,12 +100,12 @@ Tests are configured with Vitest and React Testing Library. Dependencies are alr
 The testing configuration is in `vitest.config.ts`:
 
 ```typescript
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     globals: true,
-    environment: 'jsdom',
+    environment: "jsdom",
     setupFiles: [],
   },
 });
@@ -133,9 +137,9 @@ pnpm test --grep "cart"
 Follow this structure for all tests:
 
 ```typescript
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 
-describe('Feature Name', () => {
+describe("Feature Name", () => {
   // Setup
   beforeEach(() => {
     // Initialize test data
@@ -147,9 +151,11 @@ describe('Feature Name', () => {
   });
 
   // Test cases
-  it('should do something specific', () => {
+  it("should do something specific", () => {
     // Arrange - set up test data
-    const input = { /* ... */ };
+    const input = {
+      /* ... */
+    };
 
     // Act - call the function being tested
     const result = functionUnderTest(input);
@@ -166,22 +172,22 @@ Write descriptive test names that clearly describe the behavior being tested:
 
 ```typescript
 // ✓ Good - describes the behavior
-it('should add item to cart and update total price', () => {
+it("should add item to cart and update total price", () => {
   // ...
 });
 
 // ✗ Bad - vague and doesn't describe behavior
-it('should work correctly', () => {
+it("should work correctly", () => {
   // ...
 });
 
 // ✓ Good - describes edge case
-it('should throw error when price is negative', () => {
+it("should throw error when price is negative", () => {
   // ...
 });
 
 // ✗ Bad - doesn't describe the scenario
-it('should handle invalid input', () => {
+it("should handle invalid input", () => {
   // ...
 });
 ```
@@ -191,7 +197,7 @@ it('should handle invalid input', () => {
 #### Testing Async Functions
 
 ```typescript
-it('should fetch products from API', async () => {
+it("should fetch products from API", async () => {
   const result = await fetchProducts();
   expect(result).toHaveLength(10);
 });
@@ -200,20 +206,20 @@ it('should fetch products from API', async () => {
 #### Testing Error Cases
 
 ```typescript
-it('should throw error when product not found', async () => {
-  await expect(getProduct(999)).rejects.toThrow('Product not found');
+it("should throw error when product not found", async () => {
+  await expect(getProduct(999)).rejects.toThrow("Product not found");
 });
 ```
 
 #### Testing with Mocks
 
 ```typescript
-import { vi } from 'vitest';
+import { vi } from "vitest";
 
-it('should call API with correct parameters', async () => {
+it("should call API with correct parameters", async () => {
   const mockFetch = vi.fn().mockResolvedValue({ data: [] });
   await fetchData(mockFetch);
-  expect(mockFetch).toHaveBeenCalledWith('/api/data');
+  expect(mockFetch).toHaveBeenCalledWith("/api/data");
 });
 ```
 
@@ -279,11 +285,11 @@ it('should render with different product variants', () => {
 ### Testing Custom Hooks
 
 ```typescript
-import { renderHook, act } from '@testing-library/react';
-import { useProductFilters } from './useProductFilters';
+import { renderHook, act } from "@testing-library/react";
+import { useProductFilters } from "./useProductFilters";
 
-describe('useProductFilters', () => {
-  it('should initialize with default filters', () => {
+describe("useProductFilters", () => {
+  it("should initialize with default filters", () => {
     const { result } = renderHook(() => useProductFilters());
 
     expect(result.current.filters).toEqual({
@@ -293,14 +299,14 @@ describe('useProductFilters', () => {
     });
   });
 
-  it('should update filters when setFilters is called', () => {
+  it("should update filters when setFilters is called", () => {
     const { result } = renderHook(() => useProductFilters());
 
     act(() => {
-      result.current.setFilters({ category: 'rings' });
+      result.current.setFilters({ category: "rings" });
     });
 
-    expect(result.current.filters.category).toBe('rings');
+    expect(result.current.filters.category).toBe("rings");
   });
 });
 ```
@@ -308,32 +314,37 @@ describe('useProductFilters', () => {
 ### Testing State Management (Zustand)
 
 ```typescript
-import { renderHook, act } from '@testing-library/react';
-import { useCartStore } from './cartStore';
+import { renderHook, act } from "@testing-library/react";
+import { useCartStore } from "./cartStore";
 
-describe('useCartStore', () => {
+describe("useCartStore", () => {
   beforeEach(() => {
     // Reset store before each test
     useCartStore.setState({ items: [] });
   });
 
-  it('should add item to cart', () => {
+  it("should add item to cart", () => {
     const { result } = renderHook(() => useCartStore());
 
     act(() => {
-      result.current.addItem({ id: 1, name: 'Ring', price: 5000 });
+      result.current.addItem({ id: 1, name: "Ring", price: 5000 });
     });
 
     expect(result.current.items).toHaveLength(1);
     expect(result.current.items[0].id).toBe(1);
   });
 
-  it('should calculate total price correctly', () => {
+  it("should calculate total price correctly", () => {
     const { result } = renderHook(() => useCartStore());
 
     act(() => {
-      result.current.addItem({ id: 1, name: 'Ring', price: 5000, quantity: 2 });
-      result.current.addItem({ id: 2, name: 'Necklace', price: 3000, quantity: 1 });
+      result.current.addItem({ id: 1, name: "Ring", price: 5000, quantity: 2 });
+      result.current.addItem({
+        id: 2,
+        name: "Necklace",
+        price: 3000,
+        quantity: 1,
+      });
     });
 
     expect(result.current.totalPrice).toBe(13000);
@@ -344,10 +355,10 @@ describe('useCartStore', () => {
 ### Testing API Procedures (tRPC)
 
 ```typescript
-import { describe, it, expect, beforeEach } from 'vitest';
-import { appRouter } from '../routers';
+import { describe, it, expect, beforeEach } from "vitest";
+import { appRouter } from "../routers";
 
-describe('productRouter', () => {
+describe("productRouter", () => {
   let caller: ReturnType<typeof appRouter.createCaller>;
 
   beforeEach(() => {
@@ -358,20 +369,18 @@ describe('productRouter', () => {
     });
   });
 
-  it('should fetch products with filters', async () => {
+  it("should fetch products with filters", async () => {
     const result = await caller.products.getProducts({
-      category: 'rings',
+      category: "rings",
       limit: 10,
     });
 
     expect(result).toHaveLength(10);
-    expect(result[0].category).toBe('rings');
+    expect(result[0].category).toBe("rings");
   });
 
-  it('should throw error for invalid input', async () => {
-    await expect(
-      caller.products.getProducts({ limit: -1 })
-    ).rejects.toThrow();
+  it("should throw error for invalid input", async () => {
+    await expect(caller.products.getProducts({ limit: -1 })).rejects.toThrow();
   });
 });
 ```
@@ -410,18 +419,18 @@ Create reusable test data in fixture files:
 // fixtures/products.ts
 export const mockProduct = {
   id: 1,
-  name: 'Gold Ring',
-  description: 'Beautiful gold ring',
+  name: "Gold Ring",
+  description: "Beautiful gold ring",
   price: 5000,
-  category: 'rings',
-  material: 'Gold',
+  category: "rings",
+  material: "Gold",
   stock: 10,
 };
 
 export const mockProducts = [
   mockProduct,
-  { ...mockProduct, id: 2, name: 'Silver Ring' },
-  { ...mockProduct, id: 3, name: 'Diamond Ring' },
+  { ...mockProduct, id: 2, name: "Silver Ring" },
+  { ...mockProduct, id: 3, name: "Diamond Ring" },
 ];
 ```
 
@@ -443,7 +452,7 @@ describe('ProductCard', () => {
 ### Mocking Functions
 
 ```typescript
-import { vi } from 'vitest';
+import { vi } from "vitest";
 
 const mockFetch = vi.fn();
 mockFetch.mockResolvedValue({ data: [] });
@@ -455,9 +464,9 @@ expect(mockFetch).toHaveBeenCalled();
 ### Mocking Modules
 
 ```typescript
-import { vi } from 'vitest';
+import { vi } from "vitest";
 
-vi.mock('../api', () => ({
+vi.mock("../api", () => ({
   fetchProducts: vi.fn().mockResolvedValue([]),
 }));
 ```
@@ -483,6 +492,7 @@ pnpm test --coverage
 ```
 
 This generates a coverage report showing:
+
 - Line coverage - Percentage of lines executed
 - Branch coverage - Percentage of conditional branches tested
 - Function coverage - Percentage of functions called
@@ -496,14 +506,14 @@ This generates a coverage report showing:
 
 ### Coverage Goals
 
-| Code Type | Target |
-|-----------|--------|
-| Critical business logic | 100% |
-| API procedures | 100% |
-| Database helpers | 100% |
-| Utilities | 100% |
-| React components | 80% |
-| Pages | 80% |
+| Code Type               | Target |
+| ----------------------- | ------ |
+| Critical business logic | 100%   |
+| API procedures          | 100%   |
+| Database helpers        | 100%   |
+| Utilities               | 100%   |
+| React components        | 80%    |
+| Pages                   | 80%    |
 
 ## Continuous Integration
 
@@ -520,8 +530,8 @@ jobs:
       - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '22'
-          cache: 'pnpm'
+          node-version: "22"
+          cache: "pnpm"
       - run: pnpm install
       - run: pnpm test
       - run: pnpm test --coverage
@@ -532,9 +542,9 @@ jobs:
 ### Using Console Logs
 
 ```typescript
-it('should work correctly', () => {
+it("should work correctly", () => {
   const result = functionUnderTest();
-  console.log('Result:', result); // Will appear in test output
+  console.log("Result:", result); // Will appear in test output
   expect(result).toBe(expected);
 });
 ```
@@ -572,7 +582,7 @@ pnpm test --watch
 ### Testing Async Operations
 
 ```typescript
-it('should handle async operations', async () => {
+it("should handle async operations", async () => {
   const result = await asyncFunction();
   expect(result).toBeDefined();
 });
@@ -581,8 +591,8 @@ it('should handle async operations', async () => {
 ### Testing Error Handling
 
 ```typescript
-it('should handle errors gracefully', async () => {
-  await expect(functionThatThrows()).rejects.toThrow('Error message');
+it("should handle errors gracefully", async () => {
+  await expect(functionThatThrows()).rejects.toThrow("Error message");
 });
 ```
 
@@ -604,13 +614,13 @@ it('should show content when loaded', () => {
 
 ### Common Issues
 
-| Issue | Solution |
-|-------|----------|
-| Tests timeout | Increase timeout: `it('...', async () => {...}, 10000)` |
-| Module not found | Check import paths and mock setup |
-| State not updating | Use `act()` wrapper for state updates |
-| Async test fails | Add `await` and `async` keyword |
-| Component not rendering | Check props and context providers |
+| Issue                   | Solution                                                |
+| ----------------------- | ------------------------------------------------------- |
+| Tests timeout           | Increase timeout: `it('...', async () => {...}, 10000)` |
+| Module not found        | Check import paths and mock setup                       |
+| State not updating      | Use `act()` wrapper for state updates                   |
+| Async test fails        | Add `await` and `async` keyword                         |
+| Component not rendering | Check props and context providers                       |
 
 ## Resources
 

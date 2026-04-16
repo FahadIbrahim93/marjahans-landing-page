@@ -27,6 +27,7 @@ Use this format:
 `<agent-tag>/<scope>/<short-description>`
 
 Examples:
+
 - `codex/feat/hero-animation-tuning`
 - `codex/fix/chat-error-shape`
 - `codex/docs/testing-alignment`
@@ -62,6 +63,7 @@ Every PR from a secondary contributor must include:
 
 ```md
 ## Handoff to Manus (HEAD ADMIN)
+
 - Primary objective completed:
 - What changed:
 - Validation performed:
@@ -69,4 +71,3 @@ Every PR from a secondary contributor must include:
 - Rollback approach:
 - Recommended merge order (if dependent PRs exist):
 ```
-

@@ -34,7 +34,10 @@ export const getLoginUrl = () => {
 
     return url.toString();
   } catch (error) {
-    console.warn("[Auth] Failed to construct login URL. Falling back to home route.", error);
+    console.warn(
+      "[Auth] Failed to construct login URL. Falling back to home route.",
+      error
+    );
     return FALLBACK_LOGIN_PATH;
   }
 };

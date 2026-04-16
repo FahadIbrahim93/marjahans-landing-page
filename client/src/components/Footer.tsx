@@ -1,3 +1,5 @@
+import { Link } from "wouter";
+
 export function Footer() {
   return (
     <footer className="bg-card/50 border-t border-white/5 py-16 px-6 cinematic-surface">
@@ -6,42 +8,61 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-amber-400 rounded-full" />
-              <h3 className="text-lg font-bold text-white tracking-widest">MARJAHAN'S</h3>
+              <h3 className="text-lg font-bold text-white tracking-widest">
+                MARJAHAN'S
+              </h3>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Established in 1994. The definitive digital vault for luxury jewelry in Dhaka.
+              Established in 1994. The definitive digital vault for luxury
+              jewelry in Dhaka.
             </p>
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-white font-bold uppercase tracking-widest text-sm">Collections</h4>
+            <h4 className="text-white font-bold uppercase tracking-widest text-sm">
+              Collections
+            </h4>
             <ul className="space-y-2">
-              {['Rings', 'Necklaces', 'Bracelets', 'Earrings'].map((item) => (
+              {["Rings", "Necklaces", "Bracelets", "Earrings"].map(item => (
                 <li key={item}>
-                  <a href="#" className="text-slate-400 text-sm hover:text-amber-400 transition-colors">
+                  <Link
+                    href="/products"
+                    className="text-slate-400 text-sm hover:text-amber-400 transition-colors"
+                  >
                     {item}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-white font-bold uppercase tracking-widest text-sm">Support</h4>
+            <h4 className="text-white font-bold uppercase tracking-widest text-sm">
+              Support
+            </h4>
             <ul className="space-y-2">
-              {['Contact Us', 'Shipping Info', 'Returns', 'Care Guide'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-slate-400 text-sm hover:text-amber-400 transition-colors">
-                    {item}
-                  </a>
-                </li>
-              ))}
+              {["Contact Us", "Shipping Info", "Returns", "Care Guide"].map(
+                item => (
+                  <li key={item}>
+                    <Link
+                      href={item === "Contact Us" ? "/" : "#"}
+                      className="text-slate-400 text-sm hover:text-amber-400 transition-colors"
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-white font-bold uppercase tracking-widest text-sm">Newsletter</h4>
-            <p className="text-slate-400 text-sm">Subscribe for exclusive offers and new collections</p>
+            <h4 className="text-white font-bold uppercase tracking-widest text-sm">
+              Newsletter
+            </h4>
+            <p className="text-slate-400 text-sm">
+              Subscribe for exclusive offers and new collections
+            </p>
             <div className="flex gap-2">
               <input
                 type="email"
@@ -60,7 +81,7 @@ export function Footer() {
             © 2026 Marjahan's • Est. 1994 • Dhaka Heritage
           </p>
           <div className="flex gap-6">
-            {['Instagram', 'Facebook', 'Pinterest'].map((social) => (
+            {["Instagram", "Facebook", "Pinterest"].map(social => (
               <a
                 key={social}
                 href="#"

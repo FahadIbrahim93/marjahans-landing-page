@@ -48,12 +48,14 @@ marjahans-landing-page/
 ### Initial Setup
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/Hopetheory99/MARJAHANS-Jewellary-E-Com.git
    cd MARJAHANS-Jewellary-E-Com
    ```
 
 2. **Install dependencies:**
+
    ```bash
    pnpm install
    ```
@@ -66,9 +68,11 @@ marjahans-landing-page/
    - Other API credentials
 
 4. **Set up the database:**
+
    ```bash
    pnpm db:push
    ```
+
    This command generates migrations and applies them to your database.
 
 5. **Start the development server:**
@@ -82,9 +86,11 @@ marjahans-landing-page/
 ### Feature Development Process
 
 1. **Create a feature branch** from `main`:
+
    ```bash
    git checkout -b feature/feature-name
    ```
+
    Use descriptive branch names following the pattern: `feature/`, `fix/`, `docs/`, `test/`, `chore/`
 
 2. **Implement the feature** following the guidelines in CONTRIBUTING.md
@@ -96,12 +102,15 @@ marjahans-landing-page/
    - See TESTING.md for detailed testing guidelines
 
 4. **Run tests locally:**
+
    ```bash
    pnpm test
    ```
+
    Ensure all tests pass before submitting a pull request.
 
 5. **Format and lint your code:**
+
    ```bash
    pnpm format
    ```
@@ -128,9 +137,10 @@ When modifying the database schema:
 ### Adding New API Procedures
 
 1. **Create or update a router** in `server/routers/`:
+
    ```typescript
    import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
-   
+
    export const featureRouter = router({
      list: publicProcedure.query(async ({ ctx }) => {
        // Implementation
@@ -142,6 +152,7 @@ When modifying the database schema:
    ```
 
 2. **Add the router to `server/routers.ts`:**
+
    ```typescript
    export const appRouter = router({
      feature: featureRouter,
@@ -168,15 +179,15 @@ When modifying the database schema:
 
 ### File Naming Conventions
 
-| Type | Convention | Example |
-|------|-----------|---------|
-| React Components | PascalCase | `ProductCard.tsx` |
-| Pages | PascalCase | `ProductListing.tsx` |
-| Utilities | camelCase | `formatPrice.ts` |
-| Hooks | camelCase, prefix with `use` | `useProductFilters.ts` |
-| Types/Interfaces | PascalCase | `Product.ts` |
-| Constants | UPPER_SNAKE_CASE | `API_ENDPOINTS.ts` |
-| Tests | Same as source + `.test.ts` | `cartStore.test.ts` |
+| Type             | Convention                   | Example                |
+| ---------------- | ---------------------------- | ---------------------- |
+| React Components | PascalCase                   | `ProductCard.tsx`      |
+| Pages            | PascalCase                   | `ProductListing.tsx`   |
+| Utilities        | camelCase                    | `formatPrice.ts`       |
+| Hooks            | camelCase, prefix with `use` | `useProductFilters.ts` |
+| Types/Interfaces | PascalCase                   | `Product.ts`           |
+| Constants        | UPPER_SNAKE_CASE             | `API_ENDPOINTS.ts`     |
+| Tests            | Same as source + `.test.ts`  | `cartStore.test.ts`    |
 
 ## Code Standards
 
@@ -232,6 +243,7 @@ Follow the Conventional Commits format:
 ```
 
 **Types:**
+
 - `feat` - A new feature
 - `fix` - A bug fix
 - `docs` - Documentation changes
@@ -242,6 +254,7 @@ Follow the Conventional Commits format:
 - `chore` - Build process, dependencies, or tooling changes
 
 **Examples:**
+
 ```
 feat(products): add product filtering by price range
 fix(cart): resolve duplicate items in shopping cart
@@ -267,16 +280,17 @@ test(chat): add tests for message handling
 
 All code changes must include appropriate tests:
 
-| Code Type | Test Type | Coverage Target |
-|-----------|-----------|-----------------|
-| API Procedures | Integration tests | 100% |
-| Database helpers | Unit tests | 100% |
-| State management | Unit tests | 100% |
-| Utilities | Unit tests | 100% |
-| React components | Component tests | 80% |
-| Pages | Integration tests | 80% |
+| Code Type        | Test Type         | Coverage Target |
+| ---------------- | ----------------- | --------------- |
+| API Procedures   | Integration tests | 100%            |
+| Database helpers | Unit tests        | 100%            |
+| State management | Unit tests        | 100%            |
+| Utilities        | Unit tests        | 100%            |
+| React components | Component tests   | 80%             |
+| Pages            | Integration tests | 80%             |
 
 Run tests with:
+
 ```bash
 pnpm test                    # Run all tests
 pnpm test --watch          # Watch mode
@@ -337,6 +351,7 @@ pnpm test --coverage       # Coverage report
 ### Server Logs
 
 View server logs during development:
+
 ```bash
 # Watch server output
 tail -f .manus-logs/devserver.log
@@ -351,6 +366,7 @@ tail -f .manus-logs/networkRequests.log
 ### Database Debugging
 
 Access the database directly for debugging:
+
 ```bash
 # Connect to MySQL
 mysql -h <host> -u <user> -p <database>
@@ -386,13 +402,13 @@ SELECT COUNT(*) FROM products;
 
 ### Common Issues
 
-| Issue | Solution |
-|-------|----------|
-| Database connection error | Check DATABASE_URL and network connectivity |
-| TypeScript errors | Run `pnpm check` and fix type issues |
-| Tests failing | Run `pnpm test --watch` and debug failures |
-| Port already in use | Kill process on port 3000 or use different port |
-| Missing dependencies | Run `pnpm install` and `pnpm db:push` |
+| Issue                     | Solution                                        |
+| ------------------------- | ----------------------------------------------- |
+| Database connection error | Check DATABASE_URL and network connectivity     |
+| TypeScript errors         | Run `pnpm check` and fix type issues            |
+| Tests failing             | Run `pnpm test --watch` and debug failures      |
+| Port already in use       | Kill process on port 3000 or use different port |
+| Missing dependencies      | Run `pnpm install` and `pnpm db:push`           |
 
 ### Getting Help
 
@@ -412,9 +428,9 @@ SELECT COUNT(*) FROM products;
 
 ## Version History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0.0 | 2026-03-07 | Initial development guide |
+| Version | Date       | Changes                   |
+| ------- | ---------- | ------------------------- |
+| 1.0.0   | 2026-03-07 | Initial development guide |
 
 ---
 

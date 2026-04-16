@@ -1,6 +1,6 @@
-import { Camera, Smartphone } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { Camera, Smartphone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 interface ARTryOnProps {
   productName?: string;
@@ -16,34 +16,36 @@ interface ARTryOnProps {
  * - Placement visualization
  * - Instructions
  */
-export function ARTryOn({ productName = 'Ring', productImage }: ARTryOnProps) {
-  const [selectedSize, setSelectedSize] = useState('7');
+export function ARTryOn({ productName = "Ring", productImage }: ARTryOnProps) {
+  const [selectedSize, setSelectedSize] = useState("7");
   const [isExpanded, setIsExpanded] = useState(false);
 
   const ringSizes = [
-    { size: '5', label: 'XS (5)' },
-    { size: '6', label: 'S (6)' },
-    { size: '7', label: 'M (7)' },
-    { size: '8', label: 'L (8)' },
-    { size: '9', label: 'XL (9)' },
-    { size: '10', label: 'XXL (10)' },
+    { size: "5", label: "XS (5)" },
+    { size: "6", label: "S (6)" },
+    { size: "7", label: "M (7)" },
+    { size: "8", label: "L (8)" },
+    { size: "9", label: "XL (9)" },
+    { size: "10", label: "XXL (10)" },
   ];
 
   const handleCameraAccess = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user' },
+        video: { facingMode: "user" },
       });
 
       // Stop the stream for now (full AR implementation coming)
-      stream.getTracks().forEach((track) => track.stop());
+      stream.getTracks().forEach(track => track.stop());
 
       alert(
-        'Full AR try-on is coming soon! For now, please select your ring size and visualize the fit.'
+        "Full AR try-on is coming soon! For now, please select your ring size and visualize the fit."
       );
     } catch (error) {
-      console.error('[AR] Camera access denied:', error);
-      alert('Camera access is required for AR try-on. Please enable camera permissions.');
+      console.error("[AR] Camera access denied:", error);
+      alert(
+        "Camera access is required for AR try-on. Please enable camera permissions."
+      );
     }
   };
 
@@ -63,10 +65,14 @@ export function ARTryOn({ productName = 'Ring', productImage }: ARTryOnProps) {
 
           {/* Ring size visualization */}
           <div className="mt-8 space-y-2">
-            <p className="text-xs text-slate-400 uppercase tracking-wider">Selected Size</p>
+            <p className="text-xs text-slate-400 uppercase tracking-wider">
+              Selected Size
+            </p>
             <div className="flex justify-center">
               <div className="w-24 h-24 rounded-full border-4 border-amber-400/40 flex items-center justify-center bg-amber-400/10">
-                <span className="text-2xl font-bold text-amber-400">{selectedSize}</span>
+                <span className="text-2xl font-bold text-amber-400">
+                  {selectedSize}
+                </span>
               </div>
             </div>
           </div>
@@ -84,14 +90,14 @@ export function ARTryOn({ productName = 'Ring', productImage }: ARTryOnProps) {
           Select Ring Size
         </label>
         <div className="grid grid-cols-3 gap-2">
-          {ringSizes.map((item) => (
+          {ringSizes.map(item => (
             <button
               key={item.size}
               onClick={() => setSelectedSize(item.size)}
               className={`py-3 px-2 rounded-lg font-semibold transition-all ${
                 selectedSize === item.size
-                  ? 'bg-amber-500 text-black border-2 border-amber-400'
-                  : 'bg-slate-800 text-slate-300 border-2 border-slate-700 hover:border-amber-500/50'
+                  ? "bg-amber-500 text-black border-2 border-amber-400"
+                  : "bg-slate-800 text-slate-300 border-2 border-slate-700 hover:border-amber-500/50"
               }`}
               aria-pressed={selectedSize === item.size}
               aria-label={`Select size ${item.label}`}
@@ -101,8 +107,11 @@ export function ARTryOn({ productName = 'Ring', productImage }: ARTryOnProps) {
           ))}
         </div>
         <p className="text-xs text-slate-400">
-          Not sure your size?{' '}
-          <a href="#size-guide" className="text-amber-400 hover:text-amber-300 underline">
+          Not sure your size?{" "}
+          <a
+            href="#size-guide"
+            className="text-amber-400 hover:text-amber-300 underline"
+          >
             View size guide
           </a>
         </p>
@@ -120,7 +129,9 @@ export function ARTryOn({ productName = 'Ring', productImage }: ARTryOnProps) {
 
       {/* Instructions */}
       <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4 space-y-3">
-        <h4 className="font-semibold text-white text-sm">How to Use AR Try-On:</h4>
+        <h4 className="font-semibold text-white text-sm">
+          How to Use AR Try-On:
+        </h4>
         <ol className="text-sm text-slate-300 space-y-2">
           <li className="flex gap-3">
             <span className="font-bold text-amber-400 flex-shrink-0">1.</span>
@@ -145,8 +156,8 @@ export function ARTryOn({ productName = 'Ring', productImage }: ARTryOnProps) {
       <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 text-sm text-blue-300">
         <p className="font-semibold mb-1">💡 Browser Support</p>
         <p>
-          AR Try-On works best on modern browsers (Chrome, Safari, Edge) with camera support.
-          Some older browsers may not be compatible.
+          AR Try-On works best on modern browsers (Chrome, Safari, Edge) with
+          camera support. Some older browsers may not be compatible.
         </p>
       </div>
 

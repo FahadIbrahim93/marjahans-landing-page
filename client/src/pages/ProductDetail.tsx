@@ -1,15 +1,21 @@
-import { useState } from 'react';
-import { useRoute } from 'wouter';
-import { trpc } from '@/lib/trpc';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Heart, ShoppingCart, Share2 } from 'lucide-react';
-import { useCartStore } from '@/lib/cartStore';
-import { ProductZoom } from '@/components/ProductZoom';
-import { ReviewCarousel } from '@/components/ReviewCarousel';
+import { useState } from "react";
+import { useRoute } from "wouter";
+import { trpc } from "@/lib/trpc";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Heart, ShoppingCart, Share2 } from "lucide-react";
+import { useCartStore } from "@/lib/cartStore";
+import { ProductZoom } from "@/components/ProductZoom";
+import { ReviewCarousel } from "@/components/ReviewCarousel";
 
 export default function ProductDetail() {
-  const [, params] = useRoute('/product/:slug');
+  const [, params] = useRoute("/product/:slug");
   const slug = params?.slug as string;
 
   const [quantity, setQuantity] = useState(1);
@@ -21,9 +27,10 @@ export default function ProductDetail() {
     { enabled: !!slug }
   );
 
-  const addToCart = useCartStore((state) => state.addItem);
+  const addToCart = useCartStore(state => state.addItem);
   const { mutate: addToWishlist } = trpc.products.addToWishlist.useMutation();
-  const { mutate: removeFromWishlist } = trpc.products.removeFromWishlist.useMutation();
+  const { mutate: removeFromWishlist } =
+    trpc.products.removeFromWishlist.useMutation();
 
   const handleAddToCart = () => {
     if (!product) return;
@@ -32,7 +39,7 @@ export default function ProductDetail() {
       id: `${product.id}`,
       name: product.name,
       price: product.price,
-      image: product.images?.[0]?.imageUrl || '/placeholder-jewelry.jpg',
+      image: product.images?.[0]?.imageUrl || "/placeholder-jewelry.jpg",
       quantity,
       variantId: selectedVariant ? parseInt(selectedVariant) : undefined,
     });
@@ -44,12 +51,12 @@ export default function ProductDetail() {
     if (isWishlisted) {
       removeFromWishlist({
         productId: product.id,
-        visitorId: localStorage.getItem('visitorId') || undefined,
+        visitorId: localStorage.getItem("visitorId") || undefined,
       });
     } else {
       addToWishlist({
         productId: product.id,
-        visitorId: localStorage.getItem('visitorId') || undefined,
+        visitorId: localStorage.getItem("visitorId") || undefined,
       });
     }
 
@@ -77,7 +84,9 @@ export default function ProductDetail() {
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b">
         <div className="container mx-auto px-4 py-4">
-          <p className="text-sm text-gray-600">Home / Products / {product.name}</p>
+          <p className="text-sm text-gray-600">
+            Home / Products / {product.name}
+          </p>
         </div>
       </div>
 
@@ -88,7 +97,7 @@ export default function ProductDetail() {
           <div>
             {product.images && product.images.length > 0 ? (
               <ProductZoom
-                src={product.images[0]?.imageUrl || '/placeholder-jewelry.jpg'}
+                src={product.images[0]?.imageUrl || "/placeholder-jewelry.jpg"}
                 alt={product.name}
                 title={product.name}
               />
@@ -101,34 +110,50 @@ export default function ProductDetail() {
 
           {/* Product Info */}
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              {product.name}
+            </h1>
 
             {/* Rating */}
-            {product.rating && product.rating.rating && product.rating.rating > 0 && (
-              <div className="flex items-center mb-6">
-                <div className="flex text-amber-400 text-lg">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i}>{i < Math.round(product.rating.rating || 0) ? '★' : '☆'}</span>
-                  ))}
+            {product.rating &&
+              product.rating.rating &&
+              product.rating.rating > 0 && (
+                <div className="flex items-center mb-6">
+                  <div className="flex text-amber-400 text-lg">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i}>
+                        {i < Math.round(product.rating.rating || 0) ? "★" : "☆"}
+                      </span>
+                    ))}
+                  </div>
+                  <span className="text-gray-600 ml-3">
+                    ({product.rating.count || 0} reviews)
+                  </span>
                 </div>
-                <span className="text-gray-600 ml-3">({product.rating.count || 0} reviews)</span>
-              </div>
-            )}
+              )}
 
             {/* Price */}
             <div className="mb-6">
-              <p className="text-4xl font-bold text-amber-600">₹{(product.price / 100).toFixed(2)}</p>
+              <p className="text-4xl font-bold text-amber-600">
+                ₹{(product.price / 100).toFixed(2)}
+              </p>
               {product.originalPrice && (
-                <p className="text-lg text-gray-500 line-through">₹{(product.originalPrice / 100).toFixed(2)}</p>
+                <p className="text-lg text-gray-500 line-through">
+                  ₹{(product.originalPrice / 100).toFixed(2)}
+                </p>
               )}
             </div>
 
             {/* Description */}
-            <p className="text-gray-700 mb-8 leading-relaxed">{product.description}</p>
+            <p className="text-gray-700 mb-8 leading-relaxed">
+              {product.description}
+            </p>
 
             {/* Product Details */}
             <div className="bg-gray-50 p-6 rounded-lg mb-8">
-              <h3 className="font-semibold text-gray-900 mb-4">Product Details</h3>
+              <h3 className="font-semibold text-gray-900 mb-4">
+                Product Details
+              </h3>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 {product.material && (
                   <>
@@ -159,16 +184,23 @@ export default function ProductDetail() {
                 <label className="block text-sm font-semibold text-gray-900 mb-3">
                   Select Variant
                 </label>
-                <Select value={selectedVariant || ''} onValueChange={(val) => setSelectedVariant(val)}>
+                <Select
+                  value={selectedVariant || ""}
+                  onValueChange={val => setSelectedVariant(val)}
+                >
                   <SelectTrigger className="border-amber-200">
                     <SelectValue placeholder="Choose a variant" />
                   </SelectTrigger>
                   <SelectContent>
                     {product.variants.map((variant: any) => (
-                      <SelectItem key={variant.id} value={variant.id.toString()}>
+                      <SelectItem
+                        key={variant.id}
+                        value={variant.id.toString()}
+                      >
                         {variant.size && `Size: ${variant.size}`}
                         {variant.color && ` - Color: ${variant.color}`}
-                        {variant.price && ` - ₹${(variant.price / 100).toFixed(2)}`}
+                        {variant.price &&
+                          ` - ₹${(variant.price / 100).toFixed(2)}`}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -189,7 +221,9 @@ export default function ProductDetail() {
                 >
                   −
                 </Button>
-                <span className="text-xl font-semibold w-12 text-center">{quantity}</span>
+                <span className="text-xl font-semibold w-12 text-center">
+                  {quantity}
+                </span>
                 <Button
                   onClick={() => setQuantity(quantity + 1)}
                   variant="outline"
@@ -201,8 +235,10 @@ export default function ProductDetail() {
             </div>
 
             {/* Stock Status */}
-            <p className={`text-lg font-semibold mb-8 ${product.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
+            <p
+              className={`text-lg font-semibold mb-8 ${product.stock > 0 ? "text-green-600" : "text-red-600"}`}
+            >
+              {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
             </p>
 
             {/* Actions */}
@@ -217,19 +253,26 @@ export default function ProductDetail() {
               </Button>
               <Button
                 onClick={handleWishlist}
-                variant={isWishlisted ? 'default' : 'outline'}
-                className={`px-6 py-6 ${isWishlisted ? 'bg-red-500 text-white' : 'border-amber-600 text-amber-600'}`}
+                variant={isWishlisted ? "default" : "outline"}
+                className={`px-6 py-6 ${isWishlisted ? "bg-red-500 text-white" : "border-amber-600 text-amber-600"}`}
               >
-                <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-current' : ''}`} />
+                <Heart
+                  className={`w-5 h-5 ${isWishlisted ? "fill-current" : ""}`}
+                />
               </Button>
-              <Button variant="outline" className="px-6 py-6 border-amber-600 text-amber-600">
+              <Button
+                variant="outline"
+                className="px-6 py-6 border-amber-600 text-amber-600"
+              >
                 <Share2 className="w-5 h-5" />
               </Button>
             </div>
 
             {/* Shipping Info */}
             <div className="bg-amber-50 border border-amber-200 p-6 rounded-lg">
-              <h3 className="font-semibold text-gray-900 mb-3">Shipping & Returns</h3>
+              <h3 className="font-semibold text-gray-900 mb-3">
+                Shipping & Returns
+              </h3>
               <ul className="text-sm text-gray-700 space-y-2">
                 <li>✓ Free shipping on orders above ₹5000</li>
                 <li>✓ 30-day return policy</li>
@@ -243,14 +286,18 @@ export default function ProductDetail() {
         {/* Reviews Section */}
         {product.reviews && product.reviews.length > 0 && (
           <div className="mt-16 border-t pt-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Customer Reviews</h2>
-            <ReviewCarousel reviews={product.reviews.map((r: any, idx: number) => ({
-              id: r.id || idx,
-              author: r.customerName,
-              text: r.content,
-              rating: r.rating,
-              date: r.createdAt,
-            }))} />
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">
+              Customer Reviews
+            </h2>
+            <ReviewCarousel
+              reviews={product.reviews.map((r: any, idx: number) => ({
+                id: r.id || idx,
+                author: r.customerName,
+                text: r.content,
+                rating: r.rating,
+                date: r.createdAt,
+              }))}
+            />
           </div>
         )}
       </div>

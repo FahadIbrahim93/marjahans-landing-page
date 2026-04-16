@@ -2,7 +2,11 @@ import { z } from "zod";
 import { eq } from "drizzle-orm";
 import { publicProcedure, router } from "./_core/trpc";
 import { fetchFacebookProducts, fetchFacebookShopInfo } from "./_core/facebook";
-import { fetchMockFacebookProducts, fetchMockFacebookShopInfo, USE_MOCK_FACEBOOK } from "./_core/facebook-mock";
+import {
+  fetchMockFacebookProducts,
+  fetchMockFacebookShopInfo,
+  USE_MOCK_FACEBOOK,
+} from "./_core/facebook-mock";
 import { getDb } from "./db";
 import { products, categories, productImages } from "../drizzle/schema";
 
@@ -18,8 +22,8 @@ export const facebookSyncRouter = router({
   syncProducts: publicProcedure.mutation(async () => {
     try {
       // Use mock data if configured, otherwise use real Facebook API
-      const facebookProducts = USE_MOCK_FACEBOOK 
-        ? await fetchMockFacebookProducts() 
+      const facebookProducts = USE_MOCK_FACEBOOK
+        ? await fetchMockFacebookProducts()
         : await fetchFacebookProducts();
       const shopInfo = USE_MOCK_FACEBOOK
         ? await fetchMockFacebookShopInfo()
@@ -52,13 +56,11 @@ export const facebookSyncRouter = router({
               .toLowerCase()
               .replace(/\s+/g, "-")
               .substring(0, 100);
-            const newCategory = await db
-              .insert(categories)
-              .values({
-                name: categoryName,
-                slug: categorySlug,
-                description: `${categoryName} from Facebook Shop`,
-              });
+            const newCategory = await db.insert(categories).values({
+              name: categoryName,
+              slug: categorySlug,
+              description: `${categoryName} from Facebook Shop`,
+            });
             categoryId = (newCategory as any).insertId;
           }
 
@@ -97,7 +99,10 @@ export const facebookSyncRouter = router({
 
           syncedCount++;
         } catch (error) {
-          console.error(`[Facebook Sync] Error syncing product ${fbProduct.id}:`, error);
+          console.error(
+            `[Facebook Sync] Error syncing product ${fbProduct.id}:`,
+            error
+          );
         }
       }
 

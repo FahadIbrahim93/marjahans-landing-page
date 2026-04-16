@@ -1,6 +1,7 @@
-import { Trash2, Plus, Minus, ShoppingBag } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useCartStore } from '@/lib/cartStore';
+import { Trash2, Plus, Minus, ShoppingBag } from "lucide-react";
+import { useLocation } from "wouter";
+import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/lib/cartStore";
 
 /**
  * Shopping Cart Component
@@ -12,8 +13,15 @@ import { useCartStore } from '@/lib/cartStore';
  * - Empty state
  */
 export function ShoppingCart() {
-  const { items, removeItem, updateQuantity, getTotalPrice, getTotalItems, clearCart } =
-    useCartStore();
+  const [, setLocation] = useLocation();
+  const {
+    items,
+    removeItem,
+    updateQuantity,
+    getTotalPrice,
+    getTotalItems,
+    clearCart,
+  } = useCartStore();
 
   const totalPrice = getTotalPrice();
   const totalItems = getTotalItems();
@@ -22,8 +30,12 @@ export function ShoppingCart() {
     return (
       <div className="text-center py-12">
         <ShoppingBag className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-white mb-2">Your cart is empty</h3>
-        <p className="text-slate-400">Add some beautiful jewelry to get started</p>
+        <h3 className="text-lg font-semibold text-white mb-2">
+          Your cart is empty
+        </h3>
+        <p className="text-slate-400">
+          Add some beautiful jewelry to get started
+        </p>
       </div>
     );
   }
@@ -32,7 +44,7 @@ export function ShoppingCart() {
     <div className="space-y-6">
       {/* Cart items */}
       <div className="space-y-4">
-        {items.map((item) => (
+        {items.map(item => (
           <div
             key={item.id}
             className="flex gap-4 bg-slate-800/50 rounded-lg p-4 border border-slate-700 hover:border-amber-500/30 transition-colors"
@@ -53,7 +65,9 @@ export function ShoppingCart() {
                 <p className="text-sm text-slate-400">Size: {item.size}</p>
               )}
               {item.customization && (
-                <p className="text-sm text-slate-400">Custom: {item.customization}</p>
+                <p className="text-sm text-slate-400">
+                  Custom: {item.customization}
+                </p>
               )}
               <p className="text-amber-400 font-semibold mt-2">
                 ৳{item.price.toLocaleString()}
@@ -123,6 +137,7 @@ export function ShoppingCart() {
         <Button
           className="w-full bg-amber-500 hover:bg-amber-600 text-black font-semibold py-6"
           size="lg"
+          onClick={() => alert("Checkout feature coming soon!")}
         >
           Proceed to Checkout
         </Button>
@@ -131,6 +146,7 @@ export function ShoppingCart() {
           variant="outline"
           className="w-full border-amber-500/30 hover:border-amber-500/60"
           size="lg"
+          onClick={() => setLocation("/products")}
         >
           Continue Shopping
         </Button>
@@ -147,7 +163,10 @@ export function ShoppingCart() {
       {/* Trust info */}
       <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 text-sm text-green-300">
         <p className="font-semibold mb-2">✓ Secure Checkout</p>
-        <p>Your payment is encrypted and secure. We accept all major credit cards and digital wallets.</p>
+        <p>
+          Your payment is encrypted and secure. We accept all major credit cards
+          and digital wallets.
+        </p>
       </div>
     </div>
   );

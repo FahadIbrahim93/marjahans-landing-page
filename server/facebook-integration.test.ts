@@ -1,21 +1,21 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from "vitest";
 
-vi.mock('./_core/env', () => ({
+vi.mock("./_core/env", () => ({
   ENV: {
-    facebookPageAccessToken: 'test-token',
+    facebookPageAccessToken: "test-token",
   },
 }));
 
-import { validateFacebookCredentials } from './_core/facebook';
+import { validateFacebookCredentials } from "./_core/facebook";
 
-describe('Facebook Integration', () => {
-  it('validates credentials against the Facebook /me endpoint', async () => {
+describe("Facebook Integration", () => {
+  it("validates credentials against the Facebook /me endpoint", async () => {
     vi.stubGlobal(
-      'fetch',
+      "fetch",
       vi.fn().mockResolvedValue({
         ok: true,
         status: 200,
-        json: async () => ({ id: 'page_1', name: 'Marjahans Official' }),
+        json: async () => ({ id: "page_1", name: "Marjahans Official" }),
       })
     );
 

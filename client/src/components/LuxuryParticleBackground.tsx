@@ -23,7 +23,9 @@ const PARTICLE_SPEED = 0.08;
  * - Subtle connective shimmer lines
  * - Reduced-motion aware
  */
-export function LuxuryParticleBackground({ className }: LuxuryParticleBackgroundProps) {
+export function LuxuryParticleBackground({
+  className,
+}: LuxuryParticleBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -33,7 +35,9 @@ export function LuxuryParticleBackground({ className }: LuxuryParticleBackground
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
     const isMobile = window.innerWidth < 768;
     const particleCount = isMobile ? MOBILE_PARTICLES : MAX_PARTICLES;
 
@@ -78,11 +82,25 @@ export function LuxuryParticleBackground({ className }: LuxuryParticleBackground
     };
 
     const drawGradientFog = () => {
-      const radial1 = ctx.createRadialGradient(width * 0.15, height * 0.2, 0, width * 0.15, height * 0.2, width * 0.65);
+      const radial1 = ctx.createRadialGradient(
+        width * 0.15,
+        height * 0.2,
+        0,
+        width * 0.15,
+        height * 0.2,
+        width * 0.65
+      );
       radial1.addColorStop(0, "rgba(251, 191, 36, 0.15)");
       radial1.addColorStop(1, "rgba(251, 191, 36, 0)");
 
-      const radial2 = ctx.createRadialGradient(width * 0.85, height * 0.8, 0, width * 0.85, height * 0.8, width * 0.55);
+      const radial2 = ctx.createRadialGradient(
+        width * 0.85,
+        height * 0.8,
+        0,
+        width * 0.85,
+        height * 0.8,
+        width * 0.55
+      );
       radial2.addColorStop(0, "rgba(167, 139, 250, 0.09)");
       radial2.addColorStop(1, "rgba(167, 139, 250, 0)");
 
@@ -115,8 +133,8 @@ export function LuxuryParticleBackground({ className }: LuxuryParticleBackground
           if (p.y > height + 20) p.y = -20;
         }
 
-        const offsetX = ((pointerX / Math.max(width, 1)) - 0.5) * 18;
-        const offsetY = ((pointerY / Math.max(height, 1)) - 0.5) * 18;
+        const offsetX = (pointerX / Math.max(width, 1) - 0.5) * 18;
+        const offsetY = (pointerY / Math.max(height, 1) - 0.5) * 18;
 
         ctx.beginPath();
         ctx.arc(p.x + offsetX, p.y + offsetY, p.radius, 0, Math.PI * 2);
@@ -166,11 +184,5 @@ export function LuxuryParticleBackground({ className }: LuxuryParticleBackground
     };
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      className={className}
-    />
-  );
+  return <canvas ref={canvasRef} aria-hidden="true" className={className} />;
 }

@@ -1,5 +1,11 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ArrowUpDown } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ArrowUpDown } from "lucide-react";
 
 interface SortDropdownProps {
   value: string;
@@ -8,11 +14,11 @@ interface SortDropdownProps {
 
 export function SortDropdown({ value, onChange }: SortDropdownProps) {
   const sortOptions = [
-    { value: 'newest', label: 'Newest First' },
-    { value: 'price_asc', label: 'Price: Low to High' },
-    { value: 'price_desc', label: 'Price: High to Low' },
-    { value: 'rating', label: 'Highest Rated' },
-    { value: 'popularity', label: 'Most Popular' },
+    { value: "newest", label: "Newest First" },
+    { value: "price_asc", label: "Price: Low to High" },
+    { value: "price_desc", label: "Price: High to Low" },
+    { value: "rating", label: "Highest Rated" },
+    { value: "popularity", label: "Most Popular" },
   ];
 
   return (
@@ -23,7 +29,7 @@ export function SortDropdown({ value, onChange }: SortDropdownProps) {
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
         <SelectContent>
-          {sortOptions.map((option) => (
+          {sortOptions.map(option => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}
             </SelectItem>

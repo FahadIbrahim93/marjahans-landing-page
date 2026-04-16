@@ -1,9 +1,15 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Slider } from '@/components/ui/slider';
-import { Button } from '@/components/ui/button';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface FilterSidebarProps {
   categories: any[];
@@ -37,14 +43,17 @@ export function FilterSidebar({
   });
 
   const toggleSection = (section: keyof typeof expandedSections) => {
-    setExpandedSections((prev) => ({
+    setExpandedSections(prev => ({
       ...prev,
       [section]: !prev[section],
     }));
   };
 
-  const hasActiveFilters = selectedCategory || selectedMaterials.length > 0 || 
-    selectedPriceRange[0] > priceRange.min || selectedPriceRange[1] < priceRange.max;
+  const hasActiveFilters =
+    selectedCategory ||
+    selectedMaterials.length > 0 ||
+    selectedPriceRange[0] > priceRange.min ||
+    selectedPriceRange[1] < priceRange.max;
 
   return (
     <div className="space-y-4">
@@ -67,7 +76,7 @@ export function FilterSidebar({
       <Card>
         <CardHeader
           className="cursor-pointer flex flex-row items-center justify-between space-y-0 pb-3"
-          onClick={() => toggleSection('category')}
+          onClick={() => toggleSection("category")}
         >
           <CardTitle className="text-sm font-semibold">Category</CardTitle>
           {expandedSections.category ? (
@@ -85,8 +94,11 @@ export function FilterSidebar({
               />
               <span className="text-sm text-gray-700">All Categories</span>
             </label>
-            {categories.map((cat) => (
-              <label key={cat.id} className="flex items-center gap-2 cursor-pointer">
+            {categories.map(cat => (
+              <label
+                key={cat.id}
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <Checkbox
                   checked={selectedCategory === cat.id}
                   onCheckedChange={() => onCategoryChange(cat.id)}
@@ -102,7 +114,7 @@ export function FilterSidebar({
       <Card>
         <CardHeader
           className="cursor-pointer flex flex-row items-center justify-between space-y-0 pb-3"
-          onClick={() => toggleSection('price')}
+          onClick={() => toggleSection("price")}
         >
           <CardTitle className="text-sm font-semibold">Price Range</CardTitle>
           {expandedSections.price ? (
@@ -116,7 +128,9 @@ export function FilterSidebar({
             <div className="space-y-2">
               <Slider
                 value={selectedPriceRange}
-                onValueChange={(value) => onPriceChange(value as [number, number])}
+                onValueChange={value =>
+                  onPriceChange(value as [number, number])
+                }
                 min={priceRange.min}
                 max={priceRange.max}
                 step={100}
@@ -136,7 +150,7 @@ export function FilterSidebar({
         <Card>
           <CardHeader
             className="cursor-pointer flex flex-row items-center justify-between space-y-0 pb-3"
-            onClick={() => toggleSection('material')}
+            onClick={() => toggleSection("material")}
           >
             <CardTitle className="text-sm font-semibold">Material</CardTitle>
             {expandedSections.material ? (
@@ -147,11 +161,16 @@ export function FilterSidebar({
           </CardHeader>
           {expandedSections.material && (
             <CardContent className="space-y-2">
-              {materials.map((material) => (
-                <label key={material} className="flex items-center gap-2 cursor-pointer">
+              {materials.map(material => (
+                <label
+                  key={material}
+                  className="flex items-center gap-2 cursor-pointer"
+                >
                   <Checkbox
                     checked={selectedMaterials.includes(material)}
-                    onCheckedChange={(checked) => onMaterialChange(material, !!checked)}
+                    onCheckedChange={checked =>
+                      onMaterialChange(material, !!checked)
+                    }
                   />
                   <span className="text-sm text-gray-700">{material}</span>
                 </label>

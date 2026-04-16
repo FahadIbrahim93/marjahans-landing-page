@@ -121,12 +121,17 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Outfit', sans-serif;
+    font-family: "Outfit", sans-serif;
     letter-spacing: -0.01em;
     line-height: 1.6;
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", serif;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
@@ -184,9 +189,28 @@
   /* Mesh Gradient Background */
   .mesh-gradient {
     background-image:
-      radial-gradient(at 0% 0%, rgba(251, 191, 36, 0.15) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
-      radial-gradient(at 50% 50%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+      radial-gradient(
+        circle at 0% 10%,
+        rgba(251, 191, 36, 0.16),
+        transparent 22%
+      ),
+      radial-gradient(
+        circle at 100% 90%,
+        rgba(168, 85, 247, 0.12),
+        transparent 20%
+      ),
+      radial-gradient(
+        circle at 50% 45%,
+        rgba(59, 130, 246, 0.08),
+        transparent 24%
+      );
+    background-size: cover;
+  }
+
+  .hero-glow {
+    box-shadow:
+      inset 0 0 120px rgba(251, 191, 36, 0.08),
+      0 0 35px rgba(251, 191, 36, 0.12);
   }
 
   /* Fluid Hero Text */
@@ -199,7 +223,6 @@
     text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
   }
 
-
   .cinematic-surface {
     position: relative;
     isolation: isolate;
@@ -211,20 +234,41 @@
     inset: 0;
     z-index: -1;
     background:
-      radial-gradient(circle at 12% 10%, rgba(251, 191, 36, 0.12), transparent 42%),
-      radial-gradient(circle at 88% 82%, rgba(167, 139, 250, 0.08), transparent 44%),
-      linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0));
+      radial-gradient(
+        circle at 12% 10%,
+        rgba(251, 191, 36, 0.12),
+        transparent 42%
+      ),
+      radial-gradient(
+        circle at 88% 82%,
+        rgba(167, 139, 250, 0.08),
+        transparent 44%
+      ),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0));
     pointer-events: none;
   }
 
   .lux-card {
     @apply bg-card/55 border border-white/10 backdrop-blur-xl;
-    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
+    box-shadow: 0 24px 80px rgba(15, 23, 42, 0.35);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
   }
 
   .lux-card:hover {
-    border-color: rgba(251, 191, 36, 0.35);
-    box-shadow: 0 24px 80px rgba(251, 191, 36, 0.12);
+    transform: translateY(-6px);
+    border-color: rgba(251, 191, 36, 0.45);
+    box-shadow: 0 32px 90px rgba(251, 191, 36, 0.18);
+  }
+
+  .glass-pro {
+    @apply backdrop-blur-3xl bg-white/5 border border-white/10 shadow-2xl;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.08),
+      0 24px 80px rgba(15, 23, 42, 0.25);
+    background-clip: padding-box;
   }
 
   .section-divider-glow {
@@ -238,13 +282,19 @@
     right: 15%;
     bottom: -1px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.4), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(251, 191, 36, 0.4),
+      transparent
+    );
     pointer-events: none;
   }
 }
 
 @keyframes gradient-x {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -258,8 +308,13 @@
 }
 
 @keyframes lux-float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 .animate-lux-float {

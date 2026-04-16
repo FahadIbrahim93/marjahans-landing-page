@@ -16,7 +16,9 @@ import { nanoid } from "nanoid";
 /**
  * Create a new conversation
  */
-export async function createConversation(data: Omit<InsertConversation, "id" | "createdAt" | "updatedAt">) {
+export async function createConversation(
+  data: Omit<InsertConversation, "id" | "createdAt" | "updatedAt">
+) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
@@ -76,7 +78,10 @@ export async function getActiveConversations() {
 /**
  * Update conversation status
  */
-export async function updateConversationStatus(conversationId: string, status: string) {
+export async function updateConversationStatus(
+  conversationId: string,
+  status: string
+) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
@@ -89,7 +94,9 @@ export async function updateConversationStatus(conversationId: string, status: s
 /**
  * Add a message to conversation
  */
-export async function addMessage(data: Omit<InsertMessage, "id" | "createdAt" | "updatedAt">) {
+export async function addMessage(
+  data: Omit<InsertMessage, "id" | "createdAt" | "updatedAt">
+) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
@@ -105,7 +112,10 @@ export async function addMessage(data: Omit<InsertMessage, "id" | "createdAt" | 
 /**
  * Get messages for a conversation
  */
-export async function getConversationMessages(conversationId: string, limit = 50) {
+export async function getConversationMessages(
+  conversationId: string,
+  limit = 50
+) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
@@ -127,7 +137,12 @@ export async function markMessagesAsRead(conversationId: string) {
   await db
     .update(messages)
     .set({ isRead: true })
-    .where(and(eq(messages.conversationId, conversationId), eq(messages.isRead, false)));
+    .where(
+      and(
+        eq(messages.conversationId, conversationId),
+        eq(messages.isRead, false)
+      )
+    );
 }
 
 /**
@@ -154,7 +169,10 @@ export async function updateChatSettings(data: Partial<ChatSettings>) {
   if (result.length === 0) {
     await db.insert(chatSettings).values({ id: settingsId, ...data });
   } else {
-    await db.update(chatSettings).set(data).where(eq(chatSettings.id, settingsId));
+    await db
+      .update(chatSettings)
+      .set(data)
+      .where(eq(chatSettings.id, settingsId));
   }
 }
 
@@ -181,7 +199,12 @@ export async function getUnreadCount(conversationId: string) {
   const result = await db
     .select()
     .from(messages)
-    .where(and(eq(messages.conversationId, conversationId), eq(messages.isRead, false)));
+    .where(
+      and(
+        eq(messages.conversationId, conversationId),
+        eq(messages.isRead, false)
+      )
+    );
 
   return result.length;
 }
@@ -201,7 +224,7 @@ export async function getRecentConversationsWithUnread(limit = 20) {
 
   // For each conversation, count unread messages
   const withUnread = await Promise.all(
-    convos.map(async (convo) => {
+    convos.map(async convo => {
       const unreadCount = await getUnreadCount(convo.id);
       return { ...convo, unreadCount };
     })

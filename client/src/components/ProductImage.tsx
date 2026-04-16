@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 interface ProductImageProps {
   src: string;
@@ -22,7 +22,7 @@ export function ProductImage({
   src,
   alt,
   title,
-  className = '',
+  className = "",
   priority = false,
   width = 400,
   height = 400,
@@ -32,13 +32,13 @@ export function ProductImage({
   // Generate responsive image URLs (assuming CDN supports resizing)
   const generateSrcSet = (baseUrl: string): string => {
     // For CDN URLs with query parameters, append size params
-    const separator = baseUrl.includes('?') ? '&' : '?';
+    const separator = baseUrl.includes("?") ? "&" : "?";
     return [
       `${baseUrl}${separator}w=400 400w`,
       `${baseUrl}${separator}w=600 600w`,
       `${baseUrl}${separator}w=800 800w`,
       `${baseUrl}${separator}w=1200 1200w`,
-    ].join(', ');
+    ].join(", ");
   };
 
   const aspectRatio = width / height;
@@ -68,10 +68,10 @@ export function ProductImage({
           src={src}
           alt={alt}
           title={title || alt}
-          loading={priority ? 'eager' : 'lazy'}
+          loading={priority ? "eager" : "lazy"}
           decoding="async"
           className={`w-full h-full object-cover transition-opacity duration-300 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
+            isLoaded ? "opacity-100" : "opacity-0"
           }`}
           onLoad={() => setIsLoaded(true)}
           width={width}

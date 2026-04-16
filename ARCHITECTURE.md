@@ -48,43 +48,43 @@ The application follows a three-tier architecture pattern:
 
 ### Frontend
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| React | 19 | UI framework |
-| TypeScript | 5.9 | Type safety |
-| Tailwind CSS | 4 | Styling and theming |
-| Zustand | Latest | State management |
-| tRPC Client | 11.6 | API communication |
-| Vite | 7.1 | Build tool |
-| Vitest | Latest | Testing framework |
+| Technology   | Version | Purpose             |
+| ------------ | ------- | ------------------- |
+| React        | 19      | UI framework        |
+| TypeScript   | 5.9     | Type safety         |
+| Tailwind CSS | 4       | Styling and theming |
+| Zustand      | Latest  | State management    |
+| tRPC Client  | 11.6    | API communication   |
+| Vite         | 7.1     | Build tool          |
+| Vitest       | Latest  | Testing framework   |
 
 ### Backend
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| Node.js | 22.13 | Runtime |
-| Express | 4 | Web framework |
-| tRPC Server | 11.6 | RPC framework |
-| Drizzle ORM | 0.44 | Database ORM |
-| Zod | Latest | Input validation |
-| TypeScript | 5.9 | Type safety |
+| Technology  | Version | Purpose          |
+| ----------- | ------- | ---------------- |
+| Node.js     | 22.13   | Runtime          |
+| Express     | 4       | Web framework    |
+| tRPC Server | 11.6    | RPC framework    |
+| Drizzle ORM | 0.44    | Database ORM     |
+| Zod         | Latest  | Input validation |
+| TypeScript  | 5.9     | Type safety      |
 
 ### Database
 
-| Technology | Purpose |
-|-----------|---------|
-| MySQL | Relational database |
-| Drizzle Kit | Schema management |
-| Migrations | Version control for schema |
+| Technology  | Purpose                    |
+| ----------- | -------------------------- |
+| MySQL       | Relational database        |
+| Drizzle Kit | Schema management          |
+| Migrations  | Version control for schema |
 
 ### External Services
 
-| Service | Purpose |
-|---------|---------|
+| Service            | Purpose              |
+| ------------------ | -------------------- |
 | Facebook Graph API | Product catalog sync |
-| Stripe | Payment processing |
-| Manus OAuth | User authentication |
-| S3 Storage | File storage |
+| Stripe             | Payment processing   |
+| Manus OAuth        | User authentication  |
+| S3 Storage         | File storage         |
 
 ## Directory Structure
 
@@ -179,9 +179,9 @@ interface Product {
   name: string;
   slug: string;
   description: string;
-  price: number;              // Price in cents
+  price: number; // Price in cents
   categoryId: number;
-  material: string;           // e.g., "Gold", "Silver"
+  material: string; // e.g., "Gold", "Silver"
   stock: number;
   sku: string;
   isActive: boolean;
@@ -202,9 +202,9 @@ interface Order {
   id: number;
   userId: string;
   items: OrderItem[];
-  totalAmount: number;        // In cents
+  totalAmount: number; // In cents
   status: "pending" | "completed" | "cancelled";
-  paymentId: string;          // Stripe payment ID
+  paymentId: string; // Stripe payment ID
   shippingAddress: Address;
   createdAt: Date;
   updatedAt: Date;
@@ -265,11 +265,11 @@ export const orderRouter = router({
 
 ### Procedure Categories
 
-| Category | Purpose | Examples |
-|----------|---------|----------|
-| Query | Read-only operations | getProducts, getProductDetail, getCart |
-| Mutation | State-changing operations | createOrder, addToCart, updateProfile |
-| Subscription | Real-time updates | (Not currently used) |
+| Category     | Purpose                   | Examples                               |
+| ------------ | ------------------------- | -------------------------------------- |
+| Query        | Read-only operations      | getProducts, getProductDetail, getCart |
+| Mutation     | State-changing operations | createOrder, addToCart, updateProfile  |
+| Subscription | Real-time updates         | (Not currently used)                   |
 
 ## State Management
 
@@ -278,16 +278,19 @@ export const orderRouter = router({
 The application uses multiple state management approaches:
 
 **Zustand Stores** - For global application state:
+
 - Shopping cart state
 - Wishlist state
 - User preferences
 - Filter state
 
 **React Context** - For theme and authentication:
+
 - Theme context (light/dark mode)
 - Auth context (user information)
 
 **Component State** - For local UI state:
+
 - Form inputs
 - Modal visibility
 - Loading states
@@ -295,6 +298,7 @@ The application uses multiple state management approaches:
 ### Backend State
 
 Backend state is managed through:
+
 - Database (persistent state)
 - Session cookies (authentication state)
 - Environment variables (configuration)
@@ -317,15 +321,15 @@ Authorization is implemented at the procedure level:
 // Protected procedure - only authenticated users
 const protectedProcedure = publicProcedure.use(({ ctx, next }) => {
   if (!ctx.user) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' });
+    throw new TRPCError({ code: "UNAUTHORIZED" });
   }
   return next({ ctx });
 });
 
 // Admin procedure - only admin users
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (ctx.user.role !== 'admin') {
-    throw new TRPCError({ code: 'FORBIDDEN' });
+  if (ctx.user.role !== "admin") {
+    throw new TRPCError({ code: "FORBIDDEN" });
   }
   return next({ ctx });
 });
@@ -336,6 +340,7 @@ const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
 The database uses Drizzle ORM with MySQL. Key tables include:
 
 ### Products Table
+
 - id (primary key)
 - name, description, price
 - categoryId (foreign key)
@@ -343,20 +348,24 @@ The database uses Drizzle ORM with MySQL. Key tables include:
 - isActive, createdAt, updatedAt
 
 ### Categories Table
+
 - id (primary key)
 - name, slug, description
 
 ### ProductImages Table
+
 - id (primary key)
 - productId (foreign key)
 - imageUrl, altText, isMain
 
 ### ProductVariants Table
+
 - id (primary key)
 - productId (foreign key)
 - size, color, material options
 
 ### Orders Table
+
 - id (primary key)
 - userId (foreign key)
 - totalAmount, status
@@ -364,12 +373,14 @@ The database uses Drizzle ORM with MySQL. Key tables include:
 - createdAt, updatedAt
 
 ### ChatConversations Table
+
 - id (primary key)
 - visitorEmail, visitorName
 - status, cartValue
 - createdAt, updatedAt
 
 ### ChatMessages Table
+
 - id (primary key)
 - conversationId (foreign key)
 - sender, content, isAutoResponse
@@ -455,12 +466,12 @@ const createProductSchema = z.object({
 
 ### Test Types
 
-| Type | Purpose | Framework | Coverage Target |
-|------|---------|-----------|-----------------|
-| Unit | Test individual functions | Vitest | 100% |
-| Integration | Test API procedures | Vitest | 100% |
-| Component | Test React components | Vitest + RTL | 80% |
-| E2E | Test complete flows | (Future) | 80% |
+| Type        | Purpose                   | Framework    | Coverage Target |
+| ----------- | ------------------------- | ------------ | --------------- |
+| Unit        | Test individual functions | Vitest       | 100%            |
+| Integration | Test API procedures       | Vitest       | 100%            |
+| Component   | Test React components     | Vitest + RTL | 80%             |
+| E2E         | Test complete flows       | (Future)     | 80%             |
 
 ### Test Structure
 
@@ -498,6 +509,7 @@ client/
 ### Component Patterns
 
 **Container/Presentational Pattern** - Separate data fetching from UI:
+
 ```typescript
 // Container component
 function ProductListingContainer() {
@@ -512,6 +524,7 @@ function ProductListingUI({ products }) {
 ```
 
 **Custom Hooks Pattern** - Extract reusable logic:
+
 ```typescript
 function useProductFilters() {
   const [filters, setFilters] = useState({});
@@ -523,6 +536,7 @@ function useProductFilters() {
 ### API Patterns
 
 **Procedure Organization** - Group related procedures:
+
 ```typescript
 export const productRouter = router({
   getProducts: publicProcedure.query(...),
@@ -532,11 +546,12 @@ export const productRouter = router({
 ```
 
 **Error Handling** - Consistent error responses:
+
 ```typescript
 if (!product) {
   throw new TRPCError({
-    code: 'NOT_FOUND',
-    message: 'Product not found',
+    code: "NOT_FOUND",
+    message: "Product not found",
   });
 }
 ```

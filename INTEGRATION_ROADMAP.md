@@ -21,19 +21,19 @@ The global jewelry market is projected to grow from $254.13 billion in 2026 to $
 
 Marjahan's has successfully established the following integrations:
 
-| Component | Status | Notes |
-|-----------|--------|-------|
-| Shopify Store | ✅ Active | E-commerce platform with product catalog |
-| Meta Business Manager | ✅ Active | Connected to Marjahans Facebook page |
-| Facebook Page | ✅ Active | Established presence with customer engagement |
-| Messenger Integration | ✅ Active | Customer communication channel |
-| Facebook Page Access Token | ✅ Valid | Authenticated and tested (expires in 60 days) |
-| Commerce Manager | ⚠️ Partial | Connected but products not syncing properly |
-| Facebook Shop | ❌ Not Visible | Products not appearing in shop |
-| Instagram Shop | ❌ Not Visible | Products not appearing in shop |
-| Real-time Inventory Sync | ❌ Not Implemented | Manual sync only (7-day cycle) |
-| Unified Product Catalog | ❌ Not Implemented | Separate systems not connected |
-| Order Management System | ❌ Not Implemented | No unified order dashboard |
+| Component                  | Status             | Notes                                         |
+| -------------------------- | ------------------ | --------------------------------------------- |
+| Shopify Store              | ✅ Active          | E-commerce platform with product catalog      |
+| Meta Business Manager      | ✅ Active          | Connected to Marjahans Facebook page          |
+| Facebook Page              | ✅ Active          | Established presence with customer engagement |
+| Messenger Integration      | ✅ Active          | Customer communication channel                |
+| Facebook Page Access Token | ✅ Valid           | Authenticated and tested (expires in 60 days) |
+| Commerce Manager           | ⚠️ Partial         | Connected but products not syncing properly   |
+| Facebook Shop              | ❌ Not Visible     | Products not appearing in shop                |
+| Instagram Shop             | ❌ Not Visible     | Products not appearing in shop                |
+| Real-time Inventory Sync   | ❌ Not Implemented | Manual sync only (7-day cycle)                |
+| Unified Product Catalog    | ❌ Not Implemented | Separate systems not connected                |
+| Order Management System    | ❌ Not Implemented | No unified order dashboard                    |
 
 ### Why Products Are Not Showing
 
@@ -317,6 +317,7 @@ Unified Inventory Pool
 Jewelry customers prioritize visual confidence. AR try-on technology allows customers to see how pieces look on them before purchasing.
 
 **Implementation:**
+
 - Integrate AR.js or similar WebAR library
 - Create 3D models of jewelry pieces
 - Build mobile-optimized try-on interface
@@ -329,6 +330,7 @@ Jewelry customers prioritize visual confidence. AR try-on technology allows cust
 Use machine learning to personalize product recommendations and marketing messages.
 
 **Implementation:**
+
 - Build customer preference model
 - Create recommendation engine
 - Implement dynamic email personalization
@@ -341,6 +343,7 @@ Use machine learning to personalize product recommendations and marketing messag
 Enable customers to shop and communicate via WhatsApp, the most popular messaging app globally.
 
 **Implementation:**
+
 - Set up WhatsApp Business API
 - Create product catalog in WhatsApp
 - Build chatbot for customer service
@@ -353,6 +356,7 @@ Enable customers to shop and communicate via WhatsApp, the most popular messagin
 Expand to TikTok Shop to reach younger demographics and leverage short-form video content.
 
 **Implementation:**
+
 - Connect TikTok Shop API
 - Sync products to TikTok
 - Create TikTok-optimized product content
@@ -365,6 +369,7 @@ Expand to TikTok Shop to reach younger demographics and leverage short-form vide
 Build comprehensive dashboard to track performance across all channels and understand customer journeys.
 
 **Implementation:**
+
 - Aggregate data from all channels
 - Build multi-touch attribution model
 - Create channel performance dashboards
@@ -406,30 +411,30 @@ Build comprehensive dashboard to track performance across all channels and under
 
 ### Technology Stack
 
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Frontend** | React 19 + Tailwind CSS | Admin dashboard, customer interfaces |
-| **Backend** | Node.js + Express + tRPC | API services, business logic |
-| **Database** | MySQL/TiDB | Product, inventory, order data |
-| **APIs** | REST + GraphQL | Channel integrations |
-| **Webhooks** | Shopify, Meta, TikTok | Real-time event handling |
-| **Message Queue** | Redis | Async job processing |
-| **Caching** | Redis | Performance optimization |
-| **Monitoring** | Datadog/New Relic | System health, error tracking |
-| **Storage** | S3 | Product images, documents |
+| Layer             | Technology               | Purpose                              |
+| ----------------- | ------------------------ | ------------------------------------ |
+| **Frontend**      | React 19 + Tailwind CSS  | Admin dashboard, customer interfaces |
+| **Backend**       | Node.js + Express + tRPC | API services, business logic         |
+| **Database**      | MySQL/TiDB               | Product, inventory, order data       |
+| **APIs**          | REST + GraphQL           | Channel integrations                 |
+| **Webhooks**      | Shopify, Meta, TikTok    | Real-time event handling             |
+| **Message Queue** | Redis                    | Async job processing                 |
+| **Caching**       | Redis                    | Performance optimization             |
+| **Monitoring**    | Datadog/New Relic        | System health, error tracking        |
+| **Storage**       | S3                       | Product images, documents            |
 
 ---
 
 ## Implementation Timeline
 
-| Phase | Duration | Key Deliverables | Investment |
-|-------|----------|------------------|-----------|
-| Phase 1: Quick Fixes | 1-2 weeks | Product visibility restored | Low |
-| Phase 2: Real-time Sync | 2-3 weeks | Inventory updates <5 min | Medium |
-| Phase 3: Unified Catalog | 4 weeks | Master product database | Medium |
-| Phase 4: Inventory Mgmt | 4 weeks | Unified inventory pool | Medium |
-| Phase 5: Advanced Features | 16+ weeks | AR, AI, WhatsApp, TikTok | High |
-| **Total** | **~6 months** | **Full omnichannel platform** | **$50-100K** |
+| Phase                      | Duration      | Key Deliverables              | Investment   |
+| -------------------------- | ------------- | ----------------------------- | ------------ |
+| Phase 1: Quick Fixes       | 1-2 weeks     | Product visibility restored   | Low          |
+| Phase 2: Real-time Sync    | 2-3 weeks     | Inventory updates <5 min      | Medium       |
+| Phase 3: Unified Catalog   | 4 weeks       | Master product database       | Medium       |
+| Phase 4: Inventory Mgmt    | 4 weeks       | Unified inventory pool        | Medium       |
+| Phase 5: Advanced Features | 16+ weeks     | AR, AI, WhatsApp, TikTok      | High         |
+| **Total**                  | **~6 months** | **Full omnichannel platform** | **$50-100K** |
 
 ---
 
@@ -437,61 +442,66 @@ Build comprehensive dashboard to track performance across all channels and under
 
 ### Revenue Growth Projections
 
-| Metric | Current | 6 Months | 12 Months |
-|--------|---------|----------|-----------|
-| Monthly Revenue | $X | $X × 1.5 | $X × 2.5 |
-| Customer Base | Y | Y × 1.8 | Y × 3.2 |
-| Average Order Value | $Z | $Z × 1.2 | $Z × 1.4 |
-| Customer Retention | 40% | 55% | 70% |
-| Repeat Purchase Rate | 15% | 25% | 40% |
+| Metric               | Current | 6 Months | 12 Months |
+| -------------------- | ------- | -------- | --------- |
+| Monthly Revenue      | $X      | $X × 1.5 | $X × 2.5  |
+| Customer Base        | Y       | Y × 1.8  | Y × 3.2   |
+| Average Order Value  | $Z      | $Z × 1.2 | $Z × 1.4  |
+| Customer Retention   | 40%     | 55%      | 70%       |
+| Repeat Purchase Rate | 15%     | 25%      | 40%       |
 
 ### Channel Distribution (Projected)
 
-| Channel | Current | 6 Months | 12 Months |
-|---------|---------|----------|-----------|
-| Shopify | 60% | 45% | 35% |
-| Facebook Shop | 0% | 20% | 25% |
-| Instagram Shop | 0% | 15% | 20% |
-| TikTok Shop | 0% | 10% | 15% |
-| WhatsApp | 0% | 5% | 5% |
+| Channel        | Current | 6 Months | 12 Months |
+| -------------- | ------- | -------- | --------- |
+| Shopify        | 60%     | 45%      | 35%       |
+| Facebook Shop  | 0%      | 20%      | 25%       |
+| Instagram Shop | 0%      | 15%      | 20%       |
+| TikTok Shop    | 0%      | 10%      | 15%       |
+| WhatsApp       | 0%      | 5%       | 5%        |
 
 ---
 
 ## Risk Mitigation
 
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|-----------|
-| API rate limiting | Medium | Medium | Implement queue system, batch requests |
-| Data sync failures | Low | High | Redundant sync, error alerts, manual override |
-| Inventory discrepancies | Medium | High | Real-time validation, reconciliation jobs |
-| Customer experience issues | Medium | High | Comprehensive testing, gradual rollout |
-| Team capacity | High | Medium | Hire developer, use managed services |
+| Risk                       | Probability | Impact | Mitigation                                    |
+| -------------------------- | ----------- | ------ | --------------------------------------------- |
+| API rate limiting          | Medium      | Medium | Implement queue system, batch requests        |
+| Data sync failures         | Low         | High   | Redundant sync, error alerts, manual override |
+| Inventory discrepancies    | Medium      | High   | Real-time validation, reconciliation jobs     |
+| Customer experience issues | Medium      | High   | Comprehensive testing, gradual rollout        |
+| Team capacity              | High        | Medium | Hire developer, use managed services          |
 
 ---
 
 ## Success Metrics & KPIs
 
 ### Phase 1 Success Metrics
+
 - ✅ 100% of Shopify products visible in Meta shops
 - ✅ Zero checkout errors
 - ✅ First order from Facebook/Instagram shop
 
 ### Phase 2 Success Metrics
+
 - ✅ 99.9% inventory sync success rate
 - ✅ <5 minute inventory update latency
 - ✅ Zero inventory discrepancies
 
 ### Phase 3 Success Metrics
+
 - ✅ 100% product coverage in unified catalog
 - ✅ 95% field accuracy
 - ✅ <1 minute sync time to all channels
 
 ### Phase 4 Success Metrics
+
 - ✅ Zero overselling incidents
 - ✅ 99.99% inventory accuracy
 - ✅ <1 second inventory query response time
 
 ### Phase 5 Success Metrics
+
 - ✅ 25-35% conversion rate increase (AR try-on)
 - ✅ 15-20% average order value increase (AI personalization)
 - ✅ 30-40% engagement increase (WhatsApp)
@@ -515,18 +525,21 @@ The jewelry market is growing at 5.41% annually, and omnichannel retailers captu
 ### API Integration Specifications
 
 #### Shopify API
+
 - **Endpoint:** `https://marjahans.myshopify.com/admin/api/2024-01/`
 - **Authentication:** OAuth 2.0 with API access token
 - **Key Resources:** Products, InventoryLevels, Orders, Webhooks
 - **Rate Limit:** 2 requests/second (40 per minute)
 
 #### Meta Graph API
+
 - **Endpoint:** `https://graph.instagram.com/v19.0/`
 - **Authentication:** App access token
 - **Key Resources:** Catalog, Product, InventoryItem, Shop
 - **Rate Limit:** 100 requests/second (batch), 10 requests/second (single)
 
 #### Shopify Webhook Events
+
 - `products/create` - New product created
 - `products/update` - Product details changed
 - `products/delete` - Product deleted
@@ -537,6 +550,7 @@ The jewelry market is growing at 5.41% annually, and omnichannel retailers captu
 ### Database Schema
 
 **Products Table**
+
 ```sql
 CREATE TABLE products (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -562,6 +576,7 @@ CREATE TABLE products (
 ```
 
 **Inventory Table**
+
 ```sql
 CREATE TABLE inventory (
   id INT PRIMARY KEY AUTO_INCREMENT,

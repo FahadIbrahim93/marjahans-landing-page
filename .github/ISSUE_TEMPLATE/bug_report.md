@@ -3,8 +3,7 @@ name: Bug Report
 about: Report a bug or issue
 title: "[BUG] "
 labels: bug
-assignees: ''
-
+assignees: ""
 ---
 
 ## Description
@@ -52,6 +51,7 @@ If you see any error messages in the console or logs, please include them here:
 ## Additional Context
 
 Add any other context about the problem here. For example:
+
 - When did this bug start occurring?
 - Does it happen consistently or intermittently?
 - Have you tried any workarounds?

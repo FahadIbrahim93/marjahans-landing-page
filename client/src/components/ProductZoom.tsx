@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
-import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState, useRef, useEffect } from "react";
+import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface ProductZoomProps {
   src: string;
@@ -36,11 +36,11 @@ export function ProductZoom({ src, alt, title }: ProductZoomProps) {
       e.preventDefault();
 
       const delta = e.deltaY > 0 ? -10 : 10;
-      setZoom((prev) => Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, prev + delta)));
+      setZoom(prev => Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, prev + delta)));
     };
 
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    return () => window.removeEventListener('wheel', handleWheel);
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
   }, []);
 
   // Handle keyboard navigation
@@ -49,36 +49,36 @@ export function ProductZoom({ src, alt, title }: ProductZoomProps) {
       if (!containerRef.current?.contains(document.activeElement)) return;
 
       switch (e.key) {
-        case '+':
-        case '=':
+        case "+":
+        case "=":
           e.preventDefault();
-          setZoom((prev) => Math.min(MAX_ZOOM, prev + 10));
+          setZoom(prev => Math.min(MAX_ZOOM, prev + 10));
           break;
-        case '-':
+        case "-":
           e.preventDefault();
-          setZoom((prev) => Math.max(MIN_ZOOM, prev - 10));
+          setZoom(prev => Math.max(MIN_ZOOM, prev - 10));
           break;
-        case 'r':
-        case 'R':
+        case "r":
+        case "R":
           e.preventDefault();
           setZoom(100);
           setRotation(0);
           break;
-        case 'ArrowLeft':
+        case "ArrowLeft":
           e.preventDefault();
-          setRotation((prev) => (prev - ROTATION_STEP + 360) % 360);
+          setRotation(prev => (prev - ROTATION_STEP + 360) % 360);
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           e.preventDefault();
-          setRotation((prev) => (prev + ROTATION_STEP) % 360);
+          setRotation(prev => (prev + ROTATION_STEP) % 360);
           break;
         default:
           break;
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   // Handle mouse drag for rotation
@@ -92,7 +92,7 @@ export function ProductZoom({ src, alt, title }: ProductZoomProps) {
 
     const deltaX = e.clientX - dragStart.x;
     const rotationDelta = (deltaX / 10) % 360;
-    setRotation((prev) => (prev + rotationDelta) % 360);
+    setRotation(prev => (prev + rotationDelta) % 360);
     setDragStart({ x: e.clientX, y: e.clientY });
   };
 
@@ -120,7 +120,9 @@ export function ProductZoom({ src, alt, title }: ProductZoomProps) {
       }
 
       const delta = distance - lastDistance;
-      setZoom((prev) => Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, prev + delta * 0.5)));
+      setZoom(prev =>
+        Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, prev + delta * 0.5))
+      );
       lastDistance = distance;
     };
 
@@ -128,12 +130,12 @@ export function ProductZoom({ src, alt, title }: ProductZoomProps) {
       lastDistance = 0;
     };
 
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd);
 
     return () => {
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
   }, []);
 
@@ -174,7 +176,7 @@ export function ProductZoom({ src, alt, title }: ProductZoomProps) {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => setZoom((prev) => Math.max(MIN_ZOOM, prev - 10))}
+          onClick={() => setZoom(prev => Math.max(MIN_ZOOM, prev - 10))}
           aria-label="Zoom out (- key)"
           className="border-amber-500/30 hover:border-amber-500/60"
         >
@@ -185,7 +187,7 @@ export function ProductZoom({ src, alt, title }: ProductZoomProps) {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => setZoom((prev) => Math.min(MAX_ZOOM, prev + 10))}
+          onClick={() => setZoom(prev => Math.min(MAX_ZOOM, prev + 10))}
           aria-label="Zoom in (+ key)"
           className="border-amber-500/30 hover:border-amber-500/60"
         >
@@ -210,7 +212,9 @@ export function ProductZoom({ src, alt, title }: ProductZoomProps) {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => setRotation((prev) => (prev - ROTATION_STEP + 360) % 360)}
+          onClick={() =>
+            setRotation(prev => (prev - ROTATION_STEP + 360) % 360)
+          }
           aria-label="Rotate left (← key)"
           className="border-amber-500/30 hover:border-amber-500/60"
         >
@@ -220,7 +224,7 @@ export function ProductZoom({ src, alt, title }: ProductZoomProps) {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => setRotation((prev) => (prev + ROTATION_STEP) % 360)}
+          onClick={() => setRotation(prev => (prev + ROTATION_STEP) % 360)}
           aria-label="Rotate right (→ key)"
           className="border-amber-500/30 hover:border-amber-500/60"
         >
@@ -233,13 +237,30 @@ export function ProductZoom({ src, alt, title }: ProductZoomProps) {
         <p className="font-semibold text-slate-300">Keyboard Shortcuts:</p>
         <ul className="list-disc list-inside space-y-0.5">
           <li>
-            <kbd className="bg-slate-800 px-2 py-0.5 rounded text-amber-400">+</kbd> / <kbd className="bg-slate-800 px-2 py-0.5 rounded text-amber-400">-</kbd> to zoom
+            <kbd className="bg-slate-800 px-2 py-0.5 rounded text-amber-400">
+              +
+            </kbd>{" "}
+            /{" "}
+            <kbd className="bg-slate-800 px-2 py-0.5 rounded text-amber-400">
+              -
+            </kbd>{" "}
+            to zoom
           </li>
           <li>
-            <kbd className="bg-slate-800 px-2 py-0.5 rounded text-amber-400">←</kbd> / <kbd className="bg-slate-800 px-2 py-0.5 rounded text-amber-400">→</kbd> to rotate
+            <kbd className="bg-slate-800 px-2 py-0.5 rounded text-amber-400">
+              ←
+            </kbd>{" "}
+            /{" "}
+            <kbd className="bg-slate-800 px-2 py-0.5 rounded text-amber-400">
+              →
+            </kbd>{" "}
+            to rotate
           </li>
           <li>
-            <kbd className="bg-slate-800 px-2 py-0.5 rounded text-amber-400">R</kbd> to reset
+            <kbd className="bg-slate-800 px-2 py-0.5 rounded text-amber-400">
+              R
+            </kbd>{" "}
+            to reset
           </li>
           <li>Drag to rotate, scroll to zoom, pinch on touch devices</li>
         </ul>

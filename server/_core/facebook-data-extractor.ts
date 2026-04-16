@@ -48,14 +48,21 @@ interface ExtractedProduct {
 /**
  * Fetch recent posts from your Facebook page
  */
-export async function fetchFacebookPosts(limit: number = 50): Promise<FacebookPost[]> {
+export async function fetchFacebookPosts(
+  limit: number = 50
+): Promise<FacebookPost[]> {
   if (!ENV.facebookPageAccessToken || !ENV.facebookPageId) {
     throw new Error("Facebook credentials not configured");
   }
 
   try {
-    const url = new URL(`https://graph.facebook.com/v18.0/${ENV.facebookPageId}/posts`);
-    url.searchParams.append("fields", "id,message,created_time,attachments,comments.limit(5).fields(message,created_time)");
+    const url = new URL(
+      `https://graph.facebook.com/v18.0/${ENV.facebookPageId}/posts`
+    );
+    url.searchParams.append(
+      "fields",
+      "id,message,created_time,attachments,comments.limit(5).fields(message,created_time)"
+    );
     url.searchParams.append("limit", limit.toString());
     url.searchParams.append("access_token", ENV.facebookPageAccessToken);
 
@@ -64,7 +71,9 @@ export async function fetchFacebookPosts(limit: number = 50): Promise<FacebookPo
     if (!response.ok) {
       const error = await response.json();
       console.error("[Facebook Posts] Error:", error);
-      throw new Error(`Failed to fetch posts: ${error.error?.message || response.statusText}`);
+      throw new Error(
+        `Failed to fetch posts: ${error.error?.message || response.statusText}`
+      );
     }
 
     const data = await response.json();
@@ -79,7 +88,9 @@ export async function fetchFacebookPosts(limit: number = 50): Promise<FacebookPo
 /**
  * Extract product information from a post using LLM
  */
-export async function extractProductFromPost(post: FacebookPost): Promise<ExtractedProduct | null> {
+export async function extractProductFromPost(
+  post: FacebookPost
+): Promise<ExtractedProduct | null> {
   try {
     // Prepare post content for LLM analysis
     const postContent = `
@@ -89,7 +100,8 @@ Comments: ${post.comments?.map(c => c.message).join(" | ") || ""}
 `;
 
     // Use LLM to extract product information
-    const systemPrompt = "You are a jewelry product catalog expert. Extract product information from Facebook posts about jewelry sales. Return JSON with name, description, price, currency, category, material, and confidence (0-1). Only extract if confidence > 0.7.";
+    const systemPrompt =
+      "You are a jewelry product catalog expert. Extract product information from Facebook posts about jewelry sales. Return JSON with name, description, price, currency, category, material, and confidence (0-1). Only extract if confidence > 0.7.";
     const userPrompt = `Extract product information from this Facebook post:\n${postContent}`;
 
     const response = await invokeLLM({
@@ -166,7 +178,9 @@ Comments: ${post.comments?.map(c => c.message).join(" | ") || ""}
 /**
  * Extract products from multiple posts
  */
-export async function extractProductsFromPosts(posts: FacebookPost[]): Promise<ExtractedProduct[]> {
+export async function extractProductsFromPosts(
+  posts: FacebookPost[]
+): Promise<ExtractedProduct[]> {
   const extractedProducts: ExtractedProduct[] = [];
 
   for (const post of posts) {
@@ -177,7 +191,10 @@ export async function extractProductsFromPosts(posts: FacebookPost[]): Promise<E
         console.log(`[Product Extraction] Extracted: ${product.name}`);
       }
     } catch (error) {
-      console.error(`[Product Extraction] Failed to extract from post ${post.id}:`, error);
+      console.error(
+        `[Product Extraction] Failed to extract from post ${post.id}:`,
+        error
+      );
     }
   }
 
@@ -187,14 +204,21 @@ export async function extractProductsFromPosts(posts: FacebookPost[]): Promise<E
 /**
  * Fetch messenger conversations to extract pricing and product details
  */
-export async function fetchMessengerConversations(limit: number = 20): Promise<any[]> {
+export async function fetchMessengerConversations(
+  limit: number = 20
+): Promise<any[]> {
   if (!ENV.facebookPageAccessToken || !ENV.facebookPageId) {
     throw new Error("Facebook credentials not configured");
   }
 
   try {
-    const url = new URL(`https://graph.facebook.com/v18.0/${ENV.facebookPageId}/conversations`);
-    url.searchParams.append("fields", "id,senders,subject,updated_time,messages.limit(10).fields(from,message,created_time)");
+    const url = new URL(
+      `https://graph.facebook.com/v18.0/${ENV.facebookPageId}/conversations`
+    );
+    url.searchParams.append(
+      "fields",
+      "id,senders,subject,updated_time,messages.limit(10).fields(from,message,created_time)"
+    );
     url.searchParams.append("limit", limit.toString());
     url.searchParams.append("access_token", ENV.facebookPageAccessToken);
 
@@ -219,17 +243,21 @@ export async function fetchMessengerConversations(limit: number = 20): Promise<a
 /**
  * Extract pricing information from messenger conversations
  */
-export async function extractPricingFromConversations(conversations: any[]): Promise<Map<string, number>> {
+export async function extractPricingFromConversations(
+  conversations: any[]
+): Promise<Map<string, number>> {
   const pricingMap = new Map<string, number>();
 
   for (const conversation of conversations) {
     try {
-      const messages = conversation.messages?.data?.map((m: any) => m.message).join(" ") || "";
+      const messages =
+        conversation.messages?.data?.map((m: any) => m.message).join(" ") || "";
 
       if (!messages) continue;
 
       // Use LLM to extract pricing
-      const pricingSystemPrompt = "Extract product pricing from jewelry conversations. Return JSON with product names as keys and prices as values.";
+      const pricingSystemPrompt =
+        "Extract product pricing from jewelry conversations. Return JSON with product names as keys and prices as values.";
       const pricingUserPrompt = `Extract pricing from this conversation:\n${messages}`;
 
       const response = await invokeLLM({
@@ -267,8 +295,12 @@ export async function extractPricingFromConversations(conversations: any[]): Pro
 /**
  * Main function to extract all product data from Facebook
  */
-export async function extractAllProductsFromFacebook(): Promise<ExtractedProduct[]> {
-  console.log("[Facebook Extraction] Starting product extraction from Facebook...");
+export async function extractAllProductsFromFacebook(): Promise<
+  ExtractedProduct[]
+> {
+  console.log(
+    "[Facebook Extraction] Starting product extraction from Facebook..."
+  );
 
   try {
     // Fetch posts
@@ -277,12 +309,16 @@ export async function extractAllProductsFromFacebook(): Promise<ExtractedProduct
 
     // Extract products from posts
     const products = await extractProductsFromPosts(posts);
-    console.log(`[Facebook Extraction] Extracted ${products.length} products from posts`);
+    console.log(
+      `[Facebook Extraction] Extracted ${products.length} products from posts`
+    );
 
     // Fetch messenger conversations for pricing
     const conversations = await fetchMessengerConversations(20);
     const pricing = await extractPricingFromConversations(conversations);
-    console.log(`[Facebook Extraction] Extracted pricing for ${pricing.size} products`);
+    console.log(
+      `[Facebook Extraction] Extracted pricing for ${pricing.size} products`
+    );
 
     // Merge pricing data into products
     products.forEach(product => {
@@ -292,7 +328,9 @@ export async function extractAllProductsFromFacebook(): Promise<ExtractedProduct
       }
     });
 
-    console.log(`[Facebook Extraction] Total products extracted: ${products.length}`);
+    console.log(
+      `[Facebook Extraction] Total products extracted: ${products.length}`
+    );
     return products;
   } catch (error) {
     console.error("[Facebook Extraction] Error:", error);

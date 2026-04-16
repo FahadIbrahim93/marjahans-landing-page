@@ -1,6 +1,7 @@
 # Marjahans Jewellery E-Commerce Platform - TODO
 
 ## Phase 1-4: Core Features (Completed)
+
 - [x] Basic landing page structure with hero section
 - [x] Service cards with product images
 - [x] Social proof and testimonials
@@ -22,6 +23,7 @@
 - [x] Cart abandonment detection
 
 ## Phase 5: Complete E-Commerce Catalog
+
 - [ ] Create products table schema with categories, pricing, inventory
 - [ ] Create product images table for multiple images per product
 - [ ] Create product variants table (size, color, material options)
@@ -35,6 +37,7 @@
 - [ ] Add "move to cart" from wishlist feature
 
 ## Phase 6: Admin Dashboard for Support Team
+
 - [ ] Create admin authentication and role-based access
 - [ ] Build admin layout with sidebar navigation
 - [ ] Create chat management dashboard for support team
@@ -48,6 +51,7 @@
 - [ ] Implement user management for support team
 
 ## Phase 7: AI-Powered Automated Responses
+
 - [ ] Create knowledge base for common questions
 - [ ] Implement AI response generation for shipping questions
 - [ ] Implement AI response generation for returns questions
@@ -58,6 +62,7 @@
 - [ ] Implement response approval workflow for agents
 
 ## Phase 8: Multi-Channel Messaging Integration
+
 - [ ] Integrate WhatsApp Business API
 - [ ] Integrate Facebook Messenger
 - [ ] Integrate Telegram Bot API
@@ -70,6 +75,7 @@
 - [ ] Build channel management in admin dashboard
 
 ## Phase 9: Testing & Optimization
+
 - [ ] Write tests for product catalog functionality
 - [ ] Write tests for cart and checkout flow
 - [ ] Write tests for admin dashboard features
@@ -83,6 +89,7 @@
 - [ ] Security audit and vulnerability testing
 
 ## Phase 10: Deployment & Launch
+
 - [ ] Set up production environment
 - [ ] Configure payment processing (Stripe)
 - [ ] Set up email service for notifications
@@ -93,6 +100,7 @@
 - [ ] Launch and monitor performance
 
 ## Current Sprint: Facebook Shop Integration & Enhanced Admin Dashboard
+
 - [ ] Create comprehensive admin dashboard with Facebook Shop sync panel
 - [ ] Build Facebook Shop sync UI with sync status and product count display
 - [ ] Implement sync trigger button and progress tracking
@@ -103,10 +111,10 @@
 - [ ] Verify product images download and store correctly
 - [ ] Test product display on ProductListing and ProductDetail pages
 
-
 ## Documentation & Development Structure (Completed)
+
 - [x] Create DEVELOPMENT.md with setup and workflow instructions
-- [x] Create .agents.yml with agent guidelines and responsibilities  
+- [x] Create .agents.yml with agent guidelines and responsibilities
 - [x] Create CONTRIBUTING.md with contribution standards
 - [x] Create CODE_OF_CONDUCT.md for team collaboration
 - [x] Create ARCHITECTURE.md documenting system design
@@ -115,8 +123,8 @@
 - [x] Create enhanced AdminDashboard with Facebook Shop sync panel
 - [x] Implement sync status display and product count tracking
 
-
 ## Facebook Product Extraction System (Completed)
+
 - [x] Create Facebook data extraction system for posts and messenger
 - [x] Implement AI-powered product information parsing using LLM
 - [x] Extract product names, descriptions, prices, categories, materials
@@ -128,8 +136,8 @@
 - [x] Create comprehensive test suite (16 tests passing)
 - [x] Validate Facebook credentials and API access
 
-
 ## Omnichannel Integration Research & Strategy (Completed)
+
 - [x] Research Meta Business Manager capabilities and integration options
 - [x] Analyze Shopify-Facebook Shop integration and sync mechanisms
 - [x] Research omnichannel ecommerce best practices and strategies
@@ -142,6 +150,7 @@
 - [x] Create database schema for unified product catalog
 
 ## Phase 1: Immediate Fixes - Product Visibility (Next Priority)
+
 - [ ] Verify Shopify-Facebook app installation and authorization
 - [ ] Complete domain ownership verification in Meta Commerce Manager
 - [ ] Select checkout method (Shopify vs Facebook checkout)
@@ -157,6 +166,7 @@
 - [ ] Test end-to-end checkout flow
 
 ## Phase 2: Real-Time Inventory Sync (Future)
+
 - [ ] Set up Shopify webhook for inventory_level/update events
 - [ ] Build backend webhook endpoint for Shopify events
 - [ ] Implement Meta Catalog Batch API client
@@ -167,6 +177,7 @@
 - [ ] Achieve <5 minute update latency
 
 ## Phase 3: Unified Product Catalog System (Future)
+
 - [ ] Design extended product schema with jewelry-specific fields
 - [ ] Create database migration for new fields
 - [ ] Build data sync engine from Shopify to unified catalog
@@ -178,6 +189,7 @@
 - [ ] Test sync to all channels
 
 ## Phase 4: Omnichannel Inventory Management (Future)
+
 - [ ] Design centralized inventory management system
 - [ ] Create unified inventory database schema
 - [ ] Integrate Shopify orders with inventory system
@@ -190,6 +202,7 @@
 - [ ] Achieve 99.99% inventory accuracy
 
 ## Phase 5: Advanced Features & Growth (Future)
+
 - [ ] Implement AR virtual try-on for jewelry products
 - [ ] Build AI-powered personalization engine
 - [ ] Integrate WhatsApp Business API
@@ -199,8 +212,8 @@
 - [ ] Build video commerce capabilities
 - [ ] Launch subscription/membership program
 
-
 ## Multi-Agent Collaboration Framework (Completed)
+
 - [x] Create BRANCHING_STRATEGY.md with Git workflow and branch naming conventions
 - [x] Create AGENT_COLLABORATION.md with agent roles, responsibilities, and workflows
 - [x] Create TASK_ALLOCATION.md with comprehensive feature breakdown and task assignments

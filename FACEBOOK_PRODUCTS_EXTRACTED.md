@@ -3,11 +3,12 @@
 ## Source: www.facebook.com/marjahans2025
 
 ### Business Information
+
 - **Business Name**: Marjahan's (Marjahans)
 - **Tagline**: "Where LUXURY meets AFFORDABILITY"
 - **Location**: Mohammadpur, Dhaka, Bangladesh
 - **Email**: marjahanshopping@gmail.com
-- **Instagram**: @marjahans_
+- **Instagram**: @marjahans\_
 - **Established**: 1994 (Dhaka Heritage)
 - **Page Type**: Business/Entrepreneur
 
@@ -43,7 +44,9 @@ From the Facebook photos and posts, the following jewelry categories are visible
    - Chain anklets
 
 ### Product Images Available
+
 Multiple high-quality product photos visible on Facebook showing:
+
 - Products on hands/wrists
 - Product display shots
 - Lifestyle photography
@@ -51,6 +54,7 @@ Multiple high-quality product photos visible on Facebook showing:
 - Product collections
 
 ### Key Observations
+
 - Professional product photography
 - Focus on gold jewelry
 - Mix of traditional and modern designs
@@ -58,6 +62,7 @@ Multiple high-quality product photos visible on Facebook showing:
 - Strong visual branding with dark background and gold accents
 
 ### Next Steps for Complete Data Population
+
 1. Extract individual product posts with prices and descriptions
 2. Download all product images in high resolution
 3. Organize by category

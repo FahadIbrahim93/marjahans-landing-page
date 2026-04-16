@@ -1,30 +1,38 @@
-import { useState, useEffect } from 'react';
-import { trpc } from '@/lib/trpc';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Heart, ShoppingCart, Loader2, Copy, Check } from 'lucide-react';
-import { useCartStore } from '@/lib/cartStore';
-import { Link } from 'wouter';
-import { FilterSidebar } from '@/components/FilterSidebar';
-import { SortDropdown } from '@/components/SortDropdown';
+import { useState, useEffect } from "react";
+import { trpc } from "@/lib/trpc";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Heart, ShoppingCart, Loader2, Copy, Check } from "lucide-react";
+import { useCartStore } from "@/lib/cartStore";
+import { Link } from "wouter";
+import { FilterSidebar } from "@/components/FilterSidebar";
+import { SortDropdown } from "@/components/SortDropdown";
 
 export default function ProductListing() {
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
 
   // Parse URL query parameters
-  const searchParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
-  const urlCategory = searchParams.get('category');
-  const urlSearch = searchParams.get('search');
-  const urlSort = searchParams.get('sort');
-  const urlMaterial = searchParams.get('material');
-  const urlMinPrice = searchParams.get('minPrice');
-  const urlMaxPrice = searchParams.get('maxPrice');
+  const searchParams = new URLSearchParams(
+    typeof window !== "undefined" ? window.location.search : ""
+  );
+  const urlCategory = searchParams.get("category");
+  const urlSearch = searchParams.get("search");
+  const urlSort = searchParams.get("sort");
+  const urlMaterial = searchParams.get("material");
+  const urlMinPrice = searchParams.get("minPrice");
+  const urlMaxPrice = searchParams.get("maxPrice");
 
   // Filter and sort state
-  const [categoryId, setCategoryId] = useState<number | undefined>(urlCategory ? parseInt(urlCategory) : undefined);
-  const [search, setSearch] = useState(urlSearch || '');
-  const [sortBy, setSortBy] = useState<'price_asc' | 'price_desc' | 'newest' | 'rating' | 'popularity'>((urlSort as any) || 'newest');
-  const [selectedMaterials, setSelectedMaterials] = useState<string[]>(urlMaterial ? [urlMaterial] : []);
+  const [categoryId, setCategoryId] = useState<number | undefined>(
+    urlCategory ? parseInt(urlCategory) : undefined
+  );
+  const [search, setSearch] = useState(urlSearch || "");
+  const [sortBy, setSortBy] = useState<
+    "price_asc" | "price_desc" | "newest" | "rating" | "popularity"
+  >((urlSort as any) || "newest");
+  const [selectedMaterials, setSelectedMaterials] = useState<string[]>(
+    urlMaterial ? [urlMaterial] : []
+  );
   const [priceRange, setPriceRange] = useState<[number, number]>([
     urlMinPrice ? parseInt(urlMinPrice) : 0,
     urlMaxPrice ? parseInt(urlMaxPrice) : 100000,
@@ -56,7 +64,7 @@ export default function ProductListing() {
     offset,
   });
 
-  const addToCart = useCartStore((state) => state.addItem);
+  const addToCart = useCartStore(state => state.addItem);
   const { mutate: addToWishlist } = trpc.products.addToWishlist.useMutation();
 
   const handleAddToCart = (product: any) => {
@@ -64,7 +72,7 @@ export default function ProductListing() {
       id: `${product.id}`,
       name: product.name,
       price: product.price,
-      image: product.images?.[0]?.imageUrl || '/placeholder-jewelry.jpg',
+      image: product.images?.[0]?.imageUrl || "/placeholder-jewelry.jpg",
       quantity: 1,
     });
   };
@@ -72,35 +80,37 @@ export default function ProductListing() {
   const handleAddToWishlist = (productId: number) => {
     addToWishlist({
       productId,
-      visitorId: localStorage.getItem('visitorId') || undefined,
+      visitorId: localStorage.getItem("visitorId") || undefined,
     });
   };
 
   // Update URL when filters change
   useEffect(() => {
     const params = new URLSearchParams();
-    if (categoryId) params.set('category', categoryId.toString());
-    if (search) params.set('search', search);
-    if (sortBy !== 'newest') params.set('sort', sortBy);
-    if (selectedMaterials.length > 0) params.set('material', selectedMaterials[0]);
-    if (priceRange[0] > 0) params.set('minPrice', priceRange[0].toString());
-    if (priceRange[1] < 100000) params.set('maxPrice', priceRange[1].toString());
+    if (categoryId) params.set("category", categoryId.toString());
+    if (search) params.set("search", search);
+    if (sortBy !== "newest") params.set("sort", sortBy);
+    if (selectedMaterials.length > 0)
+      params.set("material", selectedMaterials[0]);
+    if (priceRange[0] > 0) params.set("minPrice", priceRange[0].toString());
+    if (priceRange[1] < 100000)
+      params.set("maxPrice", priceRange[1].toString());
 
     const queryString = params.toString();
-    const newUrl = queryString ? `/products?${queryString}` : '/products';
-    window.history.replaceState({}, '', newUrl);
+    const newUrl = queryString ? `/products?${queryString}` : "/products";
+    window.history.replaceState({}, "", newUrl);
   }, [categoryId, search, sortBy, selectedMaterials, priceRange]);
 
   const handleResetFilters = () => {
     setCategoryId(undefined);
-    setSearch('');
+    setSearch("");
     setSelectedMaterials([]);
-    setSortBy('newest');
+    setSortBy("newest");
     if (priceRangeData) {
       setPriceRange([priceRangeData.min, priceRangeData.max]);
     }
     setOffset(0);
-    window.history.replaceState({}, '', '/products');
+    window.history.replaceState({}, "", "/products");
   };
 
   const handleCopyShareLink = () => {
@@ -125,7 +135,9 @@ export default function ProductListing() {
       <div className="bg-gradient-to-r from-amber-900 to-amber-800 text-white py-12">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-4">Our Jewellery Collection</h1>
-          <p className="text-amber-100">Discover exquisite pieces crafted with precision and elegance</p>
+          <p className="text-amber-100">
+            Discover exquisite pieces crafted with precision and elegance
+          </p>
         </div>
       </div>
 
@@ -141,12 +153,12 @@ export default function ProductListing() {
               selectedCategory={categoryId}
               selectedMaterials={selectedMaterials}
               selectedPriceRange={priceRange}
-              onCategoryChange={(id) => {
+              onCategoryChange={id => {
                 setCategoryId(id);
                 setOffset(0);
               }}
               onMaterialChange={handleMaterialChange}
-              onPriceChange={(range) => {
+              onPriceChange={range => {
                 setPriceRange(range);
                 setOffset(0);
               }}
@@ -162,7 +174,7 @@ export default function ProductListing() {
                 <Input
                   placeholder="Search products..."
                   value={search}
-                  onChange={(e) => {
+                  onChange={e => {
                     setSearch(e.target.value);
                     setOffset(0);
                   }}
@@ -170,13 +182,16 @@ export default function ProductListing() {
                 />
                 <SortDropdown
                   value={sortBy}
-                  onChange={(value) => {
+                  onChange={value => {
                     setSortBy(value as any);
                     setOffset(0);
                   }}
                 />
               </div>
-              {(categoryId || search || selectedMaterials.length > 0 || sortBy !== 'newest') && (
+              {(categoryId ||
+                search ||
+                selectedMaterials.length > 0 ||
+                sortBy !== "newest") && (
                 <button
                   onClick={handleCopyShareLink}
                   className="flex items-center gap-2 text-sm text-amber-600 hover:text-amber-700 transition-colors"
@@ -210,12 +225,15 @@ export default function ProductListing() {
                         {/* Product Image */}
                         <div className="relative bg-gray-100 h-64 overflow-hidden">
                           <img
-                            src={product.images?.[0]?.imageUrl || '/placeholder-jewelry.jpg'}
+                            src={
+                              product.images?.[0]?.imageUrl ||
+                              "/placeholder-jewelry.jpg"
+                            }
                             alt={product.name}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                           <button
-                            onClick={(e) => {
+                            onClick={e => {
                               e.preventDefault();
                               handleAddToWishlist(product.id);
                             }}
@@ -227,26 +245,36 @@ export default function ProductListing() {
 
                         {/* Product Info */}
                         <div className="p-4">
-                          <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
-                          
+                          <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
+                            {product.name}
+                          </h3>
+
                           {/* Rating */}
                           {product.rating && product.rating.rating > 0 && (
                             <div className="flex items-center gap-2 mb-3">
                               <div className="flex text-amber-400 text-sm">
                                 {[...Array(5)].map((_, i) => (
-                                  <span key={i}>{i < Math.round(product.rating.rating || 0) ? '★' : '☆'}</span>
+                                  <span key={i}>
+                                    {i < Math.round(product.rating.rating || 0)
+                                      ? "★"
+                                      : "☆"}
+                                  </span>
                                 ))}
                               </div>
-                              <span className="text-xs text-gray-500">({product.rating.count || 0})</span>
+                              <span className="text-xs text-gray-500">
+                                ({product.rating.count || 0})
+                              </span>
                             </div>
                           )}
 
                           {/* Price */}
-                          <p className="text-2xl font-bold text-amber-600 mb-4">₹{(product.price / 100).toFixed(2)}</p>
+                          <p className="text-2xl font-bold text-amber-600 mb-4">
+                            ₹{(product.price / 100).toFixed(2)}
+                          </p>
 
                           {/* Add to Cart Button */}
                           <button
-                            onClick={(e) => {
+                            onClick={e => {
                               e.preventDefault();
                               handleAddToCart(product);
                             }}
@@ -284,7 +312,9 @@ export default function ProductListing() {
               </>
             ) : (
               <div className="flex items-center justify-center h-96">
-                <p className="text-gray-500 text-lg">No products found. Try adjusting your filters.</p>
+                <p className="text-gray-500 text-lg">
+                  No products found. Try adjusting your filters.
+                </p>
               </div>
             )}
           </div>

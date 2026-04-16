@@ -1,4 +1,11 @@
-import { CheckCircle, Award, Shield, Truck, RotateCcw, Lock } from 'lucide-react';
+import {
+  CheckCircle,
+  Award,
+  Shield,
+  Truck,
+  RotateCcw,
+  Lock,
+} from "lucide-react";
 
 interface Badge {
   icon: React.ReactNode;
@@ -19,39 +26,39 @@ export function TrustBadges() {
   const badges: Badge[] = [
     {
       icon: <Award className="w-8 h-8" />,
-      title: 'Certified Authentic',
-      description: 'All jewelry certified for purity and authenticity',
-      color: 'from-amber-500/20 to-amber-600/10',
+      title: "Certified Authentic",
+      description: "All jewelry certified for purity and authenticity",
+      color: "from-amber-500/20 to-amber-600/10",
     },
     {
       icon: <CheckCircle className="w-8 h-8" />,
-      title: 'As Seen On Facebook',
-      description: '10K+ followers, verified business account',
-      color: 'from-blue-500/20 to-blue-600/10',
+      title: "As Seen On Facebook",
+      description: "10K+ followers, verified business account",
+      color: "from-blue-500/20 to-blue-600/10",
     },
     {
       icon: <RotateCcw className="w-8 h-8" />,
-      title: '30-Day Returns',
-      description: 'Hassle-free returns within 30 days',
-      color: 'from-green-500/20 to-green-600/10',
+      title: "30-Day Returns",
+      description: "Hassle-free returns within 30 days",
+      color: "from-green-500/20 to-green-600/10",
     },
     {
       icon: <Lock className="w-8 h-8" />,
-      title: 'Secure Checkout',
-      description: 'SSL encrypted, PCI DSS compliant payments',
-      color: 'from-purple-500/20 to-purple-600/10',
+      title: "Secure Checkout",
+      description: "SSL encrypted, PCI DSS compliant payments",
+      color: "from-purple-500/20 to-purple-600/10",
     },
     {
       icon: <Truck className="w-8 h-8" />,
-      title: 'Fast Shipping',
-      description: 'Tracked delivery within 2-3 business days',
-      color: 'from-orange-500/20 to-orange-600/10',
+      title: "Fast Shipping",
+      description: "Tracked delivery within 2-3 business days",
+      color: "from-orange-500/20 to-orange-600/10",
     },
     {
       icon: <Shield className="w-8 h-8" />,
-      title: 'Buyer Protection',
-      description: 'Full refund guarantee if not satisfied',
-      color: 'from-red-500/20 to-red-600/10',
+      title: "Buyer Protection",
+      description: "Full refund guarantee if not satisfied",
+      color: "from-red-500/20 to-red-600/10",
     },
   ];
 
@@ -64,7 +71,9 @@ export function TrustBadges() {
       <div className="max-w-6xl mx-auto">
         {/* Section title */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white mb-2">Why Trust Marjahans</h2>
+          <h2 className="text-3xl font-bold text-white mb-2">
+            Why Trust Marjahans
+          </h2>
           <p className="text-slate-300">
             Certified authentic jewelry with customer-first guarantees
           </p>
@@ -81,7 +90,9 @@ export function TrustBadges() {
               <div className="text-amber-400 mb-4">{badge.icon}</div>
 
               {/* Title */}
-              <h3 className="text-lg font-semibold text-white mb-2">{badge.title}</h3>
+              <h3 className="text-lg font-semibold text-white mb-2">
+                {badge.title}
+              </h3>
 
               {/* Description */}
               <p className="text-sm text-slate-300">{badge.description}</p>

@@ -40,12 +40,16 @@ export const chatRouter = router({
         visitorName: z.string().optional(),
         visitorEmail: z.string().email().optional(),
         cartValue: z.number().default(0),
-        cartItems: z.array(z.object({
-          id: z.string(),
-          name: z.string(),
-          price: z.number(),
-          quantity: z.number(),
-        })).optional(),
+        cartItems: z
+          .array(
+            z.object({
+              id: z.string(),
+              name: z.string(),
+              price: z.number(),
+              quantity: z.number(),
+            })
+          )
+          .optional(),
       })
     )
     .mutation(async ({ input }) => {
@@ -79,7 +83,10 @@ export const chatRouter = router({
       try {
         const conversation = await getConversation(input.conversationId);
         if (!conversation) {
-          throw new TRPCError({ code: "NOT_FOUND", message: "Conversation not found" });
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Conversation not found",
+          });
         }
         return conversation;
       } catch (error: any) {
@@ -208,15 +215,17 @@ export const chatRouter = router({
   getSettings: publicProcedure.query(async () => {
     try {
       const settings = await getChatSettings();
-      return settings || {
-        widgetTitle: "Chat with us",
-        widgetSubtitle: "We're here to help",
-        widgetColor: "#F59E0B",
-        widgetPosition: "bottom-right",
-        showWhenOffline: true,
-        enableAbandonmentDetection: true,
-        abandonmentDelay: 120000,
-      };
+      return (
+        settings || {
+          widgetTitle: "Chat with us",
+          widgetSubtitle: "We're here to help",
+          widgetColor: "#F59E0B",
+          widgetPosition: "bottom-right",
+          showWhenOffline: true,
+          enableAbandonmentDetection: true,
+          abandonmentDelay: 120000,
+        }
+      );
     } catch (error: any) {
       console.error("[Chat] Failed to get settings:", error);
       throw toInternalError("Failed to get settings", error);

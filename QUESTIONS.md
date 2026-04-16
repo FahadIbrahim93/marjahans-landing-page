@@ -102,6 +102,7 @@ Please confirm or clarify:
 - [ ] EU users (GDPR required)?
 
 **Default Assumptions (if no response):**
+
 - Full e-commerce with Stripe
 - Upgrade to web-db-user
 - Instagram API integration
