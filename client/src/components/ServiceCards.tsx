@@ -48,7 +48,7 @@ const services: ServiceCard[] = [
 
 export function ServiceCards() {
   return (
-    <section className="py-20 px-6 bg-background">
+    <section className="py-24 px-6 bg-background cinematic-surface section-divider-glow">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 space-y-4">
           <div className="flex justify-center mb-4">
@@ -75,7 +75,7 @@ export function ServiceCards() {
                 animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`,
               }}
             >
-              <Card className="h-full bg-card/50 border-white/10 hover:border-amber-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10 cursor-pointer overflow-hidden">
+              <Card className="h-full lux-card transition-all duration-500 cursor-pointer overflow-hidden">
                 <div className="relative h-48 overflow-hidden bg-black/40">
                   <img
                     src={service.image}

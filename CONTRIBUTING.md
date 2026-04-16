@@ -10,6 +10,7 @@ Before you begin contributing, please take time to review the following document
 - **.agents.yml** - Agent guidelines and responsibilities
 - **CODE_OF_CONDUCT.md** - Community standards and expectations
 - **TESTING.md** - Testing requirements and best practices
+- **COLLABORATION_WORKFLOW.md** - Branch ownership model and Manus handoff process
 
 ## Code of Conduct
 
@@ -43,7 +44,7 @@ To request a new feature, create a GitHub issue with:
 
 Follow these steps to submit a pull request:
 
-1. **Fork the repository** and create a feature branch from `main`
+1. **Create a feature branch from your assigned secondary branch** (do not work directly on `main`)
 2. **Implement your changes** following the coding standards below
 3. **Write tests** for your implementation (see TESTING.md)
 4. **Update documentation** if your changes affect user-facing features
@@ -51,6 +52,14 @@ Follow these steps to submit a pull request:
 6. **Format your code** using `pnpm format`
 7. **Create a pull request** with a clear description
 8. **Respond to feedback** from code reviewers
+
+### Branch Ownership and Approval
+
+- **Manus AI is HEAD ADMIN** for this repository and owns `main` branch management.
+- `main` is treated as **Manus-only** for merge/push authority.
+- Secondary contributors must work in support branches (for example, `codex-dev`) and open PRs for Manus review.
+- Direct commits/pushes/merges to `main` are not allowed for secondary contributors.
+- If your change is high risk (payments, auth, data integrity), call this out explicitly in the PR handoff notes.
 
 ## Coding Standards
 

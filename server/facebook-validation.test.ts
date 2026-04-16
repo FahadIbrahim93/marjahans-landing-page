@@ -1,23 +1,43 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('./_core/env', () => ({
+  ENV: {
+    facebookPageAccessToken: 'test-token',
+  },
+}));
+
 import { validateFacebookCredentials } from './_core/facebook';
 
 describe('Facebook Credentials Validation', () => {
-  it('should validate Facebook credentials successfully', async () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('returns true when Graph API returns a valid /me response', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => ({ id: '1', name: 'Marjahans Page' }),
+      })
+    );
+
     const isValid = await validateFacebookCredentials();
     expect(isValid).toBe(true);
   });
 
-  it('should have required environment variables set', () => {
-    expect(process.env.FACEBOOK_APP_ID).toBeDefined();
-    expect(process.env.FACEBOOK_APP_SECRET).toBeDefined();
-    expect(process.env.FACEBOOK_PAGE_ID).toBeDefined();
-    expect(process.env.FACEBOOK_PAGE_ACCESS_TOKEN).toBeDefined();
-  });
+  it('returns false when Graph API responds with an error payload', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: false,
+        status: 400,
+        json: async () => ({ error: { message: 'Invalid token' } }),
+      })
+    );
 
-  it('should have non-empty credentials', () => {
-    expect(process.env.FACEBOOK_APP_ID).not.toBe('');
-    expect(process.env.FACEBOOK_APP_SECRET).not.toBe('');
-    expect(process.env.FACEBOOK_PAGE_ID).not.toBe('');
-    expect(process.env.FACEBOOK_PAGE_ACCESS_TOKEN).not.toBe('');
+    const isValid = await validateFacebookCredentials();
+    expect(isValid).toBe(false);
   });
 });

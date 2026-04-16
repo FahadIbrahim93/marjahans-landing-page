@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
+import { LuxuryParticleBackground } from './LuxuryParticleBackground';
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,8 +45,10 @@ export function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background cinematic-surface section-divider-glow"
     >
+      <LuxuryParticleBackground className="absolute inset-0 opacity-95" />
+
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />

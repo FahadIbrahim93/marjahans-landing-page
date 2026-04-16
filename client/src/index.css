@@ -198,6 +198,49 @@
   .text-glow-amber {
     text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
   }
+
+
+  .cinematic-surface {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .cinematic-surface::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 12% 10%, rgba(251, 191, 36, 0.12), transparent 42%),
+      radial-gradient(circle at 88% 82%, rgba(167, 139, 250, 0.08), transparent 44%),
+      linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0));
+    pointer-events: none;
+  }
+
+  .lux-card {
+    @apply bg-card/55 border border-white/10 backdrop-blur-xl;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
+  }
+
+  .lux-card:hover {
+    border-color: rgba(251, 191, 36, 0.35);
+    box-shadow: 0 24px 80px rgba(251, 191, 36, 0.12);
+  }
+
+  .section-divider-glow {
+    position: relative;
+  }
+
+  .section-divider-glow::after {
+    content: "";
+    position: absolute;
+    left: 15%;
+    right: 15%;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.4), transparent);
+    pointer-events: none;
+  }
 }
 
 @keyframes gradient-x {
@@ -212,4 +255,13 @@
 .animate-gradient-x {
   background-size: 200% 200%;
   animation: gradient-x 15s ease infinite;
+}
+
+@keyframes lux-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-lux-float {
+  animation: lux-float 6s ease-in-out infinite;
 }
